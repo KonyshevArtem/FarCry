@@ -627,7 +627,7 @@
     </ResourceCompile>
     <Link>
       <AdditionalOptions>/OPT:ref,icf %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>crysound64.lib;ogg_static_r64.lib;vorbis_static_r64.lib;vorbisfile_static_r64.lib;legacy_stdio_definitions.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>ogg_static_r64.lib;vorbis_static_r64.lib;vorbisfile_static_r64.lib;legacy_stdio_definitions.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName).dll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <GenerateDebugInformation>true</GenerateDebugInformation>

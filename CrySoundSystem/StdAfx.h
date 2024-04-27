@@ -43,11 +43,11 @@
 #include <IConsole.h>
 #include <ISound.h>
 #include <ISystem.h>
-#ifdef WIN64
-#include <CrySound64.h>
-#else
-#include <CrySound.h>
-#endif
+//#ifdef WIN64
+//#include <CrySound64.h>
+//#else
+//#include <CrySound.h>
+//#endif
 #include <Cry_Math.h>
 //#include <vector.h>
 #include <set>

@@ -161,7 +161,8 @@ public:
 	void SetMasterVolume(unsigned char nVol)
 	{
 		GUARD_HEAP;
-		CS_SetSFXMasterVolume(nVol);
+		//TODO : sound system
+		//CS_SetSFXMasterVolume(nVol);
 	}
 	/*! Set the volume scale for all sounds with FLAG_SOUND_SCALABLE
 	@param fScale volume scale (default 1.0)

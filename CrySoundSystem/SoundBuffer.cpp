@@ -124,16 +124,20 @@ void CSoundBuffer::SoundLoaded()
 		{
 			GUARD_HEAP;
 			//get the base frequence
-			CS_Sample_GetDefaults(m_Data.m_pSample, &m_nBaseFreq, NULL, NULL, NULL);
+			//TODO : sound system
+			//CS_Sample_GetDefaults(m_Data.m_pSample, &m_nBaseFreq, NULL, NULL, NULL);
 			// set default values: ignore volume and pan, but sets frequency and priority
-			CS_Sample_SetDefaults(m_Data.m_pSample, m_nBaseFreq, -1, -1, 0);
-			m_fLength=(float)CS_Sample_GetLength(m_Data.m_pSample)/(float)m_nBaseFreq;
+			//CS_Sample_SetDefaults(m_Data.m_pSample, m_nBaseFreq, -1, -1, 0);
+			//m_fLength=(float)CS_Sample_GetLength(m_Data.m_pSample)/(float)m_nBaseFreq;
+			m_fLength = 0;
 			break;
 		}
 		case btSTREAM:
 		{
 			GUARD_HEAP;
-			m_fLength=(float)CS_Stream_GetLengthMs(m_Data.m_pStream)/1000.0f;
+			//TODO : sound system
+			//m_fLength=(float)CS_Stream_GetLengthMs(m_Data.m_pStream)/1000.0f;
+			m_fLength = 0;
 			break;
 		}
 	}
@@ -142,7 +146,9 @@ void CSoundBuffer::SoundLoaded()
 		m_pSoundSystem->m_pILog->Log("file %s, loaded \n", m_Props.sName.c_str());
 	// broadcast OnBufferLoaded
 	GUARD_HEAP;
-	CALLBACK_FUNC(OnBufferLoaded);
+	// TODO : sound system
+	//CALLBACK_FUNC(OnBufferLoaded);
+
 /*	m_bCallbackIteration=true;
 	for (TBufferLoadReqVecIt It=m_vecLoadReq.begin();It!=m_vecLoadReq.end();++It)
 	{
@@ -222,10 +228,12 @@ bool CSoundBuffer::Load(bool bLooping, CSound *pSound)
 		if (szPrefix)
 		{
 #ifndef CS_VERSION_372
-			pSoundStream=CS_Stream_OpenFile(szPrefix, GetFModFlags(m_bLooping), 0);
+			//TODO : sound system
+			//pSoundStream=CS_Stream_OpenFile(szPrefix, GetFModFlags(m_bLooping), 0);
 #else
 			// for 3.7
-			pSoundStream=CS_Stream_Open(szPrefix, GetFModFlags(m_bLooping), 0,0);
+			//TODO : sound system
+			//pSoundStream=CS_Stream_Open(szPrefix, GetFModFlags(m_bLooping), 0,0);
 #endif
 			if (!pSoundStream) 
 			{
@@ -235,9 +243,11 @@ bool CSoundBuffer::Load(bool bLooping, CSound *pSound)
 				// for 3.7 support
 				const char * pFileName = m_Props.sName.c_str();
 #ifndef CS_VERSION_372
-        pSoundStream=CS_Stream_OpenFile(pFileName, GetFModFlags(m_bLooping), 0);
+				//TODO : sound system
+        //pSoundStream=CS_Stream_OpenFile(pFileName, GetFModFlags(m_bLooping), 0);
 #else
-				pSoundStream=CS_Stream_Open(pFileName, GetFModFlags(m_bLooping), 0,0);
+				//TODO : sound system
+				//pSoundStream=CS_Stream_Open(pFileName, GetFModFlags(m_bLooping), 0,0);
 #endif
       }			
 		}
@@ -248,9 +258,11 @@ bool CSoundBuffer::Load(bool bLooping, CSound *pSound)
       const char * pFileName = m_Props.sName.c_str();
       int fmf = GetFModFlags(m_bLooping);
 #ifndef CS_VERSION_372
-			pSoundStream=CS_Stream_OpenFile(pFileName, fmf, 0);
+	  //TODO : sound system
+			//pSoundStream=CS_Stream_OpenFile(pFileName, fmf, 0);
 #else
-			pSoundStream=CS_Stream_Open(m_Props.sName.c_str(), GetFModFlags(m_bLooping), 0,0);
+	  //TODO : sound system
+			//pSoundStream=CS_Stream_Open(m_Props.sName.c_str(), GetFModFlags(m_bLooping), 0,0);
 #endif
     }
 
@@ -328,8 +340,9 @@ void CSoundBuffer::DestroyData()
 		FUNCTION_PROFILER( m_pSoundSystem->GetSystem(),PROFILE_SOUND );
 		switch (m_Type)
 		{
-			case btSAMPLE:	CS_Sample_Free(m_Data.m_pSample);		SetSample(NULL);	break;
-			case btSTREAM:	CS_Stream_Close(m_Data.m_pStream);	SetStream(NULL);	break;
+			//TODO : sound system
+			//case btSAMPLE:	CS_Sample_Free(m_Data.m_pSample);		SetSample(NULL);	break;
+			//case btSTREAM:	CS_Stream_Close(m_Data.m_pStream);	SetStream(NULL);	break;
 		}
 	}
 }
@@ -366,22 +379,31 @@ void CSoundBuffer::StreamOnComplete(IReadStream *pStream, unsigned nError)
 	}
 	//use unmanaged channels/indexes, any other type creates problems
 #ifndef CS_VERSION_372
-	CS_SAMPLE *pSample=CS_Sample_Load(CS_UNMANAGED, (const char*)pStream->GetBuffer(), GetFModFlags(m_bLooping) | CS_LOADMEMORY, pStream->GetBytesRead());
+	//TODO : sound system
+	//CS_SAMPLE *pSample=CS_Sample_Load(CS_UNMANAGED, (const char*)pStream->GetBuffer(), GetFModFlags(m_bLooping) | CS_LOADMEMORY, pStream->GetBytesRead());
 #else
 	// 3.7
-	CS_SAMPLE *pSample=CS_Sample_Load(CS_UNMANAGED, (const char*)pStream->GetBuffer(), GetFModFlags(m_bLooping) | CS_LOADMEMORY, 0, pStream->GetBytesRead());
+	//TODO : sound system
+	//CS_SAMPLE *pSample=CS_Sample_Load(CS_UNMANAGED, (const char*)pStream->GetBuffer(), GetFModFlags(m_bLooping) | CS_LOADMEMORY, 0, pStream->GetBytesRead());
 #endif
-  if (!pSample)
-	{
-		m_pSoundSystem->m_pILog->LogToFile("Warning: Cannot load sample sound %s\n", m_Props.sName.c_str());
-		m_bLoadFailure=true;
-		LoadFailed();
-		return;
-	}		
+
+	//TODO : sound system
+  //if (!pSample)
+	//{
+	//	m_pSoundSystem->m_pILog->LogToFile("Warning: Cannot load sample sound %s\n", m_Props.sName.c_str());
+	//	m_bLoadFailure=true;
+	//	LoadFailed();
+	//	return;
+	//}		
 	//set the sound source
-	SetSample(pSample);
+
+
+	//TODO : sound system
+	//SetSample(pSample);
   //CS_Sample_SetMode(pSample, m_bLooping ? CS_LOOP_NORMAL : CS_LOOP_OFF);
-  CS_Sample_SetMode(pSample, GetFModFlags(m_bLooping));
+
+  //TODO : sound system
+  //CS_Sample_SetMode(pSample, GetFModFlags(m_bLooping));
 	SoundLoaded();
 	//TRACE("Sound-Streaming for %s finished.", m_Props.sName.c_str());
 }

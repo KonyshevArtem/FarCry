@@ -27,7 +27,10 @@ extern "C" __declspec(dllexport) void CryModuleGetMemoryInfo( CryModuleMemoryInf
   size_t nCurrentAlloced;
 	size_t nMaxAlloced;
 #endif
-  CS_GetMemoryStats(&nCurrentAlloced, &nMaxAlloced);
+	nCurrentAlloced = 0;
+	nMaxAlloced = 0;
+	//TODO : sound system
+    //CS_GetMemoryStats(&nCurrentAlloced, &nMaxAlloced);
 	pMemInfo->allocated = nMaxAlloced;
 	pMemInfo->freed = 0;
 	pMemInfo->num_allocations = 0;

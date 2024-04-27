@@ -123,15 +123,16 @@ bool CMusicSystem::Init()
 	m_nBytesPerSample=4;	// always use STEREO 16 BIT
 
 	m_pMixBuffer=new char[(int)((float)m_nSampleRate*m_fLatency)*m_nBytesPerSample];
-#if (defined CS_VERSION_372)
-  m_pStream=CS_Stream_Create(_StreamingCallback, (int)((float)m_nSampleRate*m_fLatency)*m_nBytesPerSample, CS_STEREO | CS_16BITS | CS_SIGNED | CS_2D, 44100, (void *)this);
-#elif  defined CS_VERSION_361
-	m_pStream=CS_Stream_Create(_StreamingCallback, (int)((float)m_nSampleRate*m_fLatency)*m_nBytesPerSample, CS_STEREO | CS_16BITS | CS_SIGNED | CS_2D, 44100, (int)this);
-#else
-  m_pStream=CS_Stream_Create(_StreamingCallback, (int)((float)m_nSampleRate*m_fLatency)*m_nBytesPerSample, CS_STEREO | CS_16BITS | CS_SIGNED | CS_2D, 44100, (INT_PTR)this);
-#endif
-  if (!m_pStream)
-		return false;;
+	//TODO : sound system
+//#if (defined CS_VERSION_372)
+//  m_pStream=CS_Stream_Create(_StreamingCallback, (int)((float)m_nSampleRate*m_fLatency)*m_nBytesPerSample, CS_STEREO | CS_16BITS | CS_SIGNED | CS_2D, 44100, (void *)this);
+//#elif  defined CS_VERSION_361
+//	m_pStream=CS_Stream_Create(_StreamingCallback, (int)((float)m_nSampleRate*m_fLatency)*m_nBytesPerSample, CS_STEREO | CS_16BITS | CS_SIGNED | CS_2D, 44100, (int)this);
+//#else
+//  m_pStream=CS_Stream_Create(_StreamingCallback, (int)((float)m_nSampleRate*m_fLatency)*m_nBytesPerSample, CS_STEREO | CS_16BITS | CS_SIGNED | CS_2D, 44100, (INT_PTR)this);
+//#endif
+//  if (!m_pStream)
+//		return false;;
 
 	return true;
 }
@@ -146,7 +147,8 @@ void CMusicSystem::Shutdown()
 	if (m_pStream)
 	{
 		GUARD_HEAP;
-		CS_Stream_Close(m_pStream);
+		//TODO : sound system
+		//CS_Stream_Close(m_pStream);
 	}
 	m_pStream=NULL;
 	m_nChannel=-1;
@@ -271,13 +273,14 @@ bool CMusicSystem::StartPlaying()
 
 	m_bPlaying = true;
 
-	m_nChannel=CS_Stream_Play(CS_FREE, m_pStream);
-	if (m_nChannel<0)
-	{
-		FlushPatterns();
-		return false;
-	}
-	CS_SetVolume(m_nChannel, (int)(m_fMasterVolume*255.0f));
+	//TODO : sound system
+	//m_nChannel=CS_Stream_Play(CS_FREE, m_pStream);
+	//if (m_nChannel<0)
+	//{
+	//	FlushPatterns();
+	//	return false;
+	//}
+	//CS_SetVolume(m_nChannel, (int)(m_fMasterVolume*255.0f));
 	return true;
 }
 
@@ -290,7 +293,8 @@ bool CMusicSystem::StopPlaying()
 	CSmartCriticalSection SmartCriticalSection(m_CS);
 	m_bPlaying = false;
 	GUARD_HEAP;
-	CS_Stream_Stop(m_pStream);
+	//TODO : sound system
+	//CS_Stream_Stop(m_pStream);
 	m_nChannel=-1;
 	return true;
 }
@@ -706,7 +710,8 @@ void CMusicSystem::Update()
 			if (m_fMasterVolume>0.0f)
 			{
 				StartPlaying();	// start playing in case we're stopped (volume=0)
-				CS_SetVolume(m_nChannel, (int)(m_fMasterVolume*255.0f));
+				// TODO : sound system
+				//CS_SetVolume(m_nChannel, (int)(m_fMasterVolume*255.0f));
 			}else
 			{
 				StopPlaying();	// volume=0, lets stop playing the stream to reduce overhead
@@ -1175,7 +1180,9 @@ void CMusicSystem::MixStreams(void *pBuffer, int nSamples)
 			//memset (arrBuffer, 0xCE, sizeof(arrBuffer));
       //memcpy (pBuffer, m_pMixBuffer, nSamplesToRead*4);
       //memset(pBuffer, 0, nSamplesToRead*4);
-			CS_DSP_MixBuffers(pBuffer, m_pMixBuffer, nSamplesToRead, m_nSampleRate, PlayInfo.pPatternInstance->GetPattern()->GetLayeringVolume(), 128, CS_16BITS | CS_STEREO);
+	   
+			//TODO : sound system
+			//CS_DSP_MixBuffers(pBuffer, m_pMixBuffer, nSamplesToRead, m_nSampleRate, PlayInfo.pPatternInstance->GetPattern()->GetLayeringVolume(), 128, CS_16BITS | CS_STEREO);
 /*
   signed short *destptr = (signed short *)pBuffer;
 	signed int *srcptr = (signed int *)pBuffer;
