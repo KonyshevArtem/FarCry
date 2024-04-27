@@ -21,6 +21,7 @@
 #endif
 
 #include "IMovieSystem.h"
+#include <functional>
 
 /**	This is descirption of currently playing sequence.
 */
