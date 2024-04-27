@@ -14,11 +14,12 @@
 
 #if !defined(LINUX) && !defined(NOT_USE_DIVX_SDK)
 
-#ifdef WIN64
-#pragma comment(lib, "DivXMediaLib64.lib")
-#else
-#pragma comment(lib, "DivXMediaLib32.lib")
-#endif
+// TODO : video system
+//#ifdef WIN64
+//#pragma comment(lib, "DivXMediaLib64.lib")
+//#else
+//#pragma comment(lib, "DivXMediaLib32.lib")
+//#endif
 
 #pragma comment(lib, "dsound.lib")
 #pragma comment(lib, "dxguid.lib")

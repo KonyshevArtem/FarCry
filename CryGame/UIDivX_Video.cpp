@@ -60,7 +60,9 @@ bool CDivXPlayer::Load_DivX( CUIVideoPanel* pPanel, const string &szFileName ) {
 	//--------------------------------------------------------
 	//video init
 	//--------------------------------------------------------
-	divxFile = OpenDivxFile( FileName.c_str() );
+
+    // TODO : video system
+	//divxFile = OpenDivxFile( FileName.c_str() );
 
 	if (divxFile==0) {
 		pPanel->GetUISystem()->GetISystem()->GetILog()->Log("DivX: failed to load: %s", FileName.c_str() );
@@ -69,8 +71,9 @@ bool CDivXPlayer::Load_DivX( CUIVideoPanel* pPanel, const string &szFileName ) {
 	}	else {
 		pPanel->GetUISystem()->GetISystem()->GetILog()->Log("DivX: loading file: %s", FileName.c_str()  );
 	}
-	retVal = DivxGetContentInfo( divxFile, &divxFileInfo ); //learn details about the file
-	assert(!retVal);
+    // TODO : video system
+	//retVal = DivxGetContentInfo( divxFile, &divxFileInfo ); //learn details about the file
+	//assert(!retVal);
 	
 	//allocate a frame buffer
 	uint32 fbsize=(divxFileInfo.height * divxFileInfo.width * 4 * 2);
@@ -79,20 +82,24 @@ bool CDivXPlayer::Load_DivX( CUIVideoPanel* pPanel, const string &szFileName ) {
 	uint64* fb=(uint64*)m_pFrameBuffer; 
 	for(uint32 x=0; x<(fbsize/8); x++) fb[x]=0;
 
+    // TODO : video system
 	//set output to openGL 32 bit aligned data
-	retVal = DivxSetOutputVideoFormat( divxFile, eARGB_32BIT );
-	assert(!retVal);
+	//retVal = DivxSetOutputVideoFormat( divxFile, eARGB_32BIT );
+	//assert(!retVal);
 
+    // TODO : video system
 	//set up the callback function
-	retVal = DivxSetCallBackFn( divxFile, 0 ); //you have to work out some way to let this guy know about the frame buffer.
-	assert(!retVal);
+	//retVal = DivxSetCallBackFn( divxFile, 0 ); //you have to work out some way to let this guy know about the frame buffer.
+	//assert(!retVal);
 
+    // TODO : video system
 	//give the codec the output buffers
-	retVal = DivxSetVideoBuffer( divxFile, (void*)m_pFrameBuffer );
-	assert(!retVal);
-
-	retVal = DivxModeSet( divxFile, eFRAME );
-	assert(!retVal);
+	//retVal = DivxSetVideoBuffer( divxFile, (void*)m_pFrameBuffer );
+	//assert(!retVal);
+    
+    // TODO : video system
+	//retVal = DivxModeSet( divxFile, eFRAME );
+	//assert(!retVal);
 
 
 	//-----------------------------------------------------------------
@@ -106,8 +113,9 @@ bool CDivXPlayer::Load_DivX( CUIVideoPanel* pPanel, const string &szFileName ) {
 		for(uint32 x=0; x<MAX_AUD_BUFFER_SIZE; x++) { m_pAudioBuffer[x]=0; };
 		assert( m_pAudioBuffer );
 
-		retVal = DivxSetAudioBuffer( divxFile, (void*)m_pAudioBuffer );
-		assert(!retVal);
+        // TODO : video system
+		//retVal = DivxSetAudioBuffer( divxFile, (void*)m_pAudioBuffer );
+		//assert(!retVal);
 
 		m_hNotificationEvent = CreateEvent( NULL, FALSE, FALSE, NULL );
 		assert(g_DivXPlayer.m_hNotificationEvent);
@@ -221,9 +229,12 @@ bool CDivXPlayer::Update_DivX( CUIVideoPanel* pPanel )
 			if ( m_LastFramer!=FrameNo ) 
 			{
 
-				retVal = DivxGotoFrame(divxFile, FrameNo );
-				assert(retVal==0);
-				DivxDoFrame(divxFile);
+                // TODO : video system
+				//retVal = DivxGotoFrame(divxFile, FrameNo );
+				//assert(retVal==0);
+
+                // TODO : video system
+				//DivxDoFrame(divxFile);
 
 				/*
 				uint32 w=divxFileInfo.width;
@@ -291,7 +302,8 @@ void CDivXPlayer::Stop_DivX() {
 			CloseHandle( m_hNotificationEvent	);
 		}
 
-		CloseDivxFile(divxFile);
+        // TODO : video system
+		//CloseDivxFile(divxFile);
 		divxFile=0;
 
 	} else {
@@ -300,8 +312,9 @@ void CDivXPlayer::Stop_DivX() {
 		uint32 q0=MAX_NUM_VID_BUFFERS;
 		uint32 q1=MAX_NUM_AUD_BUFFERS;
 		uint32 q2=MAXSBUF;
-		int retVal = DivxSetNumAudVidBuffers( MAX_NUM_VID_BUFFERS, MAX_NUM_AUD_BUFFERS, q2 );
-		assert(!retVal);
+        // TODO : video system
+		//int retVal = DivxSetNumAudVidBuffers( MAX_NUM_VID_BUFFERS, MAX_NUM_AUD_BUFFERS, q2 );
+		//assert(!retVal);
 	}
 	
 	if (m_pFrameBuffer) delete m_pFrameBuffer;
@@ -627,8 +640,9 @@ HRESULT CStreamingSound::FillBufferWithSound( LPDIRECTSOUNDBUFFER pDSB, BOOL bRe
 		uint32 a1=DIVX_FAIL;//The function failed.
 		uint32 a2=INVALID_HANDLE;	//Retuned when handle value is invalid.
 		int BytesReturned;
-		retVal = 	DivxNextAudioChunk(g_DivXPlayer.divxFile,&BytesReturned);
-		assert(!retVal);
+        // TODO : video system
+		//retVal = 	DivxNextAudioChunk(g_DivXPlayer.divxFile,&BytesReturned);
+		//assert(!retVal);
 //		assert (BytesReturned==MAXSBUF);
 
 
@@ -918,7 +932,8 @@ HRESULT CStreamingSound::HandleWaveStreamNotification( BOOL bLoopedPlay )
 				g_DivXPlayer.m_AudioCounter+=BytesLeft;
 
 				int BytesReturned;
-				DivxNextAudioChunk(g_DivXPlayer.divxFile,&BytesReturned);
+                // TODO : video system
+				//DivxNextAudioChunk(g_DivXPlayer.divxFile,&BytesReturned);
 
 				for (uint32 x=(g_DivXPlayer.m_AudioCounter&(MAXSBUF-1)); x<((g_DivXPlayer.m_AudioCounter&(MAXSBUF-1))+ToBig); x++) {
 					sbuf[t]=p[x]; t++;
