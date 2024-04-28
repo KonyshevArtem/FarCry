@@ -327,7 +327,7 @@ bool CryModelState::IsAnimStopped()
 	}
 
 	for (SubmeshArray::iterator it = m_arrSubmeshes.begin(); it != m_arrSubmeshes.end(); ++it)
-#if !defined(LINUX64)
+#if !defined(LINUX64) && !defined(__GNUC__)
 		if (*it != NULL && (*it)->NeedMorph())
 #else
 		if (*it != 0 && (*it)->NeedMorph())
@@ -1931,7 +1931,7 @@ void CryModelState::RemoveSubmesh(unsigned nSlot)
 
 ICryCharSubmesh* CryModelState::GetSubmesh(unsigned i)
 {
-#if defined(LINUX)
+#if defined(LINUX) || defined(__GNUC__)
 	ICryCharSubmesh* pRes( 0 );
 	if( i < m_arrSubmeshes.size() )
 	{
@@ -1945,7 +1945,7 @@ ICryCharSubmesh* CryModelState::GetSubmesh(unsigned i)
 
 CryModelSubmesh* CryModelState::GetCryModelSubmesh(unsigned i)
 {
-#if defined(LINUX)
+#if defined(LINUX) || defined(__GNUC__)
 	CryModelSubmesh* pRes( 0 );
 	if( i < m_arrSubmeshes.size() )
 	{
@@ -2021,7 +2021,7 @@ void CryModelState::RemoveFxTrail (unsigned nSlot)
 		m_arrFxTrails[nSlot] = NULL;
 
 		// remove unnecessary slots
-#if !defined(LINUX64)
+#if !defined(LINUX64) && !defined(__GNUC__)
 		while (!m_arrFxTrails.empty() && m_arrFxTrails.back() == NULL)
 #else
 		while (!m_arrFxTrails.empty() && m_arrFxTrails.back() == 0)

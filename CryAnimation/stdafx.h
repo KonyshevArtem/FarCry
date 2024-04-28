@@ -146,9 +146,12 @@ typedef const char*			cstr;
 #include "math.h"
 #include "colordefs.h"
 
-#if !defined(LINUX)
+#if !defined(LINUX) && !defined(__GNUC__)
 #define max(a,b)    (((a) > (b)) ? (a) : (b))
 #define min(a,b)    (((a) < (b)) ? (a) : (b))
+#else
+using std::min;
+using std::max;
 #endif
 // <<TO-DO>> Get rid of this
 #include <list2.h>

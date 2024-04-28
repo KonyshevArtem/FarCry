@@ -178,7 +178,7 @@ void CSpriteManager::SpawnParticle( CParticleEmitter &emitter,bool bChildProcess
 		tm.SetMatFromVectors( dir,n1,n2 );
 
 		Vec3d vPartDir(2.0f*rnd()-1.0f,2.0f*rnd()-1.0f,2.0f*rnd()-1.0f);
-		float focus = max(0,min(1,Params.fFocus));
+		float focus = max(0.0f,min(1.0f,Params.fFocus));
 		vPartDir.x *= focus;
 		vPartDir.Normalize();
 		vPartDir = tm * vPartDir;

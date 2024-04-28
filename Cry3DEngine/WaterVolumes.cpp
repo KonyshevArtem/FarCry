@@ -776,8 +776,8 @@ bool CWaterVolume::IsWaterVolumeAreasVisible()
 
 void CWaterVolume::SetTriSizeLimits(float fTriMinSize, float fTriMaxSize)
 { 
-	m_fTriMinSize = max(0.25f,min(fTriMinSize, 8));
-	m_fTriMaxSize = max(0.25f,min(fTriMaxSize, 8));
+	m_fTriMinSize = max(0.25f,min(fTriMinSize, 8.0f));
+	m_fTriMaxSize = max(0.25f,min(fTriMaxSize, 8.0f));
 	// remake leaf buffer
 	m_pRenderer->DeleteLeafBuffer(m_pLeafBuffer);
 	m_pLeafBuffer=0;

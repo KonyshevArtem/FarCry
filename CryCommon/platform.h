@@ -199,7 +199,7 @@ typedef std::wstring wstring;
 #define SIGN_MASK(x) ((intptr_t)(x) >> ((sizeof(size_t)*8)-1))
 
 // macro for structure alignement
-#ifdef LINUX
+#if defined(LINUX) || defined(__GNUC__)
 #define DEFINE_ALIGNED_DATA( type, name, alignment ) type name __attribute__ ((aligned(alignment)));
 #define DEFINE_ALIGNED_DATA_STATIC( type, name, alignment ) static type name __attribute__ ((aligned(alignment)));
 #define DEFINE_ALIGNED_DATA_CONST( type, name, alignment ) const type name __attribute__ ((aligned(alignment)));

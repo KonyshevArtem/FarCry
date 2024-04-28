@@ -580,9 +580,9 @@ void CSectorInfo::MakeBeachStage2(FILE * hFileToSave)
 
   for(int i=0; i<6; i++)
   {
-    verts[i].color.bcolor[0]=(byte)min(255,vTerrainColor[0]*512.0f);
-    verts[i].color.bcolor[1]=(byte)min(255,vTerrainColor[1]*512.0f);
-    verts[i].color.bcolor[2]=(byte)min(255,vTerrainColor[2]*512.0f);
+    verts[i].color.bcolor[0]=(byte)min(255.0f,vTerrainColor[0]*512.0f);
+    verts[i].color.bcolor[1]=(byte)min(255.0f,vTerrainColor[1]*512.0f);
+    verts[i].color.bcolor[2]=(byte)min(255.0f,vTerrainColor[2]*512.0f);
     verts[i].color.bcolor[3]=0;                       
   }
 
@@ -627,17 +627,17 @@ void CSectorInfo::MakeBeachStage2(FILE * hFileToSave)
 		float fBrG = vAmbColor.y + (1.f-vAmbColor.y)*m_pTerrain->IsOnTheLight((int)p1->posm.x,(int)p1->posm.y);
 		float fBrB = vAmbColor.z + (1.f-vAmbColor.z)*m_pTerrain->IsOnTheLight((int)p1->posm.x,(int)p1->posm.y);
 
-		uchar r1 = (byte)(min(255,vTerrainColor[0]*512.0f)*fBrR);
-		uchar g1 = (byte)(min(255,vTerrainColor[1]*512.0f)*fBrG);
-		uchar b1 = (byte)(min(255,vTerrainColor[2]*512.0f)*fBrB);
+		uchar r1 = (byte)(min(255.0f,vTerrainColor[0]*512.0f)*fBrR);
+		uchar g1 = (byte)(min(255.0f,vTerrainColor[1]*512.0f)*fBrG);
+		uchar b1 = (byte)(min(255.0f,vTerrainColor[2]*512.0f)*fBrB);
 
 		fBrR = vAmbColor.x + (1.f-vAmbColor.x)*m_pTerrain->IsOnTheLight((int)p2->posm.x,(int)p2->posm.y);
 		fBrG = vAmbColor.y + (1.f-vAmbColor.y)*m_pTerrain->IsOnTheLight((int)p2->posm.x,(int)p2->posm.y);
 		fBrB = vAmbColor.z + (1.f-vAmbColor.z)*m_pTerrain->IsOnTheLight((int)p2->posm.x,(int)p2->posm.y);
 
-		uchar r2 = (byte)(min(255,vTerrainColor[0]*512.0f)*fBrR);
-		uchar g2 = (byte)(min(255,vTerrainColor[1]*512.0f)*fBrG);
-		uchar b2 = (byte)(min(255,vTerrainColor[2]*512.0f)*fBrB);
+		uchar r2 = (byte)(min(255.0f,vTerrainColor[0]*512.0f)*fBrR);
+		uchar g2 = (byte)(min(255.0f,vTerrainColor[1]*512.0f)*fBrG);
+		uchar b2 = (byte)(min(255.0f,vTerrainColor[2]*512.0f)*fBrB);
 
     // pos
     verts[0].xyz.x = p1->pos1.x;

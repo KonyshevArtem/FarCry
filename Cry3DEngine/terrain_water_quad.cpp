@@ -494,8 +494,8 @@ void CWaterOcean::Render(const int nRecursionLevel)
 
 		lstFirstIdxId.Add(Indices_DWQ.Count());
 
-    float fTranspPlus1 = max(0, r1/nChunksNum-0.5f)*2;
-    float fTranspPlus2 = max(0, r2/nChunksNum-0.5f)*2;
+    float fTranspPlus1 = max(0.0f, r1/nChunksNum-0.5f)*2;
+    float fTranspPlus2 = max(0.0f, r2/nChunksNum-0.5f)*2;
 
 		int nRotStep = 15-GetCVars()->e_water_ocean_tesselation*5;
 		for(int i=0; i<=360; i+=nRotStep)
@@ -514,7 +514,7 @@ void CWaterOcean::Render(const int nRecursionLevel)
 			fAlpha += r2*0.0125f*fScale2;
 			fAlpha = CLAMP(fAlpha, 0.0f, min(1.f,m_fWaterTranspRatio+fTranspPlus2));
 			fAlpha += r2*fScale2*fFresnel;
-			tmp.color.bcolor[3] = (unsigned char)fastftol_positive(min(255,fAlpha*fA));
+			tmp.color.bcolor[3] = (unsigned char)fastftol_positive(min(255.0f,fAlpha*fA));
 
 			Indices_DWQ.Add(Verts_DWQ.Count());
 			Verts_DWQ.Add(tmp);
@@ -530,7 +530,7 @@ void CWaterOcean::Render(const int nRecursionLevel)
 			fAlpha += r1*0.0125f*fScale1;
 			fAlpha = CLAMP(fAlpha, 0.0f, min(1.f,m_fWaterTranspRatio+fTranspPlus1));
 			fAlpha += r1*fScale1*fFresnel;
-			tmp.color.bcolor[3] = (unsigned char)fastftol_positive(min(255,fAlpha*fA));
+			tmp.color.bcolor[3] = (unsigned char)fastftol_positive(min(255.0f,fAlpha*fA));
 
 			Indices_DWQ.Add(Verts_DWQ.Count());
 			Verts_DWQ.Add(tmp);

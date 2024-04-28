@@ -289,7 +289,7 @@ void CSprite::Render( const PartProcessParams &PPP,IShader *pShader )
 			float fDistFromCenterY = m_pParams->vSpaceLoopBoxSize.y - fabs(m_pEmitter->m_pos.y-m_vPos.y);
 			float fDistFromCenterZ = m_pParams->vSpaceLoopBoxSize.z - fabs(m_pEmitter->m_pos.z-m_vPos.z);
 			float fMinDistToTheBorder = min(min(fDistFromCenterX,fDistFromCenterY),fDistFromCenterZ);
-			fAlphaSpaceLoopRatio = max(0,min(1.f,fMinDistToTheBorder*0.5f));
+			fAlphaSpaceLoopRatio = max(0.0f,min(1.f,fMinDistToTheBorder*0.5f));
 		}
 
 		// make particle color

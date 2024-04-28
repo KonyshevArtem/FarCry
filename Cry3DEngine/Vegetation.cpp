@@ -386,7 +386,7 @@ bool CStatObjInst::DrawEntity(const struct SRendParams & _EntDrawParams)
         {
           float DZ = m_vPos.z + pBody->GetCenter().z*m_fScale - vCamPos.z;
           float fAngle2 = -cry_atanf(DZ/fDistance)*(1.f-fLodSwitchCountDown);
-          fAngle2 = max(0,min(1,(fAngle2+0.5f)));
+          fAngle2 = max(0.0f,min(1.0f,(fAngle2+0.5f)));
           m_ucLodAngle = uchar(fAngle2*255.f);
         }
         else

@@ -152,7 +152,7 @@ void CDecal::Process(bool & active, IRenderer * pIRenderer, const float fCurTime
 			if(pStrongestLightForTranspGeom && pStrongestLightForTranspGeom->m_fRadius)
 			{
 				float fAtten = min(1.f,pStrongestLightForTranspGeom->m_fRadius/pStrongestLightForTranspGeom->m_Origin.GetDistance(m_vWSPos));
-				float fDot = max(0,(pStrongestLightForTranspGeom->m_Origin-m_vWSPos).normalized().Dot(m_vFront));
+				float fDot = max(0.0f,(pStrongestLightForTranspGeom->m_Origin-m_vWSPos).normalized().Dot(m_vFront));
 				uCol.bcolor[0] = uchar(min(255.f,355.f*fDot*fAtten*pStrongestLightForTranspGeom->m_Color.r));
 				uCol.bcolor[1] = uchar(min(255.f,355.f*fDot*fAtten*pStrongestLightForTranspGeom->m_Color.g));
 				uCol.bcolor[2] = uchar(min(255.f,355.f*fDot*fAtten*pStrongestLightForTranspGeom->m_Color.b));
@@ -175,7 +175,7 @@ void CDecal::Process(bool & active, IRenderer * pIRenderer, const float fCurTime
 		if(pStrongestLightForTranspGeom && pStrongestLightForTranspGeom->m_fRadius)
 		{
 			float fAtten = min(1.f,pStrongestLightForTranspGeom->m_fRadius/pStrongestLightForTranspGeom->m_Origin.GetDistance(m_vWSPos));
-			float fDot = max(0,(pStrongestLightForTranspGeom->m_Origin-m_vWSPos).normalized().Dot(m_vFront));
+			float fDot = max(0.0f,(pStrongestLightForTranspGeom->m_Origin-m_vWSPos).normalized().Dot(m_vFront));
 			uCol.bcolor[0] = uchar(min(255.f,355.f*fDot*fAtten*pStrongestLightForTranspGeom->m_Color.r));
 			uCol.bcolor[1] = uchar(min(255.f,355.f*fDot*fAtten*pStrongestLightForTranspGeom->m_Color.g));
 			uCol.bcolor[2] = uchar(min(255.f,355.f*fDot*fAtten*pStrongestLightForTranspGeom->m_Color.b));

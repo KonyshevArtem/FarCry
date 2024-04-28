@@ -332,10 +332,10 @@ bool CVisArea::UpdatePortalCameraScissor(CCamera & cam, list2<Vec3d> * lstVerts,
       vMax2d.y = arrScreenSpacePos[i].y;
   }
 
-  vMin2d.x = max(vMin2d.x,0);
-  vMin2d.y = max(vMin2d.y,0);
-  vMax2d.x = min(vMax2d.x,GetRenderer()->GetWidth());
-  vMax2d.y = min(vMax2d.y,GetRenderer()->GetHeight());
+  vMin2d.x = max(vMin2d.x,0.0f);
+  vMin2d.y = max(vMin2d.y,0.0f);
+  vMax2d.x = min(vMax2d.x,(float)GetRenderer()->GetWidth());
+  vMax2d.y = min(vMax2d.y,(float)GetRenderer()->GetHeight());
 
   if(vMax2d.x <= vMin2d.x || vMax2d.y < vMin2d.y)
     return false;
@@ -459,10 +459,10 @@ void CVisArea::DrawVolume(CObjManager * pObjManager, int nReqursionLevel,
         }
         else
         { // not first time - merge
-          int nMaxX = max(pDLight->m_sX + pDLight->m_sWidth,  CurCamera.m_ScissorInfo.x2);
-          int nMaxY = max(pDLight->m_sY + pDLight->m_sHeight, CurCamera.m_ScissorInfo.y2);
-          pDLight->m_sX = min(pDLight->m_sX, CurCamera.m_ScissorInfo.x1);
-          pDLight->m_sY = min(pDLight->m_sY, CurCamera.m_ScissorInfo.y1);
+          int nMaxX = max((int)(pDLight->m_sX + pDLight->m_sWidth),  int(CurCamera.m_ScissorInfo.x2));
+          int nMaxY = max((int)(pDLight->m_sY + pDLight->m_sHeight), int(CurCamera.m_ScissorInfo.y2));
+          pDLight->m_sX = min(int(pDLight->m_sX), int(CurCamera.m_ScissorInfo.x1));
+          pDLight->m_sY = min(int(pDLight->m_sY), int(CurCamera.m_ScissorInfo.y1));
           pDLight->m_sWidth  = nMaxX - pDLight->m_sX;
           pDLight->m_sHeight = nMaxY - pDLight->m_sY;
         }

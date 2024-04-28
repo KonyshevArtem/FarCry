@@ -73,7 +73,7 @@ typedef unsigned short	ushort;
 #include <algorithm>
 
 
-#if defined(PS2) || defined(GAMECUBE)
+#if defined(PS2) || defined(GAMECUBE) || defined(__GNUC__)
   using std::min;
   using std::max;
 #endif
@@ -82,7 +82,7 @@ typedef unsigned short	ushort;
 #define __forceinline inline
 #endif
 
-#if !defined(min) && !defined(LINUX)
+#if !defined(min) && !defined(LINUX) && !defined(__GNUC__)
 #define max(a,b)    (((a) > (b)) ? (a) : (b))
 #define min(a,b)    (((a) < (b)) ? (a) : (b))
 #endif

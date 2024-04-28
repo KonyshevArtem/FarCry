@@ -746,7 +746,7 @@ void C3DEngine::RenderSkyBox(IShader *pSH)
 		else
 			memset(m_pRESky->m_arrvPortalVerts,0,sizeof(m_pRESky->m_arrvPortalVerts));
 
-    m_pRESky->m_fTerrainWaterLevel = max(0,m_pTerrain->GetWaterLevel());
+    m_pRESky->m_fTerrainWaterLevel = max(0.0f,m_pTerrain->GetWaterLevel());
 		m_pRESky->m_fSkyBoxStretching = m_fSkyBoxStretching;
        
     GetRenderer()->EF_AddEf(0, m_pRESky, pSH, NULL, pObj, 0, NULL,EFSLIST_PREPROCESS);

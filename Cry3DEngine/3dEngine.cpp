@@ -2090,7 +2090,7 @@ void C3DEngine::DrawRain()
 
 void C3DEngine::SetRainAmount( float fAmount )
 {
-	GetCVars()->e_rain_amount = max(min(1.f,fAmount),0);
+	GetCVars()->e_rain_amount = max(min(1.f,fAmount),0.0f);
 }
 
 void C3DEngine::SetWindForce( const Vec3d & vWindForce )
