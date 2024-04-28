@@ -212,6 +212,7 @@
     <ClInclude Include="ScriptObjectVector.h" />
     <ClInclude Include="SerializeBuffer.h" />
     <ClInclude Include="smartptr.h" />
+    <ClInclude Include="Splash.h" />
     <ClInclude Include="StlDbgAlloc.h" />
     <ClInclude Include="StlUtils.h" />
     <ClInclude Include="Stream.h" />

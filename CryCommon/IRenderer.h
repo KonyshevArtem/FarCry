@@ -14,14 +14,7 @@
 #ifndef _IRENDERER_H
 #define _IRENDERER_H
 
-#if defined(LINUX)
-	#include "Splash.h"
-#else
-	enum eSplashType
-	{
-		EST_Water,
-	};
-#endif
+#include "Splash.h"
 
 
 typedef HRESULT (*MIPDXTcallback)(void * data, int miplevel, DWORD size, int width, int height, void * user_data);

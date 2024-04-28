@@ -414,7 +414,7 @@ bool CEntity::Read(CStream& stm,bool bNoUpdate)
 			{
 				Vec3d vPos;
 //			_VERIFY(stm.Read(vPos));
-#if defined(LINUX)
+#if defined(LINUX) || defined(__GNUC__)
 				_VERIFY(stm.ReadPkd(*(IStreamData*)(&CStreamData_WorldPos(vPos))));
 #else
 				_VERIFY(stm.ReadPkd(CStreamData_WorldPos(vPos)));

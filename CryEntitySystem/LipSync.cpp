@@ -239,7 +239,7 @@ void CLipSync::SyncFileLoadFailed()
 
 void CLipSync::AbortLoading()
 {
-#if !defined(LINUX64)
+#if !defined(LINUX64) && !defined(__GNUC__)
 	if (m_pReadStream!=NULL)
 #else
 	if (m_pReadStream!=0)
@@ -714,7 +714,7 @@ bool CLipSync::UpdateLipSync(float fFrameTime, bool bAnimate)
 	#else
 			MorphParams.fStartTime=(float)(nCurrSmp-ThisData.nOfs)*(1.0f/44100.0f);
 	#endif
-#if !defined(LINUX)
+#if !defined(LINUX) && !defined(__GNUC__)
 			TRACE("Morping: %s (%d of %d)", ThisPattern.sName.c_str(), nThisDataIdx, m_vecData[i].size());
 #endif
 			if (ThisPattern.nMorphTargetId!=-1)

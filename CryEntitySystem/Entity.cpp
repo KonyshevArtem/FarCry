@@ -1576,7 +1576,7 @@ void CEntity::UpdateSounds( SEntityUpdateContext &ctx )
 		while(itor!=m_lstAttachedSounds.end())
 		{
 			SAttachedSound &Sound=(*itor);			
-#if !defined(LINUX64)
+#if !defined(LINUX64) && !defined(__GNUC__)
 			if((Sound.pSound!=NULL) && (Sound.pSound->IsPlaying() || Sound.pSound->IsPlayingVirtual()))
 #else
 			if((Sound.pSound!=0) && (Sound.pSound->IsPlaying() || Sound.pSound->IsPlayingVirtual()))
@@ -1674,7 +1674,9 @@ void CEntity::UpdatePhysics( SEntityUpdateContext &ctx )
 					pLB->InvalidateVideoBuffer();
 				}
 			}
-			if ((m_bVisible^m_bWasVisible) && (!m_bVisible || psb.wind*psb.airResistance>0))
+
+            Vec3 force = psb.wind*psb.airResistance;
+			if ((m_bVisible^m_bWasVisible) && (!m_bVisible || force.x!=0 || force.y!=0 || force.z!=0))
 				m_physic->Action(&aa);
 		}
 

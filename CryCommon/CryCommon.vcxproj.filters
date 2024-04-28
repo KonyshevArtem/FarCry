@@ -375,5 +375,8 @@
     <ClInclude Include="Win64specific.h">
       <Filter>Platform_h</Filter>
     </ClInclude>
+    <ClInclude Include="Splash.h">
+      <Filter>Interfaces_h</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
