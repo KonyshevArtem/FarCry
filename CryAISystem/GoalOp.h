@@ -468,7 +468,7 @@ public:
 
 	bool Execute(CPipeUser *pOperand);
 
-#if !defined(LINUX)
+#if !defined(LINUX) && !defined(__GNUC__)
 	int XMLExport(const char *pBuffer);
 #endif
 };
