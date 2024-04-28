@@ -46,7 +46,7 @@ public:
   {
     // only 2 conditions are valid
     //assert((m_pLMData != NULL && m_pLMTCBuffer != NULL) || (m_pLMData == NULL && m_pLMTCBuffer == NULL));
-#if !defined(LINUX64)
+#if !defined(LINUX64) && !defined(__GNUC__)
     if (m_arrLMData[nLod].m_pLMData == NULL || m_arrLMData[nLod].m_pLMTCBuffer == NULL)
 #else
     if (m_arrLMData[nLod].m_pLMData == 0 || m_arrLMData[nLod].m_pLMTCBuffer == 0)

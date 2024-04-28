@@ -74,6 +74,7 @@ private:
 };
 
 // Specialation for vectors.
+template<>
 inline Vec3 SVariationValue<Vec3>::GetVariantValue() const
 {
 	Vec3 v;

@@ -33,6 +33,8 @@
 // RenderScene
 ////////////////////////////////////////////////////////////////////////////////////////
 
+inline Matrix44 GetTranslationMat( const Vec3& v  );
+
 void C3DEngine::Draw()
 {
 	m_bProfilerEnabled = GetISystem()->GetIProfileSystem()->IsProfiling();

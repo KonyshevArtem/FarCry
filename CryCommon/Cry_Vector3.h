@@ -32,7 +32,7 @@ extern const float gf_PI;
 #define RAD2DEG( a ) ( (a) * (180.0f/gf_PI) )
 
 
-#if defined(LINUX)
+#if defined(LINUX) || defined (__GNUC__)
 template <class F> struct Vec3_tpl;
 template<class F> 
 F GetLengthSquared( const Vec3_tpl<F> &v );
@@ -165,7 +165,7 @@ public:
 
 	//! return a normalized vector
 	ILINE friend Vec3_tpl<F> GetNormalized( const Vec3_tpl<F> &v ) {
-		F vlength = ::GetLength(v);	
+		F vlength = ::GetLength(v);
 		assert(vlength>0.0f);
 		F ivlength=1.0f/vlength;
 		return (v*ivlength);
@@ -329,9 +329,13 @@ typedef Vec3_f64 vectorr;
 typedef Vec3_tpl<int>		vectori;
 
 
+template<>
 inline Vec3_tpl<f32>::Vec3_tpl(type_min) { x=y=z=-3.3E38f; }
+template<>
 inline Vec3_tpl<f32>::Vec3_tpl(type_max) { x=y=z=3.3E38f; }
+template<>
 inline Vec3_tpl<f64>::Vec3_tpl(type_min) { x=y=z=-1.7E308; }
+template<>
 inline Vec3_tpl<f64>::Vec3_tpl(type_max) { x=y=z=1.7E308; }
 
 template<class F> 

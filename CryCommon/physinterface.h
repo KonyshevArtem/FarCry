@@ -71,7 +71,11 @@ public:
 	}
 
 	#ifdef _WIN32
-	_declspec(noinline) //changed by ivo
+    #ifdef __GNUC__
+    __attribute__ ((noinline))
+    #else
+    _declspec(noinline) //changed by ivo
+    #endif
 	#endif
 	void GrowBuf(int sz) {
 		int prevsz = m_nSize; char *prevbuf = m_pBuf;

@@ -68,6 +68,10 @@ inline Matrix33	CryViewMatrixYPR(const Ang3 &angle);
 inline Matrix33	CryViewMatrix(const Ang3 &angle);
 inline Ang3 ConvertToRad( const Ang3& v );
 
+template<class F, int SI, int SJ>
+inline Matrix44_tpl<F,SI,SJ> GetTransposed44( const Matrix44_tpl<F,SI,SJ>& m );
+
+inline Plane GetPlane( const Vec3 &v0, const Vec3 &v1, const Vec3 &v2 );
 
 ///////////////////////////////////////////////////////////////////////////////
 // * CCamera *
@@ -983,7 +987,7 @@ inline Matrix44	ViewMatrix(const Ang3 &angle)	{
 	Matrix33 ViewMatZ=Matrix33::CreateRotationZ(-angle.x);
 	Matrix33 ViewMatX=Matrix33::CreateRotationX(-angle.y);
 	Matrix33 ViewMatY=Matrix33::CreateRotationY(+angle.z);
-	return GetTransposed44( ViewMatX*ViewMatY*ViewMatZ);
+	return GetTransposed44( Matrix44(ViewMatX*ViewMatY*ViewMatZ) );
 }
 
 //ZXY

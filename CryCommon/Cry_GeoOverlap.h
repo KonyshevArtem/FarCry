@@ -21,6 +21,7 @@
 #include <Cry_Geo.h>
 
 
+inline Plane GetPlane(  const Vec3 &normal, const Vec3 &point );
 
 
 namespace Overlap {

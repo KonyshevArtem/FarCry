@@ -129,7 +129,7 @@ public:
 
 	void deallocate_destroy(pointer _Ptr, size_type _Count)
 	{
-#if defined(LINUX)
+#if defined(LINUX) || defined(__GNUC__)
 		delete [] _Ptr;
 #else
 		delete[_Count]_Ptr;

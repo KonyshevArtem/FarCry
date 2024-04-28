@@ -20,6 +20,8 @@
 #include "cbuffer.h"
 #include "3DEngine.h"
 
+inline Matrix44 GetTranslationMat( const Vec3& v  );
+
 void CStatObjInst::Serialize(bool bSave, ICryPak * pPak, FILE * f)
 {
   if(bSave)

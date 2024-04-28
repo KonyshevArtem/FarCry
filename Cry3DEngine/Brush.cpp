@@ -1499,7 +1499,7 @@ void CBrush::PreloadInstanceResources(Vec3d vPrevPortalPos, float fPrevPortalDis
 
 
 	for(int nLod=0; nLod<MAX_BRUSH_LODS_NUM; nLod++)
-#if !defined(LINUX64)
+#if !defined(LINUX64) && !defined(__GNUC__)
 	if(m_arrLMData[nLod].m_pLMData != NULL && m_arrLMData[nLod].m_pLMData->GetColorLerpTex() && m_arrLMData[nLod].m_pLMData->GetDomDirectionTex())
 #else
 	if(m_arrLMData[nLod].m_pLMData != 0 && m_arrLMData[nLod].m_pLMData->GetColorLerpTex() && m_arrLMData[nLod].m_pLMData->GetDomDirectionTex())
