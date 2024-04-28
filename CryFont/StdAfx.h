@@ -22,6 +22,11 @@
 
 #include <platform.h>
 
+#ifdef __GNUC__
+using std::min;
+using std::max;
+#endif
+
 #ifndef _XBOX
 #ifdef WIN32
 // Insert your headers here

@@ -417,7 +417,7 @@ void CFFont::DrawString( float fBaseX, float fBaseY, const char *szMsg, const bo
 		return;
 	}
 
-	int iSize = min(1023, strlen(szMsg));
+	int iSize = min(size_t(1023), strlen(szMsg));
 
 	static wchar_t szwMsg[1024];
 
@@ -771,7 +771,7 @@ vector2f CFFont::GetTextSize(const char *szMsg, const bool bASCIIMultiLine)
 		return vector2f(0.0f, 0.0f);
 	}
 
-	int iSize = min(1023, strlen(szMsg));
+	int iSize = min(size_t(1023), strlen(szMsg));
 
 	static wchar_t szwMsg[1024];
 
