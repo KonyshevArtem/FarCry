@@ -301,7 +301,7 @@ void CrySkinFull::validate (const ICrySkinSource* pGeometry)
 
 DEFINE_ALIGNED_DATA( CryBBoxA16, CrySkinFull::g_BBox, 32 ); // align by cache line boundaries
 
-#if defined (_CPU_AMD64)
+#if defined (_CPU_AMD64) && !defined(__GNUC__)
 extern "C" void Amd64Skinner(CrySkinAuxInt* pAux, CrySkinVertexAligned* pVertex, Vec3dA16* pDest, const Matrix44* pBone, Vec3dA16* pvMin,const Matrix44* pBoneEnd);
 #endif
 
@@ -326,6 +326,7 @@ void CrySkinFull::skinSSE (const Matrix44* pBones, Vec3dA16* pDest)
 	for (int i = 0; i < g_GetCVars()->ca_TestSkinningRepeats(); ++i)
 #endif
 
+#if !defined(__GNUC__)
 #if defined(_CPU_AMD64)
 	Amd64Skinner(pAux, pVertex, pDest, pBone, &g_BBox.vMin, pBoneEnd);
 #else
@@ -511,5 +512,6 @@ void CrySkinFull::skinSSE (const Matrix44* pBones, Vec3dA16* pDest)
 	endLoop:
 		}
 #endif		// _CPU_AMD64
+#endif
 }
 #endif
