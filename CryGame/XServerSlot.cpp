@@ -106,8 +106,8 @@ void CXServerSlot::OnXServerSlotConnect(const BYTE *pbAuthorizationID, unsigned 
 {
 	NET_TRACE("<<NET>>CXServerSlot::OnConnect");
 
-	memcpy(m_vAuthID, pbAuthorizationID, min(64, uiAuthorizationSize));
-	m_bAuthIDSize = min(64, uiAuthorizationSize);
+	memcpy(m_vAuthID, pbAuthorizationID, min((unsigned int)64, uiAuthorizationSize));
+	m_bAuthIDSize = min((unsigned int)64, uiAuthorizationSize);
 }
 
 ///////////////////////////////////////////////
@@ -126,7 +126,7 @@ void CXServerSlot::OnXPlayerAuthorization( bool bAllow, const char *szError, con
 	if (pGlobalID && uiGlobalIDSize)
 	{
 		m_bGlobalIDSize = uiGlobalIDSize;
-		memcpy(m_vGlobalID, pGlobalID, min(64, uiGlobalIDSize));
+		memcpy(m_vGlobalID, pGlobalID, min((unsigned int)64, uiGlobalIDSize));
 
 		// check if it is banned or not
 		BannedID ID(pGlobalID, uiGlobalIDSize, "");

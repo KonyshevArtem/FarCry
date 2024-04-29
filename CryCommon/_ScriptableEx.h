@@ -380,7 +380,7 @@ protected:
 	static IScriptSystem *m_pSS;
 };
 /////////////////////////////////////////////////////////////////////////////
-#if defined(LINUX)
+#if defined(LINUX) || defined(__GNUC__)
 	#define _DECLARE_SCRIPTABLEEX(_class) template<> IFunctionHandler * _ScriptableEx<_class>::m_pFunctionHandler=NULL; \
 		template<> _ScriptableEx<_class>::FunctionsVec _ScriptableEx<_class>::m_vFuncs = _ScriptableEx<_class>::FunctionsVec(); \
 		template<> IScriptObject *_ScriptableEx<_class>::m_pTemplateTable=NULL; \

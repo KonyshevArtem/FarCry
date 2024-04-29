@@ -913,7 +913,7 @@ void CXClient::Update()
 	{
 		// send the list of off-sync entities			
 		CStream stm;
-		unsigned char nEnts = min(255,m_lstUpdatedEntities.size());
+		unsigned char nEnts = min((std::vector<IEntity*>::size_type)255,m_lstUpdatedEntities.size());
 		stm.Write(nEnts);
 		for(int i=0;i<nEnts;i++)
 			stm.WritePkd(m_lstUpdatedEntities[i]->GetId());

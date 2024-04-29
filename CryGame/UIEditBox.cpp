@@ -1,5 +1,5 @@
 //-------------------------------------------------------------------------------------------------
-// Author: Márcio Martins
+// Author: Mï¿½rcio Martins
 //
 // Purpose:
 //  - An EditBox
@@ -207,7 +207,7 @@ int CUIEditBox::Draw(int iPass)
 		{
 			wchar_t szPassword[256] = {L'*'};
 
-			int iSize = min(m_szText.size(), 255);
+			int iSize = min(m_szText.size(), (std::basic_string<wchar_t>::size_type)255);
 			szPassword[iSize] = 0;
 
 			for (int i = 1; i < iSize; i++)

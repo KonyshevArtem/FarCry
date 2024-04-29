@@ -29,6 +29,8 @@
 //for cvars
 #include "Game.h"
 
+inline Matrix44 GetTranslationMat( const Vec3& v  );
+
 //
 //////////////////////////////////////////////////////////////////////////
 void CPlayer::ProcessVehicleMovements(CXEntityProcessingCmd &ProcessingCmd)

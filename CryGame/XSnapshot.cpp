@@ -191,7 +191,7 @@ void CXSnapshot::BuildAndSendSnapshot()
 			if(dwPriorityMin==0)
 				dwPriorityMin=itor->GetPriority();
 			 else 
-				dwPriorityMin=min(dwPriorityMin,itor->GetPriority());
+				dwPriorityMin=min(dwPriorityMin,(uint32)itor->GetPriority());
 		}
 
 		itor=iTemp;

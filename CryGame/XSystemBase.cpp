@@ -209,7 +209,7 @@ bool CXSystemBase::LoadMaterials(XDOM::IXMLDOMDocument *doc)
 	XDOM::IXMLDOMNodeListPtr pNodes;
 	pDoc=doc;//m_pSystem->CreateXMLDocument();
 	
-#if !defined(LINUX64)
+#if !defined(LINUX64) && !defined(__GNUC__)
 	if(pDoc!=NULL)
 #else
 	if(pDoc!=0)
@@ -223,7 +223,7 @@ bool CXSystemBase::LoadMaterials(XDOM::IXMLDOMDocument *doc)
 		pNodes=pDoc->getElementsByTagName("SurfaceTypes");
 		XDOM::IXMLDOMNodePtr pNode;
 		int nSurfaceID=0;
-#if !defined(LINUX64)
+#if !defined(LINUX64) && !defined(__GNUC__)
 		if((pNodes!=NULL) && pNodes->length())
 #else
 		if((pNodes!=0) && pNodes->length())
@@ -243,7 +243,7 @@ bool CXSystemBase::LoadMaterials(XDOM::IXMLDOMDocument *doc)
 					{
 						XDOM::IXMLDOMNodePtr pMaterial;
 						pMaterial=pSurface->getAttribute("Material");
-#if !defined(LINUX64)
+#if !defined(LINUX64) && !defined(__GNUC__)
 						if(pMaterial!=NULL)
 #else
 						if(pMaterial!=0)
@@ -278,7 +278,7 @@ void CXSystemBase::LoadXMLNode(XDOM::IXMLDOMNode *pInputNode, bool bSpawn)
 	if (pEquipPackList)
 	{
 		pEquipPackList->reset();
-#if !defined(LINUX64)
+#if !defined(LINUX64) && !defined(__GNUC__)
 		while ((pPackListNode = pEquipPackList->nextNode()) != NULL)
 #else
 		while ((pPackListNode = pEquipPackList->nextNode()) != 0)
@@ -289,7 +289,7 @@ void CXSystemBase::LoadXMLNode(XDOM::IXMLDOMNode *pInputNode, bool bSpawn)
 			if (pPackList)
 			{
 				pPackList->reset();
-#if !defined(LINUX64)
+#if !defined(LINUX64) && !defined(__GNUC__)
 				while ((pPack = pPackList->nextNode()) != NULL)
 #else
 				while ((pPack = pPackList->nextNode()) != 0)
@@ -318,7 +318,7 @@ void CXSystemBase::LoadXMLNode(XDOM::IXMLDOMNode *pInputNode, bool bSpawn)
 					if (pWeaponList)
 					{
 						pWeaponList->reset();
-#if !defined(LINUX64)
+#if !defined(LINUX64) && !defined(__GNUC__)
 						while((pUsedWeapon = pWeaponList->nextNode())!=NULL)
 #else
 						while((pUsedWeapon = pWeaponList->nextNode())!=0)
@@ -413,7 +413,7 @@ void CXSystemBase::LoadXMLNode(XDOM::IXMLDOMNode *pInputNode, bool bSpawn)
 				angles = StringToVector(pAngles->getText());
 			else 
 				angles(0,0,0);
-#if !defined(LINUX64)
+#if !defined(LINUX64) && !defined(__GNUC__)
 			if((pType!=NULL) && (pName!=NULL) && (pPos!=NULL))
 #else
 			if((pType!=0) && (pName!=0) && (pPos!=0))
@@ -487,7 +487,7 @@ void CXSystemBase::LoadXMLNode(XDOM::IXMLDOMNode *pInputNode, bool bSpawn)
 					if (pGroupID)
 						groupID = atoi(pGroupID->getText());
 					pAreaWidth=pNode->getAttribute("Width");
-#if !defined(LINUX64)
+#if !defined(LINUX64) && !defined(__GNUC__)
 					if(pAreaWidth!=NULL)
 #else
 					if(pAreaWidth!=0)
@@ -498,7 +498,7 @@ void CXSystemBase::LoadXMLNode(XDOM::IXMLDOMNode *pInputNode, bool bSpawn)
 							areaWidth = 0.0f;
 					}
 					pAreaHeight=pNode->getAttribute("Height");
-#if !defined(LINUX64)
+#if !defined(LINUX64) && !defined(__GNUC__)
 					if(pAreaHeight!=NULL)
 #else
 					if(pAreaHeight!=0)
@@ -599,7 +599,7 @@ void CXSystemBase::LoadXMLNode(XDOM::IXMLDOMNode *pInputNode, bool bSpawn)
 					if (pAngles)
 						Angles=StringToVector(pAngles->getText());
 					pEdgeWidth=pNode->getAttribute("FadeInZone");
-#if !defined(LINUX64)
+#if !defined(LINUX64) && !defined(__GNUC__)
 					if(pEdgeWidth!=NULL)
 #else
 					if(pEdgeWidth!=0)
@@ -686,7 +686,7 @@ void CXSystemBase::LoadXMLNode(XDOM::IXMLDOMNode *pInputNode, bool bSpawn)
 					if (pPos)
 						Pos=StringToVector(pPos->getText());
 					pEdgeWidth=pNode->getAttribute("FadeInZone");
-#if !defined(LINUX64)
+#if !defined(LINUX64) && !defined(__GNUC__)
 					if(pEdgeWidth!=NULL)
 #else
 					if(pEdgeWidth!=0)
@@ -738,7 +738,7 @@ void CXSystemBase::LoadXMLNode(XDOM::IXMLDOMNode *pInputNode, bool bSpawn)
 									IAIObject *pObject = m_pSystem->GetAISystem()->CreateAIObject(anchorID, NULL);
 									pObject->SetPos(StringToVector(pPos->getText()));
 									//alberto
-#if !defined(LINUX64)
+#if !defined(LINUX64) && !defined(__GNUC__)
 									if(pAngles!=NULL)
 #else
 									if(pAngles!=0)
@@ -985,7 +985,7 @@ bool CXSystemBase::SpawnEntityFromXMLNode(XDOM::IXMLDOMNodePtr pNode,CEntityStre
 	// [marco] check if this entity should be skipped on low spec config
 	if (!m_pGame->IsMultiplayer()) // [marco] not in multiplayer or it will screw up on different machines config!
 	{	
-#if !defined(LINUX64)
+#if !defined(LINUX64) && !defined(__GNUC__)
 		if (pSkipOnLowSpec!=NULL && (atoi(pSkipOnLowSpec->getText()) > 0))
 #else
 		if (pSkipOnLowSpec!=0 && (atoi(pSkipOnLowSpec->getText()) > 0))
@@ -995,7 +995,7 @@ bool CXSystemBase::SpawnEntityFromXMLNode(XDOM::IXMLDOMNodePtr pNode,CEntityStre
 			if (pCvar && pCvar->GetIVal()) return true;
 		}
 	}
-#if !defined(LINUX64)
+#if !defined(LINUX64) && !defined(__GNUC__)
 	if((pEntityClass!=NULL) && (pName!=NULL) && (pPos!=NULL))
 #else
 	if((pEntityClass!=0) && (pName!=0) && (pPos!=0))
@@ -1019,7 +1019,7 @@ bool CXSystemBase::SpawnEntityFromXMLNode(XDOM::IXMLDOMNodePtr pNode,CEntityStre
 			if(!m_pGame->IsLoadingLevelFromFile())
 			{							
 				ed.name = pName->getText();
-#if !defined(LINUX64)
+#if !defined(LINUX64) && !defined(__GNUC__)
 				if (pPos != NULL)
 #else
 				if (pPos != 0)
@@ -1028,7 +1028,7 @@ bool CXSystemBase::SpawnEntityFromXMLNode(XDOM::IXMLDOMNodePtr pNode,CEntityStre
 					ed.pos = StringToVector(pPos->getText());
 				}
 				ed.netPresence = false;
-#if !defined(LINUX64)
+#if !defined(LINUX64) && !defined(__GNUC__)
 				if(pId!=NULL)
 #else
 				if(pId!=0)
@@ -1036,7 +1036,7 @@ bool CXSystemBase::SpawnEntityFromXMLNode(XDOM::IXMLDOMNodePtr pNode,CEntityStre
 				{
 					ed.id=atoi(pId->getText());
 				}
-#if !defined(LINUX64)
+#if !defined(LINUX64) && !defined(__GNUC__)
 				if(pAngles!=NULL)
 #else
 				if(pAngles!=0)
@@ -1047,7 +1047,7 @@ bool CXSystemBase::SpawnEntityFromXMLNode(XDOM::IXMLDOMNodePtr pNode,CEntityStre
 				}
 				else
 					ed.angles = Vec3(0,0,0);
-#if !defined(LINUX64)
+#if !defined(LINUX64) && !defined(__GNUC__)
 				if (pScale != NULL)
 #else
 				if (pScale != 0)
@@ -1070,7 +1070,7 @@ bool CXSystemBase::SpawnEntityFromXMLNode(XDOM::IXMLDOMNodePtr pNode,CEntityStre
 				m_setLevelEntities.insert(entity->GetId());
 
 				// shadow volumes
-#if !defined(LINUX64)
+#if !defined(LINUX64) && !defined(__GNUC__)
 				if (pCastShadowVolume != NULL)
 #else
 				if (pCastShadowVolume != 0)
@@ -1079,7 +1079,7 @@ bool CXSystemBase::SpawnEntityFromXMLNode(XDOM::IXMLDOMNodePtr pNode,CEntityStre
 					if ( atoi(pCastShadowVolume->getText()) != 0) 
 						entity->SetRndFlags(ERF_CASTSHADOWVOLUME,true);
 				}
-#if !defined(LINUX64)
+#if !defined(LINUX64) && !defined(__GNUC__)
 				if (pSelfShadowing != NULL)
 #else
 				if (pSelfShadowing != 0)
@@ -1090,7 +1090,7 @@ bool CXSystemBase::SpawnEntityFromXMLNode(XDOM::IXMLDOMNodePtr pNode,CEntityStre
 				}
 
 				// shadow maps
-#if !defined(LINUX64)
+#if !defined(LINUX64) && !defined(__GNUC__)
 				if (pCastShadowMaps != NULL)
 #else
 				if (pCastShadowMaps != 0)
@@ -1099,7 +1099,7 @@ bool CXSystemBase::SpawnEntityFromXMLNode(XDOM::IXMLDOMNodePtr pNode,CEntityStre
 					if ( atoi(pCastShadowMaps->getText()) != 0) 
 						entity->SetRndFlags(ERF_CASTSHADOWMAPS,true);
 				}
-#if !defined(LINUX64)
+#if !defined(LINUX64) && !defined(__GNUC__)
 				if (pRecvShadowMaps != NULL)
 #else
 				if (pRecvShadowMaps != 0)
@@ -1108,7 +1108,7 @@ bool CXSystemBase::SpawnEntityFromXMLNode(XDOM::IXMLDOMNodePtr pNode,CEntityStre
 					if ( atoi(pRecvShadowMaps->getText()) != 0) 
 						entity->SetRndFlags(ERF_RECVSHADOWMAPS,true);
 				}
-#if !defined(LINUX64)
+#if !defined(LINUX64) && !defined(__GNUC__)
 				if (pPreCalcShadows != NULL)
 #else
 				if (pPreCalcShadows != 0)
@@ -1117,7 +1117,7 @@ bool CXSystemBase::SpawnEntityFromXMLNode(XDOM::IXMLDOMNodePtr pNode,CEntityStre
 					if ( atoi(pPreCalcShadows->getText()) != 0) 
 						entity->SetRndFlags(ERF_CASTSHADOWINTOLIGHTMAP,true);
 				}
-#if !defined(LINUX64)
+#if !defined(LINUX64) && !defined(__GNUC__)
 				if (pMaterial != NULL)
 #else
 				if (pMaterial != 0)
@@ -1129,7 +1129,7 @@ bool CXSystemBase::SpawnEntityFromXMLNode(XDOM::IXMLDOMNodePtr pNode,CEntityStre
 						entity->SetMaterial( pMtl );
 					}
 				}
-#if !defined(LINUX64)
+#if !defined(LINUX64) && !defined(__GNUC__)
 				if(pParentId!=NULL)
 #else
 				if(pParentId!=0)
@@ -1458,7 +1458,7 @@ void CXSystemBase::GetMission( XDOM::IXMLDOMDocument *doc,const char *sRequested
 	int missionsfound = 0;
 
 	char lastmission[256];
-#if !defined(LINUX64)
+#if !defined(LINUX64) && !defined(__GNUC__)
 	if(pDoc!=NULL)
 #else
 	if(pDoc!=0)

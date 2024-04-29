@@ -164,7 +164,7 @@ bool CStringTableMgr::LoadExcelXmlSpreadsheet( const string &sFileName )
 		while (pCellNode = pCellList->nextNode())
 		{
 			XDOM::IXMLDOMNodeListPtr pDataList = pCellNode->getElementsByTagName("Data");
-#if !defined(LINUX64)
+#if !defined(LINUX64) && !defined(__GNUC__)
 			if (pDataList==NULL)
 #else
 			if (pDataList==0)

@@ -57,6 +57,8 @@ inline void ValidateHeap()
 
 //-------------------------------------------------------------------------------------------------------------------------------
 
+inline Matrix44 GetTranslationMat( const Vec3& v  );
+
 bool CheckIfNAN( const Vec3d& vPos )
 {
 	if (_isnan(vPos.x) || _isnan(vPos.y) || _isnan(vPos.z))
@@ -1470,7 +1472,7 @@ void CPlayer::ProcessAngles(CXEntityProcessingCmd &ProcessingCmd)
 		{
 			//TRACE("RETURNING m_fRecoilXDelta=%f",m_fRecoilXDelta);
 			float multiplier=m_stats.firing?m_pGame->w_recoil_speed_down*0.2f:m_pGame->w_recoil_speed_down;
-			float m=min(1,m_pTimer->GetFrameTime()*multiplier);
+			float m=min(1.0f,m_pTimer->GetFrameTime()*multiplier);
 			float xdiff=m_fRecoilXDelta>m_fRecoilX*m?m_fRecoilX*m:m_fRecoilXDelta;
 			//float zdiff=m_fRecoilZDelta>0?min(m_fRecoilZDelta,m_fRecoilZ*m):-m_fRecoilZDelta;
 
@@ -3130,7 +3132,7 @@ void CPlayer::UpdateWeapon()
 					if(m_pGame->IsServer())
 					{
 						m_stats.last_accuracy=(BYTE)(m_stats.accuracy/(1.f/255));
-						m_fAccuracy=min(1,m_fAccuracy+((deltatime*(m_pGame->w_accuracy_decay_speed*fFireRate)*bullets)));
+						m_fAccuracy=min(1.0f,m_fAccuracy+((deltatime*(m_pGame->w_accuracy_decay_speed*fFireRate)*bullets)));
 						BYTE acc=(BYTE)((m_fAccuracy*m_fAccuracyMod)/(1.f/255));
 						m_stats.accuracy=(float)((acc)*(1.f/255));	
 					}
@@ -3141,7 +3143,7 @@ void CPlayer::UpdateWeapon()
 						//pseudo realistic recoil
 						if((m_fRecoilXDelta+1)<m_pGame->w_recoil_max_degree)
 						{
-								float delta=min(1, (m_pTimer->GetCurrTime()-wi.fireFirstBulletTime)+wp.fFireRate);
+								float delta=min(1.0f, (m_pTimer->GetCurrTime()-wi.fireFirstBulletTime)+wp.fFireRate);
 								float recoilx=wp.max_recoil*((delta*2)*2);
 								float recoilz=recoilx;
 
@@ -5771,7 +5773,7 @@ bool	CPlayer::GoStand(bool ignoreSpam)
 			// when calculating BBox
 			GetEntity()->SetFlags( ETY_FLAG_CALCBBOX_ZROTATE );
 
-#if defined(LINUX64)
+#if defined(LINUX64) || defined(__GNUC__)
 			m_pEntity->SendScriptEvent(ScriptEvent_StanceChange, 0);
 #else
 			m_pEntity->SendScriptEvent(ScriptEvent_StanceChange, NULL);
@@ -5830,7 +5832,7 @@ bool	CPlayer::GoStealth( )
 			GetEntity()->SetFlags( ETY_FLAG_CALCBBOX_ZROTATE );
 
 			m_Running = false;
-#if defined(LINUX64)
+#if defined(LINUX64) || defined(__GNUC__)
 			m_pEntity->SendScriptEvent(ScriptEvent_StanceChange, 0);
 #else
 			m_pEntity->SendScriptEvent(ScriptEvent_StanceChange, NULL);
@@ -5885,7 +5887,7 @@ bool	CPlayer::GoCrouch( )
 			GetEntity()->SetFlags( ETY_FLAG_CALCBBOX_ZROTATE );
 
 			m_Running = false;
-#if defined(LINUX64)
+#if defined(LINUX64) || defined(__GNUC__)
 			m_pEntity->SendScriptEvent(ScriptEvent_StanceChange, 0);
 #else
 			m_pEntity->SendScriptEvent(ScriptEvent_StanceChange, NULL);
@@ -5952,7 +5954,7 @@ bool	CPlayer::GoProne( )
 		GetEntity()->ClearFlags( ETY_FLAG_CALCBBOX_ZROTATE );
 
 		m_Running = false;
-#if defined(LINUX64)
+#if defined(LINUX64) || defined(__GNUC__)
 		m_pEntity->SendScriptEvent(ScriptEvent_StanceChange, 0);
 #else
 		m_pEntity->SendScriptEvent(ScriptEvent_StanceChange, NULL);
@@ -6007,7 +6009,7 @@ bool	CPlayer::GoSwim( )
 			GetEntity()->SetFlags( ETY_FLAG_CALCBBOX_ZROTATE );
 
 			m_Running = false;
-#if defined(LINUX64)
+#if defined(LINUX64) || defined(__GNUC__)
 			m_pEntity->SendScriptEvent(ScriptEvent_StanceChange, 0);
 #else
 			m_pEntity->SendScriptEvent(ScriptEvent_StanceChange, NULL);

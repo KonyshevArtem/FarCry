@@ -1,5 +1,5 @@
 //-------------------------------------------------------------------------------------------------
-// Author: Márcio Martins
+// Author: Mï¿½rcio Martins
 //
 // Purpose:
 //  - UI System Window and Input Manager
@@ -3399,7 +3399,7 @@ int CUISystem::RetrieveCommonAttribute(IScriptObject *pObject, CUIWidget *pWidge
 		strncpy(szFlags, szValue, 4);
 		strupr(szFlags);
     
-		for (int i = 0; i < (int)min(strlen(szFlags), 4); i++)
+		for (int i = 0; i < (int)min(strlen(szFlags), (size_t)4); i++)
 		{
 			if (szFlags[i] == 'L')
 			{

@@ -1,5 +1,5 @@
 //-------------------------------------------------------------------------------------------------
-// Author: Márcio Martins
+// Author: Mï¿½rcio Martins
 //
 // Purpose:
 //  - Base Widget
@@ -186,6 +186,7 @@ typedef struct UISkinTexture
 
 class CUIWidget;
 class CUISystem;
+class CUIScreen;
 
 
 typedef std::vector<CUIWidget *> CUIWidgetList;

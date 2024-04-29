@@ -49,6 +49,7 @@
 	#include <sys/stat.h>
 #endif
 
+inline Matrix44 GetTranslationMat( const Vec3& v  );
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -3632,7 +3633,7 @@ int CScriptObjectGame::CheckMap(IFunctionHandler *pH)
 	}
 
 	XDOM::IXMLDOMNodeListPtr pNodes;
-#if !defined(LINUX64)
+#if !defined(LINUX64) && !defined(__GNUC__)
 	if(pLevelDataXML != NULL) 
 #else
 	if(pLevelDataXML != 0) 
@@ -3726,7 +3727,7 @@ int CScriptObjectGame::GetMapDefaultMission(IFunctionHandler *pH)
 	}
 
 	XDOM::IXMLDOMNodeListPtr pNodes;
-#if !defined(LINUX64)
+#if !defined(LINUX64) && !defined(__GNUC__)
 	if(pLevelDataXML != NULL)
 #else
 	if(pLevelDataXML != 0)

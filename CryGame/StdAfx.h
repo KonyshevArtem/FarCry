@@ -30,6 +30,10 @@
 // Insert your headers here
 #include "platform.h"
 
+#ifdef __GNUC__
+using std::min;
+using std::max;
+#endif
 
 #define REDUCED_FOR_PUBLIC_RELEASE				// remark this if you want to get more network stats (but keep it out of every public build)
 
@@ -129,7 +133,7 @@ _inline void __cdecl __CRYTEKDLL_TRACE(const char *sFormat, ... )
 #ifdef ENABLE_NET_TRACE
 #define NET_TRACE __CRYTEKDLL_TRACE
 #else
-#	if defined(LINUX)
+#	if defined(LINUX) || defined(__GNUC__)
 #		define NET_TRACE //
 #	else
 #		define NET_TRACE __noop
@@ -372,7 +376,7 @@ inline float	ClampAngle( float minA, float maxA, float angl)
 	return maxA;
 }
 
-#if !defined(min) && !defined(LINUX)
+#if !defined(min) && !defined(LINUX) && !defined(__GNUC__)
 #define max(a,b)    (((a) > (b)) ? (a) : (b))
 #define min(a,b)    (((a) < (b)) ? (a) : (b))
 #endif
