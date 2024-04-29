@@ -17,6 +17,7 @@
 #include <ILog.h>
 #include <IInput.h>
 #include <ISystem.h>
+#include <algorithm>
 #include "Input.h"
 //#include "ActionMap.h"
 #include "XActionMapManager.h"

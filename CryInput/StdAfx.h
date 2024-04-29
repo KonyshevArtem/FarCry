@@ -22,6 +22,11 @@
 
 #include "platform.h"
 
+#if defined(__GNUC__)
+using std::min;
+using std::max;
+#endif
+
 #ifdef WIN32
 #include <windows.h>
 #define WIN32_LEAN_AND_MEAN		// Exclude rarely-used stuff from Windows headers

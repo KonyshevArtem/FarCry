@@ -1473,11 +1473,11 @@ void CXMouse::SmoothDeltas(float accel,float decel)
 		//if the input want to stop use twice of the acceleration.
 		if (GETLEN2D(m_Deltas)<0.0001f)
 			if (decel>0.0001f)//there is a custom deceleration value? use it.
-				amt = min(1,dt*decel);
+				amt = min(1.0f,dt*decel);
 			else//otherwise acceleration * 2 is the default.
-				amt = min(1,dt*accel*2.0f);
+				amt = min(1.0f,dt*accel*2.0f);
 		else
-			amt = min(1,dt*accel);
+			amt = min(1.0f,dt*accel);
 
 		delta[0] = m_Deltas[0] - m_OldDeltas[0];
 		delta[1] = m_Deltas[1] - m_OldDeltas[1];
