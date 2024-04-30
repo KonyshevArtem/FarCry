@@ -462,7 +462,7 @@ LUA_API void lua_rawset (lua_State *L, int index) {
 }
 
 // Crytek change, changed/added by AlbertoD
-#if defined(LINUX)
+#if defined(LINUX) || defined(__GNUC__)
 LUA_API void* lua_getnativedata(lua_State *L, int index) {
 #else
 LUA_API __forceinline void* lua_getnativedata(lua_State *L, int index) {
@@ -478,7 +478,7 @@ LUA_API __forceinline void* lua_getnativedata(lua_State *L, int index) {
 }
 
 // Crytek change, changed/added by AlbertoD
-#if defined(LINUX)
+#if defined(LINUX) || defined(__GNUC__)
 LUA_API void lua_setnativedata(lua_State *L, int index,void *n) {
 #else
 LUA_API __forceinline void lua_setnativedata(lua_State *L, int index,void *n) {
@@ -504,7 +504,7 @@ LUA_API void *lua_getuserptr(lua_State *L) {
 
 // Crytek change, added by MartinM
 // used to create a hash value out of a lua function (for cheat protection)
-#if defined(LINUX)
+#if defined(LINUX) || defined(__GNUC__)
 LUA_API void lua_getluafuncdata(lua_State *L, int index, unsigned int **pCode, int *iCodeSize ) 
 #else
 LUA_API __forceinline void lua_getluafuncdata(lua_State *L, int index, unsigned int **pCode, int *iCodeSize ) 
