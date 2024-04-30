@@ -30,6 +30,11 @@
 #include <xtl.h>
 #endif
 
+#if defined(__GNUC__)
+using std::min;
+using std::max;
+#endif
+
 #include <stdio.h>
 #include <stdarg.h>
 
