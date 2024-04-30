@@ -762,3 +762,6 @@ void ForceCompilerToGenerateCodeForMatrixTemplates()
 	mtxr.determinant();
 	mtxr.invert();
 }
+
+template class matrix_tpl<float>;
+template class matrix_tpl<real>;

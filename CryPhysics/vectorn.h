@@ -172,7 +172,7 @@ matrix_vector_product_tpl<ftype> operator*(const matrix_tpl<ftype> &mtx, const v
 typedef vectorn_tpl<float> vectornf;
 typedef vectorn_tpl<real> vectorn;
 
-#if defined(LINUX)
+#if defined(LINUX) || defined(__GNUC__)
 	#define DECLARE_VECTORN_POOL(ftype,sz) template<> ftype vectorn_tpl<ftype>::vecn_pool[sz] = {}; template<> int vectorn_tpl<ftype>::vecn_pool_pos=0; \
 		template<> int vectorn_tpl<ftype>::vecn_pool_size=sz;
 #else

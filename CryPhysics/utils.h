@@ -227,9 +227,9 @@ int ascii2bin(const unsigned char *pin,int sz, unsigned char *pout);
 
 template<class T> inline T *_align16(T *ptr) { return (T*)(((INT_PTR)ptr-1&~15)+16); }
 #if !defined(LINUX)
-	template<class dtype> bool is_valid(const dtype &op) { return is_valid(op|op); }
+	template<class dtype> inline bool is_valid(const dtype &op) { return is_valid(op|op); }
+	template<> inline bool is_valid(const float &op) { return op*op>=0 && op*op<1E30f; }
 
-	inline bool is_valid(float op) { return op*op>=0 && op*op<1E30f; }
 	inline bool is_valid(int op) { return true; }
 	inline bool is_valid(unsigned int op) { return true; }
 #endif
