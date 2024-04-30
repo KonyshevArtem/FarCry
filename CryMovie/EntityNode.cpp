@@ -394,7 +394,7 @@ void CAnimEntityNode::Animate( SAnimContext &ec )
 	bool bPosModified = (m_pos != pos);
 	bool bAnglesModified = (m_rotate.v != rotate.v) || (m_rotate.w != rotate.w);
 
-	if (bPosModified || bAnglesModified || (m_scale != scale) || (m_target!=NULL))
+	if (bPosModified || bAnglesModified || (m_scale != scale) || m_target)
 	{
 		InvalidateTM();
 		bMatrixModified = true;

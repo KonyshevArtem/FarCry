@@ -294,6 +294,11 @@ Archive&	operator >> ( Archive& ar,TSpline<T,Basis> &curve )	{
 ****************************************************************************/
 template <class T>
 class	TCBSpline : public TSpline< TCBSplineKey<T>,HermitBasis >	{
+public:
+    typedef TCBSplineKey<T> key_type;
+    typedef	typename TCBSplineKey<T>::value_type value_type;
+    typedef HermitBasis basis_type;
+
 protected:
 	virtual	void interp_keys( int key1,int key2,float u,T& val );
 	virtual void comp_deriv();
@@ -434,8 +439,8 @@ inline	void	TCBSpline<T>::comp_deriv() 	{
 			compLastDeriv();
 		}
 	}
-	m_curr = 0;
-	m_flags &= ~MODIFIED;	// clear MODIFIED flag.
+	this->m_curr = 0;
+	this->m_flags &= ~(TSpline<TCBSplineKey<T>, HermitBasis>::MODIFIED);	// clear MODIFIED flag.
 }
 
 template	<class T>

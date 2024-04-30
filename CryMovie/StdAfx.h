@@ -10,6 +10,13 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
+#include <algorithm>
+
+#if defined(__GNUC__)
+using std::min;
+using std::max;
+#endif
+
 //////////////////////////////////////////////////////////////////////////
 // THIS MUST BE AT THE VERY BEGINING OF STDAFX.H FILE.
 // Disable STL threading support, (makes STL faster)

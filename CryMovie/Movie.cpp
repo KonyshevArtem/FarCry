@@ -59,7 +59,7 @@ bool CMovieSystem::Load(const char *pszFile, const char *pszMission)
 	XmlNodeRef rootNode = m_system->LoadXmlFile(pszFile);
 	if (!rootNode)
 		return false;
-	XmlNodeRef Node=NULL;
+	XmlNodeRef Node;
 	for (int i=0;i<rootNode->getChildCount();i++)
 	{
 		XmlNodeRef missionNode=rootNode->getChild(i);
@@ -523,7 +523,7 @@ void CMovieSystem::Update( float dt )
 	std::vector<IAnimSequence*> stopSequences;
 
 	// cap delta time.
-	dt = max( 0,min(0.5f,dt) );
+	dt = max( 0.0f,min(0.5f,dt) );
 	
 	PlayingSequences::iterator next;
 	for (PlayingSequences::iterator it = m_playingSequences.begin(); it != m_playingSequences.end(); it = next)
@@ -663,7 +663,8 @@ void CMovieSystem::Serialize( XmlNodeRef &xmlNode,bool bLoading,bool bRemoveOldN
 		{
 			for (int i=0;i<seqNode->getChildCount();i++)
 			{
-				if (!LoadSequence(seqNode->getChild(i), bLoadEmpty))
+                XmlNodeRef node = seqNode->getChild(i);
+				if (!LoadSequence(node, bLoadEmpty))
 					return;
 			}
 		}
