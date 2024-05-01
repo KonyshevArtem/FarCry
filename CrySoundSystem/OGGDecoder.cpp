@@ -47,16 +47,26 @@ bool COGGDecoder::Open(const char *pszFilename)
 	Callbacks.seek_func=COGGDecoderInstance::SeekFile;
 	Callbacks.close_func=COGGDecoderInstance::CloseFile;
 	Callbacks.tell_func=COGGDecoderInstance::TellFile;
-	if (ov_open_callbacks(&m_FileAccess, &TestOVFile, NULL, 0, Callbacks)!=0)
-		return false;
-	int nSeekable=ov_seekable(&TestOVFile);
+    // TODO : sound system
+//	if (ov_open_callbacks(&m_FileAccess, &TestOVFile, NULL, 0, Callbacks)!=0)
+//		return false;
+//	int nSeekable=ov_seekable(&TestOVFile);
+    int nSeekable=0;
 	m_FileInfo.sFilename=pszFilename;
 	m_FileInfo.nHeaderSize=0;
-	m_FileInfo.nSamples=(int)ov_pcm_total(&TestOVFile, -1);
+    // TODO : sound system
+	//m_FileInfo.nSamples=(int)ov_pcm_total(&TestOVFile, -1);
+    m_FileInfo.nSamples=0;
 	// Throw the comments plus a few lines about the bitstream we're decoding
 	MTRACE("File-information of %s...", m_FileInfo.sFilename.c_str());
-	vorbis_comment *pComment=ov_comment(&TestOVFile, -1);
-	vorbis_info *pInfo=ov_info(&TestOVFile, -1);
+    // TODO : sound system
+//	vorbis_comment *pComment=ov_comment(&TestOVFile, -1);
+    vorbis_comment comment;
+    vorbis_comment *pComment=&comment;
+    // TODO : sound system
+//	vorbis_info *pInfo=ov_info(&TestOVFile, -1);
+    vorbis_info info;
+    vorbis_info *pInfo=&info;
 	char **pPtr=pComment->user_comments;
 	while (*pPtr)
 	{
@@ -75,8 +85,9 @@ bool COGGDecoder::Open(const char *pszFilename)
 		MTRACE("Warning: [COGGDecoder::Open()] Cannot load file %s, due to unsupported channel-number (%d channels found; 2 channels needed) !", m_FileInfo.sFilename.c_str(), pInfo->channels);
 		return false;
 	}
-	if (ov_clear(&TestOVFile)!=0)
-		return false;
+    // TODO : sound system
+//	if (ov_clear(&TestOVFile)!=0)
+//		return false;
 	if (!nSeekable)
 		return false;
 	return true;
@@ -149,8 +160,9 @@ COGGDecoderInstance::COGGDecoderInstance(COGGDecoder *pDecoder)
 	Callbacks.seek_func=SeekFile;
 	Callbacks.close_func=CloseFile;
 	Callbacks.tell_func=TellFile;
-	if (ov_open_callbacks(&(m_pDecoder->m_FileAccess), &m_OVFile, NULL, 0, Callbacks)!=0)
-		MTRACE("Warning: [COGGDecoderInstance::c_tor()] ov_open() failed !");
+    // TODO : sound system
+//	if (ov_open_callbacks(&(m_pDecoder->m_FileAccess), &m_OVFile, NULL, 0, Callbacks)!=0)
+//		MTRACE("Warning: [COGGDecoderInstance::c_tor()] ov_open() failed !");
 	// Seek0 is quite expensive for OGGs so we do a simpler version here instead...
 	m_nPos=0;
 	m_nPosBytes=m_pDecoder->m_FileAccess.pPak->FTell(m_pDecoder->m_FileAccess.pFile);	// store current file-cursor
@@ -160,8 +172,9 @@ COGGDecoderInstance::COGGDecoderInstance(COGGDecoder *pDecoder)
 
 COGGDecoderInstance::~COGGDecoderInstance()
 {
-	if (ov_clear(&m_OVFile)!=0)
-		MTRACE("Warning: [COGGDecoderInstance::d_tor()] ov_clear() failed !");
+    // TODO : sound system
+//	if (ov_clear(&m_OVFile)!=0)
+//		MTRACE("Warning: [COGGDecoderInstance::d_tor()] ov_clear() failed !");
 }
 
 bool COGGDecoderInstance::Seek0(int nDelay)
@@ -170,8 +183,9 @@ bool COGGDecoderInstance::Seek0(int nDelay)
 	m_nPos=-nDelay;
 	if (nOldPos>0)	// only seek if it is really necessary, since it takes some time on OGGs...
 	{
-		if (ov_pcm_seek(&m_OVFile, 0)!=0)
-			return false;
+        // TODO : sound system
+//		if (ov_pcm_seek(&m_OVFile, 0)!=0)
+//			return false;
 		m_nPosBytes=m_pDecoder->m_FileAccess.pPak->FTell(m_pDecoder->m_FileAccess.pFile);	// store current file-cursor
 	}
 	return true;
@@ -239,7 +253,9 @@ bool COGGDecoderInstance::FillPCMBuffer(signed long *pBuffer, int nSamples)
 	while (nBytesToRead>nBytesRead)
 	{
 		int nCurrStream=0;
-		long nRet=ov_read(&m_OVFile, &((char*)pBuffer)[nBytesRead], nBytesToRead-nBytesRead, 0, 2, 1, &nCurrStream);
+        // TODO : sound system
+		//long nRet=ov_read(&m_OVFile, &((char*)pBuffer)[nBytesRead], nBytesToRead-nBytesRead, 0, 2, 1, &nCurrStream);
+        long nRet=0;
 		if (nRet==OV_HOLE)
 		{
 			MTRACE("Warning: [COGGDecoderInstance::FillPCMBuffer] Hole found in stream %s !", m_pDecoder->m_FileInfo.sFilename.c_str());

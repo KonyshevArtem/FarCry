@@ -31,6 +31,12 @@
 #endif
 
 #include <stdlib.h>
+#include <algorithm>
+
+#if defined(__GNUC__)
+using std::min;
+using std::max;
+#endif
 
 //////////////////////////////////////////////////////////////////////
 #define NOT_USE_CRY_MEMORY_MANAGER

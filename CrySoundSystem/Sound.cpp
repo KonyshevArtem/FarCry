@@ -626,7 +626,7 @@ void CSound::SetName(const char *szName)
 const char *CSound::GetName()
 {
 	//return (m_strName.c_str());
-	if (m_pSound!=NULL)
+	if (m_pSound)
 		return (m_pSound->GetName());
 	return (m_pSSys->m_szEmptyName);
 }
@@ -943,7 +943,7 @@ void CSound::SetPitch(int nValue)
 //////////////////////////////////////////////////////////////////////
 void CSound::SetLoopPoints(const int iLoopStart, const int iLoopEnd)
 {
-	CHECK_LOADED(SetLoopPoints);
+	CHECK_LOADED(SetLoopPoints,);
 	if (m_pSound->GetSample())
 	{
 		GUARD_HEAP;

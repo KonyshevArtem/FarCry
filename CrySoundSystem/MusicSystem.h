@@ -12,7 +12,11 @@
 #ifdef TRACE_MUSIC
 #define MTRACE TRACE
 #else
+#if defined(__GNUC__)
+#define MTRACE
+#else
 #define MTRACE __noop
+#endif
 #endif
 
 #define PATTERNSET_CHANGE_FADETIME	2.0
