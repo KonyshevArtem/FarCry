@@ -289,7 +289,7 @@ bool CDataProbe::GetDataCode( char *pBuf,int nSize,SDataProbeContext &ctx )
 		}
 	}
 	// scramble code not to look like crc or alike.
-	int tkey[4] = {2985634234,378634893,387681212,436851212};
+	int tkey[4] = {static_cast<int>(2985634234),378634893,387681212,436851212};
 	TEA_ENCODE( (unsigned int*)&nCode,(unsigned int*)&nCode,8,(unsigned int*)tkey );
 	ctx.nCode = nCode;
 	return true;
@@ -500,7 +500,7 @@ bool CDataProbe::CheckLoader( void *pFunc )
 		{1178362782,223786232,371615531,90884141},
 		{89158165, 1389745433,971685123,785741042},
 		{389623487,373673863,657846392,378467832},
-		{1982697467,3278962783,278963782,287678311},
+		{1982697467,static_cast<int>(3278962783),278963782,287678311},
 	};
 
 	m_rand.Seed( GetTickCount() );

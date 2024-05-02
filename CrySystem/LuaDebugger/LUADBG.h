@@ -20,6 +20,22 @@
 
 #define BORDER_SIZE 50
 
+static DWORD CALLBACK EditStreamCallback(DWORD_PTR dwCookie, LPBYTE pbBuff, LONG cb, LONG *pcb)
+{
+    char ***pppText = reinterpret_cast<char ***> (dwCookie);
+    char **ppText = *pppText;
+    LONG iLen = (LONG)strlen(* ppText) /*- 1*/;
+    *pcb = __min(cb, iLen);
+    if (*pcb == 0)
+    {
+        delete pppText;
+        return 0;
+    }
+    memcpy(pbBuff, (* ppText), *pcb);
+    *ppText += *pcb;
+    return 0;
+};
+
 class CSourceEdit : public _TinyWindow
 {
 	public:
@@ -70,22 +86,6 @@ public:
 		strm.pfnCallback = EditStreamCallback;
 		m_wEditWindow.SendMessage(EM_LIMITTEXT, 0x7FFFFFF, 0);
 		return m_wEditWindow.SendMessage(EM_STREAMIN, SF_RTF, (LPARAM) &strm);
-	};
-
-	friend DWORD CALLBACK EditStreamCallback(DWORD_PTR dwCookie, LPBYTE pbBuff, LONG cb, LONG *pcb)
-	{
-		char ***pppText = reinterpret_cast<char ***> (dwCookie);
-		char **ppText = *pppText;
-		LONG iLen = (LONG)strlen(* ppText) /*- 1*/;
-		*pcb = __min(cb, iLen);
-		if (*pcb == 0)
-		{
-			delete pppText;
-			return 0;
-		}
-		memcpy(pbBuff, (* ppText), *pcb);
-		*ppText += *pcb;
-		return 0;
 	};
 
 	void SetSourceFile(const char *pszFileName)

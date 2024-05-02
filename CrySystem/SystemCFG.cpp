@@ -167,7 +167,7 @@ void CSystemConfiguration::ParseSystemConfig()
 			string::size_type posEq( strLine.find( "=", 0 ) );
 			if (string::npos!=posEq)
 			{
-#if defined(LINUX)	
+#if defined(LINUX) || defined(__GNUC__)
 				string s( strLine, 0, posEq );
 				string strKey( RemoveWhiteSpaces(s) );
 #else

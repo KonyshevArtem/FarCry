@@ -1545,10 +1545,10 @@ int CScriptObjectSystem::DrawTriStrip(IFunctionHandler *pH)
 			if(vtxs->GetCurrent(vtx))
 			{
 				v[nvtxs].z=0;
-				v[nvtxs].c[0]=unsigned char(r*0xFF);
-				v[nvtxs].c[1]=unsigned char(g*0xFF);
-				v[nvtxs].c[2]=unsigned char(b*0xFF);
-				v[nvtxs].c[3]=unsigned char(a*0xFF);
+				v[nvtxs].c[0]=(unsigned char)(r*0xFF);
+				v[nvtxs].c[1]=(unsigned char)(g*0xFF);
+				v[nvtxs].c[2]=(unsigned char)(b*0xFF);
+				v[nvtxs].c[3]=(unsigned char)(a*0xFF);
 				vtx->GetValue("x",v[nvtxs].x);
 				vtx->GetValue("y",v[nvtxs].y);
 				vtx->GetValue("u",v[nvtxs].u);

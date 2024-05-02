@@ -28,20 +28,20 @@ BOOL _TinyBrowseForFolder(char szPathOut[_MAX_PATH], _TinyWindow *pParent = NULL
 	sInfo.lParam = 0;
 	sInfo.iImage = 0;
 
-	__try
+	try
 	{
 		if (FAILED(CoInitialize(NULL)))
-			__leave;
+			throw;
 
 		CoInitialize(NULL);
 	
 		SHBrowseForFolder(&sInfo);
 		if ((pList = SHBrowseForFolder(&sInfo)) == NULL)
-			__leave;
+			throw;
 
 		// SHGetPathFromIDList
 	}
-	__finally
+	catch(std::exception &_)
 	{
 		CoUninitialize();
 	}

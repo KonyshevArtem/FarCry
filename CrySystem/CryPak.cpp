@@ -276,7 +276,7 @@ const char* CCryPak::AdjustFileName(const char *src, char *dst, unsigned nFlags,
 	unsigned nLength = pEnd - dst;
 
 	if (bFoundInPak)
-		bFoundInPak=false;
+		*bFoundInPak=false;
 
 	if (nFlags & FLAGS_PATH_REAL)
 		return dst;
@@ -598,7 +598,7 @@ FILE *CCryPak::FOpen(const char *pName, const char *szMode,unsigned nFlags2)
 		m_arrOpenFiles.resize (nFile+1);
 	}
 
-#if defined(LINUX64)
+#if defined(LINUX64) || defined(__GNUC__)
 	if (pFileData != 0 && (nFlags2 & FOPEN_HINT_DIRECT_OPERATION))
 #else
 	if (pFileData != NULL && (nFlags2 & FOPEN_HINT_DIRECT_OPERATION))
@@ -653,7 +653,7 @@ CCachedFileDataPtr CCryPak::GetFileData(const char* szName)
 			}
 		}
 	}
-	return NULL;
+	return nullptr;
 }
 
 

@@ -15,7 +15,7 @@ CRefReadStream::CRefReadStream (const string& strFileName, CRefStreamEngine* pEn
 	m_nSectorSize(0),
 	m_hFile (INVALID_HANDLE_VALUE),
 	m_bOverlapped ( false),
-	m_pZipEntry (NULL)
+	m_pZipEntry (nullptr)
 {
 	pEngine->Register(this);
 }
@@ -29,7 +29,7 @@ bool CRefReadStream::Activate()
 	AUTO_LOCK(g_csActivate);
 
 	m_bOverlapped = m_pEngine->isOverlappedIoEnabled();
-#if !defined(LINUX64)
+#if !defined(LINUX64) && !defined(__GNUC__)
 	if (m_pZipEntry == NULL && m_hFile == INVALID_HANDLE_VALUE)
 #else
 	if (m_pZipEntry == 0 && m_hFile == INVALID_HANDLE_VALUE)
@@ -37,7 +37,7 @@ bool CRefReadStream::Activate()
 		m_hFile = CreateFile (m_strFileName.c_str(), GENERIC_READ, FILE_SHARE_READ|FILE_SHARE_WRITE, NULL, OPEN_EXISTING,
 			m_bOverlapped?FILE_FLAG_OVERLAPPED:0,
 			NULL);
-#if !defined(LINUX64)
+#if !defined(LINUX64) && !defined(__GNUC__)
 	if (m_pZipEntry == NULL && m_hFile == INVALID_HANDLE_VALUE)
 #else
 	if (m_pZipEntry == 0 && m_hFile == INVALID_HANDLE_VALUE)

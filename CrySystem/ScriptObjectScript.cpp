@@ -66,7 +66,7 @@ void CScriptObjectScript::Debug_Full_recursive( IScriptObject *pCurrent, string 
 
 				pCurrent->GetCurrent(pNewObject);
 
-#if defined(LINUX)
+#if defined(LINUX) || defined(__GNUC__)
 				string s = sPath+string("/")+szKeyName;
 				Debug_Full_recursive(pNewObject,s,setVisited);
 #else
@@ -135,7 +135,7 @@ DWORD CScriptObjectScript::Debug_Buckets_recursive( IScriptObject *pCurrent, str
 
 				pCurrent->GetCurrent(pNewObject);
 
-#if defined(LINUX)
+#if defined(LINUX) || defined(__GNUC__)
 				string s = sPath+string("/")+szKeyName;
 				DWORD dwSubTableCount = Debug_Buckets_recursive(pNewObject,s,setVisited,dwMinBucket);
 #else
@@ -207,7 +207,7 @@ void CScriptObjectScript::Debug_Elements( IScriptObject *pCurrent, string &sPath
 
 				pCurrent->GetCurrent(pNewObject);
 
-#if defined(LINUX)
+#if defined(LINUX) || defined(__GNUC__)
 				string s = sPath+string("/")+szKeyName;
 				DWORD dwSubTableCount = Debug_Buckets_recursive(pNewObject,s,setVisited,0xffffffff);
 #else

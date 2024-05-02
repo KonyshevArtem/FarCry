@@ -41,6 +41,8 @@ right now this code is not GPL or LGPL in any way
 
 #if defined(_DEBUG) && !defined(WIN64) && !defined(LINUX64)
 	#define _TinyAssert(x) { if (!(x)) { DEBUG_BREAK; }; }
+#elif defined(__GNUC__)
+    #define _TinyAssert(x)
 #else
 	#define _TinyAssert(x) __noop(x);
 #endif
