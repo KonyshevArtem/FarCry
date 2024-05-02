@@ -1126,7 +1126,7 @@ void NvStripifier::CreateStrips(const NvStripInfoVec& allStrips, IntVec& stripIn
 // in_cacheSize is the target cache size
 //
 
-#if defined(LINUX)
+#if defined(LINUX) || defined(__GNUC__)
 template< typename T >
 T max( const T& a, const T& b )
 {

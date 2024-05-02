@@ -9,6 +9,13 @@
 #include <platform.h>
 #include <stdio.h>
 #include <tchar.h>
+#include <algorithm>
+
+#if defined(__GNUC__)
+using std::min;
+using std::max;
+#endif
+
 // Windows Header Files:
 #ifdef WIN64
 #include "PortableString.h"
