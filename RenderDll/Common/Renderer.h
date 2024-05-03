@@ -18,6 +18,11 @@
 # pragma once
 #endif
 
+#if defined(__GNUC__)
+using std::min;
+using std::max;
+#endif
+
 #ifdef PS2
 #include "File.h"
 #endif

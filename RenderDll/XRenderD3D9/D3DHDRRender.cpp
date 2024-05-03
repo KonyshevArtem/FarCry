@@ -2564,9 +2564,7 @@ bool HDR_RenderStar()
   pSurfDest[0] = apSurfStar[0][0];
   pSurfDest[1] = apSurfStar[0][1];
 
-  int nBitPlanes = (rd->m_bDeviceSupportsMRT) ? 2 : 1;
-
-  for (int iBitPlane=0; iBitPlane<nBitPlanes; iBitPlane++)
+  for (int iBitPlane=0; iBitPlane<((rd->m_bDeviceSupportsMRT) ? 2 : 1); iBitPlane++)
   {
     for(i=0; i<starDef.m_nStarLines; i++)
     {

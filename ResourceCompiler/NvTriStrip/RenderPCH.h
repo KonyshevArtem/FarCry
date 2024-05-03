@@ -123,9 +123,13 @@ typedef string String;
 #include <CREPolyMesh.h>
 
 
-
+#if defined(__GNUC__)
+using std::min;
+using std::max;
+#else
 #define max(a,b)    (((a) > (b)) ? (a) : (b))
 #define min(a,b)    (((a) < (b)) ? (a) : (b))
+#endif
 
 
 #define MAX_PATH_LENGTH	512

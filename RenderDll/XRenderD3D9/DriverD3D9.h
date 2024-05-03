@@ -22,8 +22,14 @@ The DXRenderer interface Class
 ===========================================
 */
 #if defined(WIN64)
-#include <d3dx9.h>
-#include <dxerr.h>
+    #if defined(__GNUC__)
+        #define __in
+        #define __in_z
+        #define __in_z_opt
+    #else
+        #include <dxerr.h>
+    #endif
+    #include <d3dx9.h>
 #elif defined(_XBOX)
 #include <xtl.h>
 #include <xgraphics.h>

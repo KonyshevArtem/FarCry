@@ -9,7 +9,9 @@
 
 #include "RenderPCH.h"
 #include "DriverD3D9.h"
+#if !defined(__GNUC__)
 #include <dxerr.h>
+#endif
 #include "D3DCGVProgram.h"
 #include "D3DCGPShader.h"
 
@@ -1025,7 +1027,11 @@ WIN_HWND CD3D9Renderer::Init(int x,int y,int width,int height,unsigned int cbpp,
 const char *CD3D9Renderer::D3DError( HRESULT h )
 {
   const TCHAR* strHRESULT;
+#if !defined(__GNUC__)
   strHRESULT = DXGetErrorString(h);
+#else
+  strHRESULT = "";
+#endif
   return strHRESULT;
 }
 

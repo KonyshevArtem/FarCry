@@ -759,7 +759,7 @@ bool CREFlare::mfCheckVis(CCObject *obj)
   if (!obj)
     return false;
 
-  Vec3d or = obj->GetTranslation();
+  Vec3d translation = obj->GetTranslation();
   //bool bVis = false;
   bool bSun = false;
   int i, j;
@@ -776,9 +776,9 @@ bool CREFlare::mfCheckVis(CCObject *obj)
     if (obj->m_ObjFlags & FOB_DRSUN)
     {
       bSun = true;
-      //or.Normalize();
-      //or *= 500.0f;
-      //or += gRenDev->m_RP.m_ViewOrg;
+      //translation.Normalize();
+      //translation *= 500.0f;
+      //translation += gRenDev->m_RP.m_ViewOrg;
     }
     if (bSun && (gRenDev->m_RP.m_PersFlags & RBPF_DONTDRAWSUN))
       return false;
@@ -807,7 +807,7 @@ bool CREFlare::mfCheckVis(CCObject *obj)
     if (!bSun)
     {
       float fFogEnd = rd->m_FS.m_FogEnd;
-      float fDist = (rd->m_RP.m_ViewOrg-or).Length();
+      float fDist = (rd->m_RP.m_ViewOrg-translation).Length();
       float fStartFade = fFogEnd/3.0f*2.0f;
       float fEndFade = fStartFade*1.5f;
       if (fDist > fEndFade)
@@ -831,7 +831,7 @@ bool CREFlare::mfCheckVis(CCObject *obj)
     D3DVP.MaxZ = 1;
 
     Vec3 vScr;
-    D3DXVec3Project((D3DXVECTOR3 *)&vScr, (D3DXVECTOR3 *)&or, &D3DVP, (D3DXMATRIX *)&projMatr, (D3DXMATRIX *)&camMatr, &mIdent);
+    D3DXVec3Project((D3DXVECTOR3 *)&vScr, (D3DXVECTOR3 *)&translation, &D3DVP, (D3DXMATRIX *)&projMatr, (D3DXMATRIX *)&camMatr, &mIdent);
 
     int n = 2;
     obj->m_Trans2[0] = vScr.x;
@@ -1027,7 +1027,7 @@ bool CREFlare::mfCheckVis(CCObject *obj)
         if (pVizQuery)
         {
           Vec3d vx0, vy0, v;
-          v = or - rd->m_prevCamera.GetPos();
+          v = translation - rd->m_prevCamera.GetPos();
           float dist = v.Length();
           if (m_fDistSizeFactor != 1.0f)
             dist = cry_powf(dist, m_fDistSizeFactor);
@@ -1045,19 +1045,19 @@ bool CREFlare::mfCheckVis(CCObject *obj)
           int nOffs;
           struct_VERTEX_FORMAT_P3F_COL4UB_TEX2F *vQuad = (struct_VERTEX_FORMAT_P3F_COL4UB_TEX2F *)rd->GetVBPtr3D(4, nOffs);
 
-          vQuad[0].xyz = or + vx0 + vy0;
+          vQuad[0].xyz = translation + vx0 + vy0;
           vQuad[0].st[0] = 0.0f; vQuad[0].st[1] = 0.0f;
           vQuad[0].color = col;
 
-          vQuad[1].xyz = or + vx0 - vy0;
+          vQuad[1].xyz = translation + vx0 - vy0;
           vQuad[1].st[0] = 0.0f; vQuad[1].st[1] = 1.0f;
           vQuad[1].color = col;
 
-          vQuad[2].xyz = or - vx0 - vy0;
+          vQuad[2].xyz = translation - vx0 - vy0;
           vQuad[2].st[0] = 1.0f; vQuad[2].st[1] = 1.0f;
           vQuad[2].color = col;
 
-          vQuad[3].xyz = or - vx0 + vy0;
+          vQuad[3].xyz = translation - vx0 + vy0;
           vQuad[3].st[0] = 1.0f; vQuad[3].st[1] = 0.0f;
           vQuad[3].color = col;
 
@@ -1262,21 +1262,21 @@ void CREFlare::mfDrawCorona(SShader *ef, CFColor &col)
 {
   CD3D9Renderer *rd = gcpRendD3D;
   LPDIRECT3DDEVICE9 dv = rd->mfGetD3DDevice();
-  Vec3d vx0, vy0, vx1, vy1, or, v, norm;
+  Vec3d vx0, vy0, vx1, vy1, translation, v, norm;
 
   if (m_Importance > CRenderer::CV_r_coronas)
     return;
   
   CCObject *obj = rd->m_RP.m_pCurObject;
-  or = obj->GetTranslation();
+    translation = obj->GetTranslation();
 
   bool bSun = false;
   if (obj->m_ObjFlags & FOB_DRSUN)
   {
     bSun = true;
-    //or.Normalize();
-    //or *= 500.0f;
-    //or += gRenDev->m_RP.m_ViewOrg;
+    //translation.Normalize();
+    //translation *= 500.0f;
+    //translation += gRenDev->m_RP.m_ViewOrg;
   }
   if (bSun && rd->m_bHeatVision)
     return;
@@ -1286,9 +1286,9 @@ void CREFlare::mfDrawCorona(SShader *ef, CFColor &col)
   vy0 = rd->m_RP.m_CamVecs[2];
   vy1 = vy0;
 
-  v = or - rd->m_RP.m_ViewOrg;
+  v = translation - rd->m_RP.m_ViewOrg;
   //Vec3d cn = v.normalize();
-  //or = cn * 512;
+  //translation = cn * 512;
   float dist = v.Length();
   float distX = dist;
   if (m_fDistSizeFactor != 1.0f)
@@ -1456,43 +1456,43 @@ void CREFlare::mfDrawCorona(SShader *ef, CFColor &col)
     {
       DWORD col = D3DRGBA(c.r, c.g, c.b, c.a);
 
-      vQuad[0].xyz = or;
+      vQuad[0].xyz = translation;
       vQuad[0].st[0] = 0.5f; vQuad[0].st[1] = 0.5f;
       vQuad[0].color.dcolor = col;
 
-      vQuad[1].xyz = or + vx0 + vy0;
+      vQuad[1].xyz = translation + vx0 + vy0;
       vQuad[1].st[0] = 0.0f; vQuad[1].st[1] = 0.0f;
       vQuad[1].color.dcolor = col;
 
-      vQuad[2].xyz = or + vx0;
+      vQuad[2].xyz = translation + vx0;
       vQuad[2].st[0] = 0.0f; vQuad[2].st[1] = 0.5f;
       vQuad[2].color.dcolor = col;
 
-      vQuad[3].xyz = or + vx0 + vy1;
+      vQuad[3].xyz = translation + vx0 + vy1;
       vQuad[3].st[0] = 0.0f; vQuad[3].st[1] = 1.0f;
       vQuad[3].color.dcolor = col;
 
-      vQuad[4].xyz = or + vy1;
+      vQuad[4].xyz = translation + vy1;
       vQuad[4].st[0] = 0.5f; vQuad[4].st[1] = 1.0f;
       vQuad[4].color.dcolor = col;
 
-      vQuad[5].xyz = or + vx1 + vy1;
+      vQuad[5].xyz = translation + vx1 + vy1;
       vQuad[5].st[0] = 1.0f; vQuad[5].st[1] = 1.0f;
       vQuad[5].color.dcolor = col;
 
-      vQuad[6].xyz = or + vx1;
+      vQuad[6].xyz = translation + vx1;
       vQuad[6].st[0] = 1.0f; vQuad[6].st[1] = 0.5f;
       vQuad[6].color.dcolor = col;
 
-      vQuad[7].xyz = or + vx1 + vy0;
+      vQuad[7].xyz = translation + vx1 + vy0;
       vQuad[7].st[0] = 1.0f; vQuad[7].st[1] = 0.0f;
       vQuad[7].color.dcolor = col;
 
-      vQuad[8].xyz = or + vy0;
+      vQuad[8].xyz = translation + vy0;
       vQuad[8].st[0] = 0.5f; vQuad[8].st[1] = 0.0f;
       vQuad[8].color.dcolor = col;
 
-      vQuad[9].xyz = or + vx0 + vy0;
+      vQuad[9].xyz = translation + vx0 + vy0;
       vQuad[9].st[0] = 0.0f; vQuad[9].st[1] = 0.0f;
       vQuad[9].color.dcolor = col;
 
@@ -1605,43 +1605,43 @@ void CREFlare::mfDrawCorona(SShader *ef, CFColor &col)
     struct_VERTEX_FORMAT_P3F_COL4UB_TEX2F *vQuad = (struct_VERTEX_FORMAT_P3F_COL4UB_TEX2F *)rd->GetVBPtr3D(10, nOffs);
     DWORD col = D3DRGBA(c.r, c.g, c.b, c.a);
 
-    vQuad[0].xyz = or;
+    vQuad[0].xyz = translation;
     vQuad[0].st[1] = 0.5f; vQuad[0].st[0] = 0.5f;
     vQuad[0].color.dcolor = col;
 
-    vQuad[1].xyz = or + vx0 + vy0;
+    vQuad[1].xyz = translation + vx0 + vy0;
     vQuad[1].st[1] = 0.0f; vQuad[1].st[0] = 1.0f;
     vQuad[1].color.dcolor = col;
 
-    vQuad[2].xyz = or + vx0;
+    vQuad[2].xyz = translation + vx0;
     vQuad[2].st[1] = 0.0f; vQuad[2].st[0] = 0.5f;
     vQuad[2].color.dcolor = col;
 
-    vQuad[3].xyz = or + vx0 + vy1;
+    vQuad[3].xyz = translation + vx0 + vy1;
     vQuad[3].st[1] = 0.0f; vQuad[3].st[0] = 0.0f;
     vQuad[3].color.dcolor = col;
 
-    vQuad[4].xyz = or + vy1;
+    vQuad[4].xyz = translation + vy1;
     vQuad[4].st[1] = 0.5f; vQuad[4].st[0] = 0.0f;
     vQuad[4].color.dcolor = col;
 
-    vQuad[5].xyz = or + vx1 + vy1;
+    vQuad[5].xyz = translation + vx1 + vy1;
     vQuad[5].st[1] = 1.0f; vQuad[5].st[0] = 0.0f;
     vQuad[5].color.dcolor = col;
 
-    vQuad[6].xyz = or + vx1;
+    vQuad[6].xyz = translation + vx1;
     vQuad[6].st[1] = 1.0f; vQuad[6].st[0] = 0.5f;
     vQuad[6].color.dcolor = col;
 
-    vQuad[7].xyz = or + vx1 + vy0;
+    vQuad[7].xyz = translation + vx1 + vy0;
     vQuad[7].st[1] = 1.0f; vQuad[7].st[0] = 1.0f;
     vQuad[7].color.dcolor = col;
 
-    vQuad[8].xyz = or + vy0;
+    vQuad[8].xyz = translation + vy0;
     vQuad[8].st[1] = 0.5f; vQuad[8].st[0] = 1.0f;
     vQuad[8].color.dcolor = col;
 
-    vQuad[9].xyz = or + vx0 + vy0;
+    vQuad[9].xyz = translation + vx0 + vy0;
     vQuad[9].st[1] = 0.0f; vQuad[9].st[0] = 1.0f;
     vQuad[9].color.dcolor = col;
 
@@ -1680,7 +1680,7 @@ void CREFlare::mfDrawFlares(SShader *ef, CFColor &col)
     
   CCObject *obj = rd->m_RP.m_pCurObject;
 
-  Vec3d or = obj->GetTranslation();  
+  Vec3d translation = obj->GetTranslation();
   if (obj->m_ObjFlags & FOB_DRSUN)
   {
     if (rd->m_bHeatVision)
@@ -1689,7 +1689,7 @@ void CREFlare::mfDrawFlares(SShader *ef, CFColor &col)
 
   Vec3d vFromPt = rd->m_RP.m_ViewOrg;
   Vec3d vViewVec = rd->m_RP.m_CamVecs[0];
-  Vec3d vLightVec = or - vFromPt;
+  Vec3d vLightVec = translation - vFromPt;
   vLightVec.Normalize();
   
   // Compute the vector and center point for the lens flare axis

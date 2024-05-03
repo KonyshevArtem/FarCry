@@ -12,7 +12,7 @@
 #include "DDSImage.h"
 
 /* needed for DirectX's DDSURFACEDESC2 structure definition */
-#if !defined(_XBOX) && !defined(PS2) && !defined(LINUX)
+#if !defined(_XBOX) && !defined(PS2) && !defined(LINUX) && !defined(__GNUC__)
 #include <ddraw.h>
 #else
 #define FOURCC_DXT1  (MAKEFOURCC('D','X','T','1'))

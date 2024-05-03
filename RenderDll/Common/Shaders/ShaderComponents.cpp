@@ -21,6 +21,8 @@
 
 //=================================================================================================
 
+inline Matrix44 GetTranslationMat( const Vec3& v  );
+
 TArray<SArrayPointer *> SArrayPointer::m_Arrays;
 
 void *SArrayPointer_Vertex::m_pLastPointer;

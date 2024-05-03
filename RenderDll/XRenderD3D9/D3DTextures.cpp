@@ -550,7 +550,8 @@ int SShaderTexUnit::mfSetTexture(int nt)
         case TO_ENVIRONMENT_CUBE_MAP:
           {
             SEnvTexture *cm = NULL;
-            cm = rd->m_cEF.mfFindSuitableEnvCMap(rd->m_RP.m_pCurObject->GetTranslation(), true, 0, 0);
+            Vec3d translation = rd->m_RP.m_pCurObject->GetTranslation();
+            cm = rd->m_cEF.mfFindSuitableEnvCMap(translation, true, 0, 0);
             if (cm && cm->m_Tex)
               cm->m_Tex->Set();
             else
@@ -561,7 +562,8 @@ int SShaderTexUnit::mfSetTexture(int nt)
         case TO_ENVIRONMENT_LIGHTCUBE_MAP:
           {
             SEnvTexture *cm = NULL;
-            cm = rd->m_cEF.mfFindSuitableEnvLCMap(rd->m_RP.m_pCurObject->GetTranslation(), true, 0, 0);
+            Vec3d translation = rd->m_RP.m_pCurObject->GetTranslation();
+            cm = rd->m_cEF.mfFindSuitableEnvLCMap(translation, true, 0, 0);
             if (cm && cm->m_Tex)
               cm->m_Tex->Set();
             else
@@ -2844,7 +2846,8 @@ void CD3D9TexMan::UpdateTextureData(STexPic *pic, byte *data, int USize, int VSi
       wdt >>= 1;
       hgt >>= 1;
 
-      Exchange(out, (byte *)data);
+      byte* d = (byte *)data;
+      Exchange(out, d);
       
       i++;
     }
@@ -2898,7 +2901,8 @@ void CD3D9TexMan::UpdateTextureData(STexPic *pic, byte *data, int USize, int VSi
       hgt >>= 1;
       MipMap32Bit (ti, (byte *)data, out, wdt, hgt);
 
-      Exchange(out, (byte *)data);
+      byte* d = (byte *)data;
+      Exchange(out, d);
       
       i++;
     }
@@ -5657,7 +5661,7 @@ void CD3D9TexMan::GenerateNoiseVolumeMap()
 
 VOID WINAPI FillAttenuationTexture(D3DXVECTOR4* pOut, const D3DXVECTOR2* pTexCoord, const D3DXVECTOR2* pTexelSize,	LPVOID pData)
 {
-	const unsigned int index = unsigned int(pTexCoord->y * float(NUM_ATTENUATION_FUNCTIONS) * float(BILERP_PROTECTION));
+	const unsigned int index = (unsigned int)(pTexCoord->y * float(NUM_ATTENUATION_FUNCTIONS) * float(BILERP_PROTECTION));
 	const unsigned int matNum = index / BILERP_PROTECTION;
 
   if ( matNum <= AF_LINEAR )

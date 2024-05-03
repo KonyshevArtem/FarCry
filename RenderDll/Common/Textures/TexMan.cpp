@@ -22,6 +22,14 @@
 #include "ILog.h"
 #endif
 
+#if defined(__GNUC__)
+#define FOURCC_DXT1  (MAKEFOURCC('D','X','T','1'))
+#define FOURCC_DXT2  (MAKEFOURCC('D','X','T','2'))
+#define FOURCC_DXT3  (MAKEFOURCC('D','X','T','3'))
+#define FOURCC_DXT4  (MAKEFOURCC('D','X','T','4'))
+#define FOURCC_DXT5  (MAKEFOURCC('D','X','T','5'))
+#endif
+
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
 

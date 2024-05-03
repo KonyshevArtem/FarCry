@@ -1,6 +1,17 @@
 #include "RenderPCH.h"
 #include "RendElement.h"
 
+CRETempMesh::~CRETempMesh()
+{
+    if (m_VBuffer)
+    {
+        gRenDev->ReleaseBuffer(m_VBuffer);
+        m_VBuffer = NULL;
+    }
+    gRenDev->ReleaseIndexBuffer(&m_Inds);
+    m_Inds.Reset();
+}
+
 void CRETempMesh::mfPrepare()
 {
   gRenDev->EF_CheckOverflow(0, 0, this);
