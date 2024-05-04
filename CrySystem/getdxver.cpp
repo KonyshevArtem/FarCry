@@ -243,7 +243,7 @@ HRESULT GetDirectXVersionViaDxDiag( DWORD* pdwDirectXVersionMajor,
 #else
 	*pdwDirectXVersionMajor = 9;
 	*pdwDirectXVersionMinor = 1;
-	strcpy(pcDirectXVersionLetter, "DirectX9.1 beta AMD64 build");
+    *pcDirectXVersionLetter = TEXT(' ');
 	return S_OK;
 #endif
 }
