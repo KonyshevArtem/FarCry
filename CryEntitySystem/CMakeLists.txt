@@ -24,3 +24,4 @@ add_library(CryEntitySystem SHARED
 target_include_directories(CryEntitySystem PRIVATE ./ ../XIsle ../CryCommon)
 target_compile_definitions(CryEntitySystem PRIVATE _RELEASE NDEBUG WIN64 WIN32 _AMD64_ _WINDOWS _USRDLL CRYENTITYDLL_EXPORTS DONT_USE_CRY_MEMORY_MANAGER)
 target_compile_options(CryEntitySystem PRIVATE "-fpermissive")
+target_link_libraries(CryEntitySystem -static)

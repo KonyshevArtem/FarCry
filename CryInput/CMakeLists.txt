@@ -20,4 +20,4 @@ add_library(CryInput SHARED
 target_include_directories(CryInput PRIVATE ../CryCommon)
 target_compile_definitions(CryInput PRIVATE _RELEASE NDEBUG WIN64 WIN32 _AMD64_ _WINDOWS _USRDLL CRYINPUT_EXPORTS DIRECTINPUT_VERSION=0x0800 DONT_USE_CRY_MEMORY_MANAGER)
 target_compile_options(CryInput PRIVATE "-fpermissive")
-target_link_libraries(CryInput dinput8 dxguid winmm)
+target_link_libraries(CryInput -static dinput8 dxguid winmm)

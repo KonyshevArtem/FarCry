@@ -38,3 +38,4 @@ add_library(CrySoundSystem SHARED
 target_include_directories(CrySoundSystem PRIVATE ../CryCommon ./OggVorbisInclude)
 target_compile_definitions(CrySoundSystem PRIVATE _RELEASE NDEBUG WIN64 WIN32 _AMD64_ _WINDOWS _USRDLL CRYSOUNDSYSTEM_EXPORTS DONT_USE_CRY_MEMORY_MANAGER)
 target_compile_options(CrySoundSystem PRIVATE "-fpermissive")
+target_link_libraries(CrySoundSystem -static)

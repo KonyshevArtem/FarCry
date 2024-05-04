@@ -178,4 +178,4 @@ add_library(CryGame SHARED
 target_include_directories(CryGame PRIVATE ../CryCommon)
 target_compile_definitions(CryGame PRIVATE _RELEASE NDEBUG WIN64 WIN32 _AMD64_ _WINDOWS _USRDLL CRYGAME_EXPORTS DIVX DONT_USE_CRY_MEMORY_MANAGER)
 target_compile_options(CryGame PRIVATE "-fpermissive")
-target_link_libraries(CryGame dxguid dsound imagehlp version ws2_32)
+target_link_libraries(CryGame -static dxguid dsound imagehlp version ws2_32)

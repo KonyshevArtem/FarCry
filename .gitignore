@@ -1,6 +1,7 @@
 Release64/
 
 cmake-build-*
+out/build/*
 
 # Created by https://www.toptal.com/developers/gitignore/api/cmake
 # Edit at https://www.toptal.com/developers/gitignore?templates=cmake

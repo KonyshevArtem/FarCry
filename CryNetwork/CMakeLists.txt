@@ -1,4 +1,8 @@
 add_library(CryNetwork SHARED
+        "../PunkBuster/pbcl.cpp"
+        "../PunkBuster/pbmd5.cpp"
+        "../PunkBuster/pbsdk.cpp"
+        "../PunkBuster/pbsv.cpp"
         "CCPEndpoint.cpp"
         "Client.cpp"
         "ClientLocal.cpp"
@@ -52,4 +56,4 @@ add_library(CryNetwork SHARED
 target_include_directories(CryNetwork PRIVATE ../CryCommon)
 target_compile_definitions(CryNetwork PRIVATE _RELEASE NDEBUG WIN64 WIN32 _AMD64_ _WINDOWS _USRDLL CRYNETWORK_EXPORTS NOT_USE_UBICOM_SDK DONT_USE_CRY_MEMORY_MANAGER)
 target_compile_options(CryNetwork PRIVATE "-fpermissive")
-target_link_libraries(CryNetwork ws2_32)
+target_link_libraries(CryNetwork ws2_32 -static)
