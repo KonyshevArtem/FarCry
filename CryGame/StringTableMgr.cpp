@@ -518,8 +518,8 @@ void CStringTableMgr::AppendToUnicodeString(const string& sSource, wstring &sDes
 	std::vector<wchar_t> swTemp;
 	swTemp.resize(sSource.size()+1);
 
-#if defined(LINUX)
-	swprintf (&swTemp[0], swTemp.size(), L"%S", sSource.c_str());
+#if defined(LINUX) || defined(__GNUC__)
+	swprintf (&swTemp[0], swTemp.size(), L"%s", sSource.c_str());
 #else
 	swprintf (&swTemp[0], L"%S", sSource.c_str());
 #endif
