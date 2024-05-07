@@ -27,3 +27,11 @@ add_subdirectory(CrySystem)
 add_subdirectory(ResourceCompiler)
 add_subdirectory(RenderDll/XRenderD3D9)
 add_subdirectory(FARCRY)
+
+# Destination path is the default path for Ubisoft Connect and Far Cry 1 installation
+install(
+        TARGETS Cry3DEngine CryAISystem CryAnimation CryEntitySystem CryFont CryGame CryInput CryMovie CryNetwork
+        CryPhysics CryScriptSystem CrySoundSystem CrySystem ResourceCompiler XRenderD3D9 FarCry
+
+        DESTINATION "C:/Program Files (x86)/Ubisoft/Ubisoft Game Launcher/games/FAR CRY 1/CustomBuild_GCC"
+)

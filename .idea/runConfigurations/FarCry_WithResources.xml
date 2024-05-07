@@ -1,0 +1,8 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="FarCry_WithResources" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="FarCry" TARGET_NAME="FarCry" CONFIG_NAME="Debug" RUN_PATH="C:/Program Files (x86)/Ubisoft/Ubisoft Game Launcher/games/FAR CRY 1/CustomBuild_GCC/FarCry.exe">
+    <method v="2">
+      <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      <option name="CMake.Install" enabled="true" />
+    </method>
+  </configuration>
+</component>
