@@ -113,7 +113,7 @@ class CRigidEntity : public CPhysicalEntity {
 		const vectorf& ptTest = vectorf(zero), const vectorf& dirTest = vectorf(zero));
 	int IsFast(float time_interval);
 
-	masktype *m_pColliderContacts,*m_pColliderConstraints;
+    std::vector<masktype> m_pColliderContacts,m_pColliderConstraints;
 	entity_contact *m_pContacts,*m_pConstraints;
 	constraint_info *m_pConstraintInfos;
 	int m_nContactsAlloc,m_nConstraintsAlloc;

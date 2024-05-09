@@ -48,6 +48,6 @@ add_library(CryMovie SHARED
 )
 
 target_include_directories(CryMovie PRIVATE ../CryCommon)
-target_compile_definitions(CryMovie PRIVATE _RELEASE NDEBUG WIN64 WIN32 _AMD64_ _WINDOWS _USRDLL CRYMOVIE_EXPORTS)
+target_compile_definitions(CryMovie PRIVATE _RELEASE NDEBUG WIN64 WIN32 _AMD64_ _WINDOWS _USRDLL CRYMOVIE_EXPORTS DONT_USE_CRY_MEMORY_MANAGER)
 target_compile_options(CryMovie PRIVATE "-fpermissive")
 target_link_libraries(CryMovie -static)

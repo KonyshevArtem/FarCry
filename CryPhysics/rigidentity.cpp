@@ -46,8 +46,8 @@ CRigidEntity::CRigidEntity(CPhysicalWorld *pWorld) : CPhysicalEntity(pWorld)
 	m_timeStepPerformed = 0;
 	m_timeStepFull = 0.01f;
 	m_Emin = sqr(0.04f);
-	m_pColliderContacts = 0;
-	m_pColliderConstraints = 0;
+	m_pColliderContacts = std::vector<masktype>();
+	m_pColliderConstraints = std::vector<masktype>();
 	m_pContacts = 0;
 	m_pConstraints = 0;
 	m_pConstraintInfos = 0;
@@ -92,9 +92,7 @@ CRigidEntity::CRigidEntity(CPhysicalWorld *pWorld) : CPhysicalEntity(pWorld)
 
 CRigidEntity::~CRigidEntity()
 {
-	if (m_pColliderContacts) delete[] m_pColliderContacts;
 	if (m_pContacts) delete[] m_pContacts;
-	if (m_pColliderConstraints) delete[] m_pColliderConstraints;
 	if (m_pConstraints) delete[] m_pConstraints;
 	if (m_pConstraintInfos) delete[] m_pConstraintInfos;
 }
@@ -566,12 +564,8 @@ int CRigidEntity::AddCollider(CPhysicalEntity *pCollider)
 	int nColliders=m_nColliders, nCollidersAlloc=m_nCollidersAlloc, i=CPhysicalEntity::AddCollider(pCollider);
 
 	if (m_nCollidersAlloc>nCollidersAlloc) {
-		masktype *pColliderContacts = m_pColliderContacts;
-		memcpy(m_pColliderContacts = new masktype[m_nCollidersAlloc], pColliderContacts, nColliders*sizeof(masktype));
-		if (pColliderContacts) delete[] pColliderContacts;
-		masktype *pColliderConstraints = m_pColliderConstraints;
-		memcpy(m_pColliderConstraints = new masktype[m_nCollidersAlloc], pColliderConstraints, nColliders*sizeof(masktype));
-		if (pColliderConstraints) delete[] pColliderConstraints;
+        m_pColliderContacts.resize(m_nCollidersAlloc);
+        m_pColliderConstraints.resize(m_nCollidersAlloc);
 	}
 
 	if (m_nColliders>nColliders) {
@@ -2433,11 +2427,10 @@ int CRigidEntity::ReadContacts(CStream &stm, int flags)
 		ReadPacked(stm,m_nColliders);
 		if (m_nCollidersAlloc<m_nColliders) {
 			if (m_pColliders) delete[] m_pColliders;
-			if (m_pColliderContacts) delete[] m_pColliderContacts;
 			m_nCollidersAlloc = (m_nColliders-1&~7)+8;
 			m_pColliders = new CPhysicalEntity*[m_nCollidersAlloc];
-			m_pColliderContacts = new masktype[m_nCollidersAlloc];
-			memset(m_pColliderConstraints = new masktype[m_nCollidersAlloc],0,m_nCollidersAlloc*sizeof(m_pColliderConstraints[0]));
+			m_pColliderContacts = std::vector<masktype>(m_nCollidersAlloc);
+            m_pColliderConstraints = std::vector<masktype>(m_nCollidersAlloc, 0);
 		}
 		int nContactsAlloc;
 		ReadPacked(stm, nContactsAlloc);
@@ -2789,8 +2782,8 @@ void CRigidEntity::GetMemoryStatistics(ICrySizer *pSizer)
 	CPhysicalEntity::GetMemoryStatistics(pSizer);
 	if (GetType()==PE_RIGID)
 		pSizer->AddObject(this, sizeof(CRigidEntity));
-	pSizer->AddObject(m_pColliderContacts, m_nCollidersAlloc*sizeof(m_pColliderContacts[0]));
-	pSizer->AddObject(m_pColliderConstraints, m_nCollidersAlloc*sizeof(m_pColliderConstraints[0]));
+	pSizer->AddObject(m_pColliderContacts.data(), m_nCollidersAlloc*sizeof(m_pColliderContacts[0]));
+	pSizer->AddObject(m_pColliderConstraints.data(), m_nCollidersAlloc*sizeof(m_pColliderConstraints[0]));
 	pSizer->AddObject(m_pContacts, m_nContactsAlloc*sizeof(m_pContacts[0]));
 	pSizer->AddObject(m_pConstraints, m_nConstraintsAlloc*sizeof(m_pConstraints[0]));
 	pSizer->AddObject(m_pConstraintInfos, m_nConstraintsAlloc*sizeof(m_pConstraintInfos[0]));
