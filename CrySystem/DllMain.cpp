@@ -67,7 +67,11 @@ extern "C"
 		{
 			pSystem = (CSystem*)initParams.pSystem;
 		}
-		
+
+#if defined(FAR_CRY_STATIC_LIBS)
+        SetISystem(pSystem);
+#endif
+
 #ifndef _DEBUG
 #ifdef WIN32
 		// Install exception handler in Release modes.

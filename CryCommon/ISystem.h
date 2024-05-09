@@ -382,7 +382,12 @@ struct ISystem
 typedef ISystem* (*PFNCREATESYSTEMINTERFACE)( SSystemInitParams &initParams );
 
 // Get the system interface (must be defined locally in each module)
+#if defined(FAR_CRY_STATIC_LIBS)
+ISystem *GetISystem();
+void SetISystem(ISystem* system);
+#else
 extern ISystem *GetISystem();
+#endif
 
 // interface of the DLL
 extern "C" 

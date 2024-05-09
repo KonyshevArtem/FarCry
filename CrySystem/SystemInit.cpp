@@ -932,7 +932,10 @@ bool CSystem::InitFont()
 bool CSystem::Init3DEngine()
 {
   ::SetLastError(0);
-  m_dll.h3DEngine = LoadDLL(DLL_3DENGINE);
+#if defined(FAR_CRY_STATIC_LIBS)
+    m_pI3DEngine = CreateCry3DEngine(this, g3deInterfaceVersion);
+#else
+    m_dll.h3DEngine = LoadDLL(DLL_3DENGINE);
 	if (!m_dll.h3DEngine)
 		return false;
 
@@ -945,10 +948,11 @@ bool CSystem::Init3DEngine()
 	} 
 
 	m_pI3DEngine = (*pfnCreateCry3DEngine)(this,g3deInterfaceVersion);
+#endif
 
-  if (!m_pI3DEngine )
+    if (!m_pI3DEngine )
 	{
-    Error( "Error Creating 3D Engine interface" );
+        Error( "Error Creating 3D Engine interface" );
 		return false;
 	}
 

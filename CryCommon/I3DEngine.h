@@ -18,7 +18,7 @@
 
 #include "platform.h"
 
-#ifdef WIN32
+#if defined(WIN32) && !defined(FAR_CRY_STATIC_LIBS)
 	#ifdef CRY3DENGINE_EXPORTS
 		#define CRY3DENGINEENGINE_API __declspec(dllexport)
 	#else

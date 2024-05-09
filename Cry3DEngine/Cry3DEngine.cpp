@@ -37,13 +37,15 @@ _ACCESS_POOL;
 
 //////////////////////////////////////////////////////////////////////////
 // Pointer to Global ISystem.
+#if !defined(FAR_CRY_STATIC_LIBS)
 ISystem* GetISystem()
 {
 	return Cry3DEngineBase::m_pSys;
 }
+#endif
 //////////////////////////////////////////////////////////////////////////
 
-#if !defined(GAMECUBE) && !defined(PS2) && !defined(_XBOX) && !defined(LINUX)
+#if !defined(GAMECUBE) && !defined(PS2) && !defined(_XBOX) && !defined(LINUX) && !defined(FAR_CRY_STATIC_LIBS)
 BOOL APIENTRY DllMain( HANDLE hModule, DWORD  ul_reason_for_call, LPVOID lpReserved	) 
 {
   return TRUE;
@@ -81,6 +83,10 @@ I3DEngine * CreateCry3DEngine(ISystem	* pSystem, const char * szInterfaceVersion
 
 	return 0;
 */
+#if defined(FAR_CRY_STATIC_LIBS)
+    SetISystem(pSystem);
+#endif
+
 #if !defined(LINUX)
   if(strcmp(szInterfaceVersion,g3deInterfaceVersion))
     pSystem->GetIConsole()->Exit("Error: CreateCry3DEngine(): 3dengine interface version error");

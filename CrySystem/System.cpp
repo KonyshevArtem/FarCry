@@ -1124,10 +1124,12 @@ void CSystem::Warning( EValidatorModule module,EValidatorSeverity severity,int f
 }
 
 //////////////////////////////////////////////////////////////////////////
+#if !defined(FAR_CRY_STATIC_LIBS)
 ISystem *GetISystem()
 {
 	return (g_System);
 }
+#endif
 
 #ifdef USE_FRAME_PROFILER
 //////////////////////////////////////////////////////////////////////////
