@@ -808,7 +808,7 @@ const Vec3d* CryModelSubmesh::SelfSkin(int nLOD, Vec3d*pVertices, Vec3dA16* pNor
 	if (m_pMesh->numBoneInfos())
 	{
 		unsigned numVertices = pGeomInfo->numUsedVertices();
-#if ( defined(_CPU_X86) || defined (_AMD64_) ) && !defined(LINUX)
+#if ( defined(_CPU_X86) || defined (_AMD64_) ) && !defined(LINUX) && !defined(__GNUC__)
 		if (g_GetCVars()->ca_SSEEnable() && cpu::hasSSE())
 		{
 			if (!pVertices)
