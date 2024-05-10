@@ -11,6 +11,7 @@ _ACCESS_POOL;
 #include <ILog.h>
 #include <IInput.h>
 #include "Input.h"
+#include "ISystem.h"
 
 #ifdef _DEBUG
 static char THIS_FILE[] = __FILE__;
@@ -19,16 +20,20 @@ static char THIS_FILE[] = __FILE__;
 #endif
 
 //////////////////////////////////////////////////////////////////////////
+
+#if !defined(FAR_CRY_STATIC_LIBS)
 // Pointer to Global ISystem.
 static ISystem* gISystem = 0;
 ISystem* GetISystem()
 {
 	return gISystem;
 }
+#endif
+
 //////////////////////////////////////////////////////////////////////////
 
 
-#ifndef _XBOX
+#if !defined(_XBOX) && !defined(FAR_CRY_STATIC_LIBS)
 BOOL APIENTRY DllMain( HANDLE hModule, 
                        DWORD  ul_reason_for_call, 
                        LPVOID lpReserved
@@ -40,7 +45,11 @@ BOOL APIENTRY DllMain( HANDLE hModule,
 
 IInput *CreateInput( ISystem *pSystem,void* hinst, void* hwnd, bool usedinput)
 {
+#if defined(FAR_CRY_STATIC_LIBS)
+    SetISystem(pSystem);
+#else
 	gISystem = pSystem;
+#endif
 	CInput *pInput=new CInput;
 	if (!pInput->Init(pSystem,(HINSTANCE)hinst,(HWND)hwnd,usedinput))
 	{

@@ -1,7 +1,7 @@
 #ifndef _IINPUT_H_
 #define _IINPUT_H_
 
-#ifdef WIN32
+#if defined(WIN32) && !defined(FAR_CRY_STATIC_LIBS)
 	#ifdef CRYINPUT_EXPORTS
 		#define CRYINPUT_API __declspec(dllexport)
 	#else

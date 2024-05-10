@@ -360,18 +360,23 @@ bool CSystem::InitEntitySystem(WIN_HINSTANCE hInstance, WIN_HWND hWnd)
 /////////////////////////////////////////////////////////////////////////////////
 bool CSystem::InitInput(WIN_HINSTANCE hinst, WIN_HWND hwnd)
 {
+    bool bUseDirectInput = i_direct_input->GetIVal()?true:false;
+    if (m_bEditor)
+        bUseDirectInput = false;
+
+#if defined(FAR_CRY_STATIC_LIBS)
+    m_pIInput = CreateInput(this, hinst, m_hWnd, bUseDirectInput);
+#else
 	m_dll.hInput = LoadDLL(DLL_INPUT);
 	if (!m_dll.hInput)
 		return false;
-
-	bool bUseDirectInput = i_direct_input->GetIVal()?true:false;
-	if (m_bEditor)
-		bUseDirectInput = false;
 
 	CRY_PTRCREATEINPUTFNC *pfnCreateInput;
 	pfnCreateInput = (CRY_PTRCREATEINPUTFNC *) CryGetProcAddress(m_dll.hInput, "CreateInput");
 	if (pfnCreateInput)
 		m_pIInput = pfnCreateInput( this, hinst, m_hWnd, bUseDirectInput);
+#endif
+
 	if (!m_pIInput)
 	{
 		Error( "Error creating Input system" );
