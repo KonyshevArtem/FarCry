@@ -18,26 +18,30 @@ _ACCESS_POOL;
 
 #include "CryFont.h"
 
+#if !defined(FAR_CRY_STATIC_LIBS)
 ISystem *gISystem = 0;
 //! Get the system interface 
 ISystem	*GetISystem()
 {
 	return gISystem;
 }
+#endif
 
 ///////////////////////////////////////////////
 extern "C" ICryFont* CreateCryFontInterface(ISystem *pSystem)
 {
-	gISystem = pSystem;
+#if defined(FAR_CRY_STATIC_LIBS)
+    SetISystem(pSystem);
+#else
+    gISystem = pSystem;
+#endif
 	return new CCryFont(pSystem);
 }
 
 ///////////////////////////////////////////////
-#ifndef _XBOX
-#ifndef PS2
+#if !defined(_XBOX) && !defined(PS2) && !defined(FAR_CRY_STATIC_LIBS)
 BOOL APIENTRY DllMain(HANDLE hModule, DWORD  ul_reason_for_call, LPVOID lpReserved)
 {
     return TRUE;
 }
-#endif
 #endif

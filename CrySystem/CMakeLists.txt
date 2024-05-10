@@ -177,4 +177,4 @@ add_library(CrySystem SHARED
 target_include_directories(CrySystem PRIVATE ./ ../CryCommon)
 target_compile_definitions(CrySystem PRIVATE _RELEASE NDEBUG WIN64 WIN32 _AMD64_ _WINDOWS _USRDLL CRYSYSTEM_EXPORTS GARBAGEMEMORY DONT_USE_CRY_MEMORY_MANAGER FAR_CRY_STATIC_LIBS)
 target_compile_options(CrySystem PRIVATE "-fpermissive")
-target_link_libraries(CrySystem Cry3DEngine CryCommon CryAISystem CryAnimation CryEntitySystem wininet dbghelp version dxguid winmm comctl32 XRenderD3D9 -static)
+target_link_libraries(CrySystem Cry3DEngine CryCommon CryAISystem CryAnimation CryEntitySystem CryFont wininet dbghelp version dxguid winmm comctl32 XRenderD3D9 -static)

@@ -24,7 +24,7 @@ struct ISystem;
 
 // export for the dll, very clear ;=)
 extern "C"
-#if !defined(_XBOX) && !defined(LINUX)
+#if !defined(_XBOX) && !defined(LINUX) && !defined(FAR_CRY_STATIC_LIBS)
 #ifdef CRYFONT_EXPORTS
 	__declspec(dllexport)
 #else

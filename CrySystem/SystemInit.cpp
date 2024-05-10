@@ -861,7 +861,7 @@ bool CSystem::InitFont()
 	if (m_bEditor && !m_pRenderer)
 		return true;
 
-#ifndef _XBOX
+#if !defined(_XBOX) && !defined(FAR_CRY_STATIC_LIBS)
 	m_dll.hFont = LoadDLL(DLL_FONT);
 	if(!m_dll.hFont)
 		return (false);

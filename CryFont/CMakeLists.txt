@@ -1,4 +1,4 @@
-add_library(CryFont SHARED
+add_library(CryFont STATIC
         "CryFont.cpp"
         "CryPakIO.cpp"
         "FFont.cpp"
@@ -39,7 +39,6 @@ add_library(CryFont SHARED
         "StdAfx.h"
 )
 
-target_include_directories(CryFont PRIVATE ../CrytekDLL ../CryCommon FreeType2/include)
-target_compile_definitions(CryFont PRIVATE _RELEASE NDEBUG WIN64 WIN32 _AMD64_ _WINDOWS _USRDLL CRYFONT_EXPORTS DONT_USE_CRY_MEMORY_MANAGER)
-target_compile_options(CryFont PRIVATE "-fpermissive")
-target_link_libraries(CryFont -static)
+target_include_directories(CryFont PRIVATE FreeType2/include)
+target_compile_definitions(CryFont PRIVATE _RELEASE NDEBUG WIN64 WIN32 _AMD64_ _WINDOWS _USRDLL CRYFONT_EXPORTS DONT_USE_CRY_MEMORY_MANAGER FAR_CRY_STATIC_LIBS)
+target_link_libraries(CryFont CryCommon -static)
