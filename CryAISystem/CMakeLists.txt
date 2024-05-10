@@ -1,4 +1,4 @@
-add_library(CryAISystem SHARED
+add_library(CryAISystem STATIC
         "AIAttribute.cpp"
         "AIAutoBalance.cpp"
         "AIMemStats.cpp"
@@ -43,6 +43,6 @@ add_library(CryAISystem SHARED
 )
 
 target_include_directories(CryAISystem PRIVATE ../CryCommon)
-target_compile_definitions(CryAISystem PRIVATE _RELEASE NDEBUG WIN64 WIN32 _AMD64_ _WINDOWS _USRDLL CRYAISYSTEM_EXPORTS DONT_USE_CRY_MEMORY_MANAGER)
+target_compile_definitions(CryAISystem PRIVATE _RELEASE NDEBUG WIN64 WIN32 _AMD64_ _WINDOWS _USRDLL CRYAISYSTEM_EXPORTS DONT_USE_CRY_MEMORY_MANAGER FAR_CRY_STATIC_LIBS)
 target_compile_options(CryAISystem PRIVATE "-fpermissive")
-target_link_libraries(CryAISystem -static)
+target_link_libraries(CryAISystem CryCommon -static)

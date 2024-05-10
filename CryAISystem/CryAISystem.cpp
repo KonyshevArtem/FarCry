@@ -27,15 +27,19 @@ CAISystem *GetAISystem()
 }
 
 //////////////////////////////////////////////////////////////////////////
+
+#if !defined(FAR_CRY_STATIC_LIBS)
 // Pointer to Global ISystem.
 static ISystem* gISystem = 0;
 ISystem* GetISystem()
 {
 	return gISystem;
 }
+#endif
+
 //////////////////////////////////////////////////////////////////////////
 
-#if !defined( _XBOX ) && !defined( PS2 ) && !defined( LINUX )
+#if !defined( _XBOX ) && !defined( PS2 ) && !defined( LINUX ) && !defined(FAR_CRY_STATIC_LIBS)
 BOOL APIENTRY DllMain( HANDLE hModule, 
                        DWORD  ul_reason_for_call, 
                        LPVOID lpReserved )
@@ -46,13 +50,17 @@ BOOL APIENTRY DllMain( HANDLE hModule,
 
 struct ISystem;
 
-#ifndef _XBOX
+#if !defined(_XBOX) && !defined(FAR_CRY_STATIC_LIBS)
 CRYAIAPI IAISystem *CreateAISystem( ISystem *pSystem)
 #else
 IAISystem *CreateAISystem( ISystem *pSystem)
 #endif
 {
-	gISystem = pSystem;
+#if defined(FAR_CRY_STATIC_LIBS)
+    SetISystem(pSystem);
+#else
+    gISystem = pSystem;
+#endif
 	return (g_pAISystem = new CAISystem(pSystem));
 }
 

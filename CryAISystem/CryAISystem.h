@@ -1,6 +1,7 @@
 #ifndef __CRYAISYSTEM_H_
 #define __CRYAISYSTEM_H_
 
+#if !defined(FAR_CRY_STATIC_LIBS)
 
 #if defined(_XBOX) || defined(PS2) || defined(LINUX)
 #define CRYAIAPI
@@ -26,5 +27,7 @@ extern "C"
 	CRYAIAPI IAISystem *CreateAISystem( ISystem *pSystem);
 
 }
+
+#endif
 
 #endif //__CRYAISYSTEM_H_

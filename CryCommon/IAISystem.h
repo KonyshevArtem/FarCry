@@ -169,5 +169,11 @@ typedef struct IAISystem
 	virtual bool IntersectsForbidden(const Vec3 & vStart, const Vec3 & vEnd, Vec3 & vClosestPoint) = 0;
 } IAISystem;
 
+#if defined(FAR_CRY_STATIC_LIBS)
+
+IAISystem *CreateAISystem( ISystem *pSystem);
+
+#endif
+
 #endif //_IAISYSTEM_H_
 

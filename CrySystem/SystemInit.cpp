@@ -753,7 +753,7 @@ bool CSystem::InitMovieSystem()
 /////////////////////////////////////////////////////////////////////////////////
 bool CSystem::InitAISystem()
 {
-#ifndef _XBOX
+#if !defined(_XBOX) && !defined(FAR_CRY_STATIC_LIBS)
 	m_dll.hAI = LoadDLL(DLL_AI);
 	if (!m_dll.hAI)
 		return true;
