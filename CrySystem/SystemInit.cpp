@@ -320,7 +320,7 @@ bool CSystem::InitEntitySystem(WIN_HINSTANCE hInstance, WIN_HWND hWnd)
 	/////////////////////////////////////////////////////////////////////////////////
 	// Load and initialize the entity system
 	/////////////////////////////////////////////////////////////////////////////////
-#ifndef _XBOX
+#if !defined(_XBOX) && !defined(FAR_CRY_STATIC_LIBS)
 	PFNCREATEENTITYSYSTEM pfnCreateEntitySystem;
 
 	// Load the DLL

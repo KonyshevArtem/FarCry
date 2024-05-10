@@ -19,18 +19,21 @@ static char THIS_FILE[] = __FILE__;
 #endif
 
 //////////////////////////////////////////////////////////////////////////
+
+#if !defined(FAR_CRY_STATIC_LIBS)
 // Pointer to Global ISystem.
 static ISystem* gISystem = 0;
 ISystem* GetISystem()
 {
 	return gISystem;
 }
+#endif
 
 // Local var to turn on/off profiler.
-bool g_bProfilerEnabled = false;
+bool g_bCryEntityProfilerEnabled = false;
 //////////////////////////////////////////////////////////////////////////
 
-#if !defined(_XBOX)
+#if !defined(_XBOX) && !defined(FAR_CRY_STATIC_LIBS)
  _ACCESS_POOL;
 #if !defined(LINUX)
 BOOL APIENTRY DllMain( HANDLE hModule,
@@ -43,13 +46,17 @@ BOOL APIENTRY DllMain( HANDLE hModule,
 #endif
 #endif
 
-#if !defined(_XBOX) && !defined(LINUX) && !defined(PS2)
+#if !defined(_XBOX) && !defined(LINUX) && !defined(PS2) && !defined(FAR_CRY_STATIC_LIBS)
 CRYENTITYDLL_API struct IEntitySystem * CreateEntitySystem(ISystem *pISystem)
 #else
 struct IEntitySystem * CreateEntitySystem(ISystem *pISystem)
 #endif
 {
-	gISystem = pISystem;
+#if defined(FAR_CRY_STATIC_LIBS)
+    SetISystem(pISystem);
+#else
+    gISystem = pISystem;
+#endif
 	CEntitySystem *pEntitySystem= new CEntitySystem(pISystem);
 	if(!pEntitySystem->Init(pISystem))
 	{

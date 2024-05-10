@@ -712,9 +712,9 @@ void CEntitySystem::UpdateEntity(CEntity *ce,SEntityUpdateContext &ctx)
 //////////////////////////////////////////////////////////////////////
 void CEntitySystem::Update()
 {
-	g_bProfilerEnabled = m_pISystem->GetIProfileSystem()->IsProfiling();
+    g_bCryEntityProfilerEnabled = m_pISystem->GetIProfileSystem()->IsProfiling();
 
-	FUNCTION_PROFILER_FAST( m_pISystem,PROFILE_ENTITY,g_bProfilerEnabled );
+	FUNCTION_PROFILER_FAST( m_pISystem,PROFILE_ENTITY,g_bCryEntityProfilerEnabled );
 	//char strNumStatObjs[100];
 	//sprintf(strNumStatObjs," %d|Stat",(int)m_vStaticEntities.size() );
 

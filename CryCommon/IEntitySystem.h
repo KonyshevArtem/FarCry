@@ -9,7 +9,7 @@
 // that uses this DLL. This way any other project whose source files include this file see
 // CRYENTITYDLL_API functions as being imported from a DLL, wheras this DLL sees symbols
 // defined with this macro as being exported.
-#if !defined _XBOX && !defined(LINUX)
+#if !defined(_XBOX) && !defined(LINUX) && !defined(FAR_CRY_STATIC_LIBS)
 #ifdef CRYENTITYDLL_EXPORTS
 #define CRYENTITYDLL_API __declspec(dllexport)
 #else

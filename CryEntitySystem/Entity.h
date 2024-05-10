@@ -18,8 +18,8 @@
 # pragma once   
 #endif
 
-#define ENTITY_PROFILER FUNCTION_PROFILER_FAST( m_pISystem,PROFILE_ENTITY,g_bProfilerEnabled );
-#define ENTITY_PROFILER_NAME(str) FRAME_PROFILER_FAST( str,m_pISystem,PROFILE_ENTITY,g_bProfilerEnabled );
+#define ENTITY_PROFILER FUNCTION_PROFILER_FAST( m_pISystem,PROFILE_ENTITY,g_bCryEntityProfilerEnabled );
+#define ENTITY_PROFILER_NAME(str) FRAME_PROFILER_FAST( str,m_pISystem,PROFILE_ENTITY,g_bCryEntityProfilerEnabled );
 
 #define SCRIPT_INIT				"OnInit"
 #define SCRIPT_UPDATE			"OnUpdate"

@@ -205,8 +205,8 @@ public:
     const char*szFileName,const char*szGeomName,//Vec3d * pvAngles,
     int*_count, bool bLoadAdditinalInfo, bool bKeepInLocalSpace, bool bIgnoreFakeMats = false); 
 
-  ~CIndexedMesh()
 #if defined(FAR_CRY_STATIC_LIBS)
+  ~CIndexedMesh()
   {
       if(m_pFaces)
           free(m_pFaces);
@@ -250,6 +250,8 @@ public:
       delete m_tgtLSources[i];
       }*/
   }
+#else
+    ~CIndexedMesh();
 #endif
 
   void FreeLMInfo();
