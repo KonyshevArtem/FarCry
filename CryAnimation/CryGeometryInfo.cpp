@@ -1142,6 +1142,7 @@ void CryGeometryInfo::exportASC (FILE* f)
 	}
 }
 
+#if !defined(FAR_CRY_STATIC_LIBS)
 // vlad: I placed it temporary here because of Timur chandes in rc.exe
 CIndexedMesh::~CIndexedMesh()
 {
@@ -1185,3 +1186,4 @@ CIndexedMesh::~CIndexedMesh()
 	delete m_tgtLSources[i];
 	}*/
 }
+#endif

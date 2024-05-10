@@ -205,7 +205,53 @@ public:
     const char*szFileName,const char*szGeomName,//Vec3d * pvAngles,
     int*_count, bool bLoadAdditinalInfo, bool bKeepInLocalSpace, bool bIgnoreFakeMats = false); 
 
-  ~CIndexedMesh();
+  ~CIndexedMesh()
+#if defined(FAR_CRY_STATIC_LIBS)
+  {
+      if(m_pFaces)
+          free(m_pFaces);
+      if(m_pVerts)
+          free(m_pVerts);
+      if(m_pCoors)
+          free(m_pCoors);
+      if(m_pNorms)
+          free(m_pNorms);
+      if(m_pColor)
+          free(m_pColor);
+      if(m_pColorSec)
+          free(m_pColorSec);
+
+      for(int g=0;  g<m_lstGeomNames.Count(); g++)
+          delete [] m_lstGeomNames[g];
+      int i;
+      for (i=0; i<m_lstMatTable.Count(); i++)
+      {
+          CMatInfo *mi = &m_lstMatTable[i];
+          if (mi->pRE)
+              mi->pRE->Release();
+      }
+      for (i=0; i<m_lstLSources.Count(); i++)
+      {
+          /*      if (m_lstLSources[i]->m_Name)
+          delete [] m_lstLSources[i]->m_Name;
+          if (m_lstLSources[i]->m_TargetName)
+          delete [] m_lstLSources[i]->m_TargetName;
+          if(m_lstLSources[i]->m_OrigLight)
+          delete m_lstLSources[i]->m_OrigLight;*/
+          delete m_lstLSources[i];
+      }
+      // We don't need to release target light sources because they're released before (during releasing of main lights in destructor)
+      /*for (i=0; i<m_tgtLSources.Count(); i++)
+      {
+      if (m_tgtLSources[i]->m_Name)
+      delete [] m_tgtLSources[i]->m_Name;
+      if (m_tgtLSources[i]->m_TargetName)
+      delete [] m_tgtLSources[i]->m_TargetName;
+      delete m_tgtLSources[i];
+      }*/
+  }
+#endif
+
   void FreeLMInfo();
 
   bool LoadCGF(const char*szFileName, const char * szGeomName, bool bLoadAdditinalInfo, bool bKeepInLocalSpace, bool bIgnoreFakeMats);

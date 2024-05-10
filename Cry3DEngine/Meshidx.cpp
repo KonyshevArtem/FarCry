@@ -1029,6 +1029,7 @@ bool CIndexedMesh::CalcTangentSpace()
 	return 0;
 }
 
+#if !defined(FAR_CRY_STATIC_LIBS)
 CIndexedMesh::~CIndexedMesh()
 {
 	if(m_pFaces)
@@ -1073,4 +1074,4 @@ CIndexedMesh::~CIndexedMesh()
 	delete m_tgtLSources[i];
 	}*/
 }
-
+#endif

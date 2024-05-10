@@ -969,6 +969,9 @@ bool CSystem::Init3DEngine()
 //////////////////////////////////////////////////////////////////////////
 bool CSystem::InitAnimationSystem()
 {
+#if defined(FAR_CRY_STATIC_LIBS)
+    m_pICryCharManager = CreateCharManager(this, gAnimInterfaceVersion);
+#else
 #if defined(LINUX)
 	m_dll.hAnimation = LoadDLL("cryanimation.so");
 #else
@@ -983,6 +986,7 @@ bool CSystem::InitAnimationSystem()
 		return false;
 
 	m_pICryCharManager = (*pfnCreateCharManager)(this,gAnimInterfaceVersion);
+#endif
 
 	if (m_pICryCharManager)
 		GetILog()->LogPlus(" ok"); 

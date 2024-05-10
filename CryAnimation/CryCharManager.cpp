@@ -43,7 +43,7 @@ using namespace CryStringUtils;
 _ACCESS_POOL;
 //#endif 
 
-#ifdef WIN32
+#if defined(WIN32) && !defined(FAR_CRY_STATIC_LIBS)
 BOOL APIENTRY DllMain( HANDLE hModule, DWORD  ul_reason_for_call,	LPVOID lpReserved )
 {
 	return TRUE;

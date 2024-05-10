@@ -16,7 +16,7 @@
 #ifndef ICRY_ANIMATION
 #define ICRY_ANIMATION
 
-#if !defined(_XBOX) && !defined(LINUX)
+#if !defined(_XBOX) && !defined(LINUX) && !defined(FAR_CRY_STATIC_LIBS)
 	#ifdef CRYANIMATION_EXPORTS
 		#define CRYANIMATION_API __declspec(dllexport)
 	#else

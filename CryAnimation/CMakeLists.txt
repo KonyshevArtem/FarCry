@@ -1,4 +1,4 @@
-add_library(CryAnimation SHARED
+add_library(CryAnimation STATIC
         "AnimObject.cpp"
         "AnimObjectLoader.cpp"
         "AnimObjectManager.cpp"
@@ -149,7 +149,5 @@ add_library(CryAnimation SHARED
         "VertexBufferArrayDrivers.h"
 )
 
-target_include_directories(CryAnimation PRIVATE ../CryCommon)
-target_compile_definitions(CryAnimation PRIVATE _RELEASE NDEBUG WIN64 WIN32 _AMD64_ COMP_VC OS_WIN64 PROC_AMD64 NDEBUG _WINDOWS _USRDLL CRYANIMATION_EXPORTS DONT_USE_CRY_MEMORY_MANAGER)
-target_compile_options(CryAnimation PRIVATE "-fpermissive")
-target_link_libraries(CryAnimation -static XRenderD3D9)
+target_compile_definitions(CryAnimation PRIVATE _RELEASE NDEBUG WIN64 WIN32 _AMD64_ COMP_VC OS_WIN64 PROC_AMD64 NDEBUG _WINDOWS _USRDLL CRYANIMATION_EXPORTS DONT_USE_CRY_MEMORY_MANAGER FAR_CRY_STATIC_LIBS)
+target_link_libraries(CryAnimation -static XRenderD3D9 CryCommon)
