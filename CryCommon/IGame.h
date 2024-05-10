@@ -19,7 +19,7 @@
 # pragma once
 #endif
 
-#ifdef WIN32 
+#if defined(WIN32) && !defined(FAR_CRY_STATIC_LIBS)
 #ifdef CRYGAME_EXPORTS
 #define CRYGAME_API __declspec(dllexport)
 #else

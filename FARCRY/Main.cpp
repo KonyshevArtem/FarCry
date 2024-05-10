@@ -731,7 +731,7 @@ bool RunGame(HINSTANCE hInstance,const char *sCmdLine)
 			g_pISystem->GetIConsole()->SetScrollMax(600/2);
 
 
-	#ifdef WIN32
+	#if defined(WIN32) && !defined(FAR_CRY_STATIC_LIBS)
 			SGameInitParams ip;
 			ip.sGameDLL = DLL_GAME;
 			if (szLocalCmdLine[0])

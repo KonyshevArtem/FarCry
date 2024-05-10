@@ -77,12 +77,15 @@ typedef std::vector< TCHAR > tvector;
 #endif
  
 //////////////////////////////////////////////////////////////////////////
+
+#if !defined(FAR_CRY_STATIC_LIBS)
 // Pointer to Global ISystem.
 static ISystem* gISystem = 0;
 ISystem* GetISystem()
 {
 	return gISystem;
 }
+#endif
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 // DLL Interface
@@ -532,7 +535,11 @@ bool CXGame::Init(struct ISystem *pSystem,bool bDedicatedSrv,bool bInEditor,cons
 
 	m_pGameMods = new CGameMods(this);
 
-	gISystem = pSystem;
+#if defined(FAR_CRY_STATIC_LIBS)
+	SetISystem(pSystem);
+#else
+    gISystem = pSystem;
+#endif
 	m_bDedicatedServer=bDedicatedSrv;
 	m_XAreaMgr.Init( pSystem );
 	m_bEditor=bInEditor;

@@ -591,7 +591,7 @@ public:
 //////////////////////////////////////////////////////////////////////////
 bool CSystem::CreateGame( const SGameInitParams &params )
 {
-#if defined(WIN32) || defined(LINUX)
+#if (defined(WIN32) || defined(LINUX)) && !defined(FAR_CRY_STATIC_LIBS)
 	if (m_bEditor)
 	{
 		//////////////////////////////////////////////////////////////////////////
@@ -693,7 +693,7 @@ bool CSystem::CreateGame( const SGameInitParams &params )
 	else
 	{
 		m_pGame = CreateGameInstance();
-		m_pGame->Init(this, m_bEditor);
+		m_pGame->Init(this, params.bDedicatedServer,m_bEditor,m_szGameMOD);
 	}
 
 	if (m_pIPhysicalWorld)
