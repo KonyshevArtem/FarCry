@@ -44,18 +44,26 @@ extern "C" __declspec(dllexport) void CryModuleGetMemoryInfo( CryModuleMemoryInf
 // dll interface	
 
 //////////////////////////////////////////////////////////////////////////
+
+#if !defined(FAR_CRY_STATIC_LIBS)
 // Pointer to Global ISystem.
 static ISystem* gISystem = 0;
 ISystem* GetISystem()
 {
 	return gISystem;
 }
+#endif
+
 //////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////
 extern "C" ISoundSystem* CreateSoundSystem(struct ISystem* pISystem, void* pInitData)
 {
-	gISystem = pISystem;
+#if defined(FAR_CRY_STATIC_LIBS)
+    SetISystem(pISystem);
+#else
+    gISystem = pISystem;
+#endif
 	//create a brand new sound system
 #ifndef _XBOX
 	CSoundSystem* pSoundSystem = new CSoundSystem(pISystem, (HWND)pInitData);
@@ -81,7 +89,7 @@ extern "C" ISoundSystem* CreateSoundSystem(struct ISystem* pISystem, void* pInit
 }
 
 #ifndef __MWERKS__
-#ifndef _XBOX
+#if !defined(_XBOX) && !defined(FAR_CRY_STATIC_LIBS)
 ///////////////////////////////////////////////
 BOOL APIENTRY DllMain(HANDLE hModule, DWORD  ul_reason_for_call,  LPVOID lpReserved)
 {

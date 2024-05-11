@@ -1,4 +1,4 @@
-add_library(CrySoundSystem SHARED
+add_library(CrySoundSystem STATIC
         "ADPCMDecoder.cpp"
         "CrySoundSystem.cpp"
         "MusicPattern.cpp"
@@ -35,7 +35,6 @@ add_library(CrySoundSystem SHARED
         "StdAfx.h"
 )
 
-target_include_directories(CrySoundSystem PRIVATE ../CryCommon ./OggVorbisInclude)
-target_compile_definitions(CrySoundSystem PRIVATE _RELEASE NDEBUG WIN64 WIN32 _AMD64_ _WINDOWS _USRDLL CRYSOUNDSYSTEM_EXPORTS DONT_USE_CRY_MEMORY_MANAGER)
-target_compile_options(CrySoundSystem PRIVATE "-fpermissive")
-target_link_libraries(CrySoundSystem -static)
+target_include_directories(CrySoundSystem PRIVATE ./OggVorbisInclude)
+target_compile_definitions(CrySoundSystem PRIVATE _RELEASE NDEBUG WIN64 WIN32 _AMD64_ _WINDOWS _USRDLL CRYSOUNDSYSTEM_EXPORTS DONT_USE_CRY_MEMORY_MANAGER FAR_CRY_STATIC_LIBS)
+target_link_libraries(CrySoundSystem CryCommon -static)

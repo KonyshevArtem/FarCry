@@ -13,7 +13,6 @@ target_link_libraries(
         CryNetwork
         CryPhysics
         CryScriptSystem
-        CrySoundSystem
         CrySystem
         XRenderD3D9
         -static

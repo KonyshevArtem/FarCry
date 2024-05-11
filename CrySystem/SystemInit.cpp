@@ -519,7 +519,7 @@ bool CSystem::InitRenderer(WIN_HINSTANCE hinst, WIN_HWND hwnd,const char *szCmdL
 bool CSystem::InitSound(WIN_HWND hwnd)
 {
 #if !defined(LINUX)
-#ifndef _XBOX
+#if !defined(_XBOX) && !defined(FAR_CRY_STATIC_LIBS)
 	m_dll.hSound = LoadDLL(DLL_SOUND);
 	if(!m_dll.hSound)
 		return false;

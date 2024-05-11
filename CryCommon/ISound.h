@@ -603,7 +603,7 @@ struct IMusicSystemSink
 //////////////////////////////////////////////////////////////////////////////////////////////
 typedef ISoundSystem* (*PFNCREATESOUNDSYSTEM)(struct ISystem*, void*);
 
-#ifdef WIN32
+#if defined(WIN32) && !defined(FAR_CRY_STATIC_LIBS)
 extern "C" 
 #ifdef CRYSOUNDSYSTEM_EXPORTS
 	#define CRYSOUND_API __declspec(dllexport)
