@@ -1,7 +1,7 @@
 #ifndef _ISCRIPTSYSTEM_H_
 #define _ISCRIPTSYSTEM_H_
 
-#if !defined(_XBOX) && !defined(LINUX)
+#if !defined(_XBOX) && !defined(LINUX) && !defined(FAR_CRY_STATIC_LIBS)
 	#ifdef CRYSCRIPTSYSTEM_EXPORTS
 		#define CRYSCRIPTSYSTEM_API __declspec(dllexport)
 	#else

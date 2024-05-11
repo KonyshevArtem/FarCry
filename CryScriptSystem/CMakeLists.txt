@@ -1,4 +1,4 @@
-add_library(CryScriptSystem SHARED
+add_library(CryScriptSystem STATIC
         "CryScriptSystem.cpp"
         "FunctionHandler.cpp"
         "LuaCryPakIO.cpp"
@@ -67,7 +67,6 @@ add_library(CryScriptSystem SHARED
         "StdAfx.h"
 )
 
-target_include_directories(CryScriptSystem PRIVATE ./LUA ../CryCommon)
-target_compile_definitions(CryScriptSystem PRIVATE _RELEASE NDEBUG WIN64 WIN32 _AMD64_ _WINDOWS CRYSCRIPTSYSTEM_EXPORTS DONT_USE_CRY_MEMORY_MANAGER)
-target_compile_options(CryScriptSystem PRIVATE "-fpermissive")
-target_link_libraries(CryScriptSystem -static)
+target_include_directories(CryScriptSystem PRIVATE ./LUA)
+target_compile_definitions(CryScriptSystem PRIVATE _RELEASE NDEBUG WIN64 WIN32 _AMD64_ _WINDOWS CRYSCRIPTSYSTEM_EXPORTS DONT_USE_CRY_MEMORY_MANAGER FAR_CRY_STATIC_LIBS)
+target_link_libraries(CryScriptSystem CryCommon -static)

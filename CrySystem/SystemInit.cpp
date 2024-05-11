@@ -787,7 +787,7 @@ bool CSystem::InitAISystem()
 /////////////////////////////////////////////////////////////////////////////////
 bool CSystem::InitScriptSystem()
 {
-#ifndef _XBOX
+#if !defined(_XBOX) && !defined(FAR_CRY_STATIC_LIBS)
 #if defined(LINUX)
 	m_dll.hScript = LoadDLL("cryscriptsystem.so");
 #else
@@ -815,13 +815,13 @@ bool CSystem::InitScriptSystem()
 	}
 #else
 	m_pScriptSink = new CScriptSink(this,m_pConsole);
-	m_pScriptSystem=CreateScriptSystem(m_pScriptSink,NULL,true);
+	m_pScriptSystem=CreateScriptSystem(this,m_pScriptSink,NULL,true);
 	if (m_pScriptSystem==NULL)
 	{
 		Error( "Error initializeing ScriptSystem" );
 		delete m_pScriptSink;
 		m_pScriptSink = NULL;
-    return (false);
+        return (false);
 	}
 #endif
 

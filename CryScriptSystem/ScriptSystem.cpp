@@ -1754,18 +1754,26 @@ USER_DATA CScriptSystem::CreateUserData(INT_PTR nVal,int nCookie)	//AMD Port
 //////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////////
+
+#if !defined(FAR_CRY_STATIC_LIBS)
 // Pointer to Global ISystem.
 static ISystem* gISystem = 0;
 ISystem* GetISystem()
 {
 	return gISystem;
 }
+#endif
+
 //////////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////
 IScriptSystem *CreateScriptSystem(ISystem *pSystem,IScriptSystemSink *pSink, IScriptDebugSink *pDebugSink, bool bStdLibs)
 {
+#if defined(FAR_CRY_STATIC_LIBS)
+    SetISystem(pSystem);
+#else
 	gISystem = pSystem;
+#endif
 	CScriptSystem *pScriptSystem = new CScriptSystem;
 	pScriptSystem->Validate();
 	if (!pScriptSystem->Init(pSink, pDebugSink, bStdLibs, 1024))
