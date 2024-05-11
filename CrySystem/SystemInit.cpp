@@ -290,7 +290,7 @@ IRenderer* CSystem::CreateRenderer(bool fullscreen, void* hinst, void* hWndAttac
 bool CSystem::InitNetwork()
 {
 
-#ifndef _XBOX
+#if !defined(_XBOX) && !defined(FAR_CRY_STATIC_LIBS)
 	PFNCREATENETWORK pfnCreateNetwork;
 	m_dll.hNetwork = LoadDLL( DLL_NETWORK );
 	if (!m_dll.hNetwork)
@@ -304,7 +304,7 @@ bool CSystem::InitNetwork()
 		return false;
 	}
 #else
-	m_pNetwork=CreateNetwork();
+	m_pNetwork=CreateNetwork(this);
 	if(m_pNetwork==NULL)
 	{
 		Error("Error creating Network System (CreateNetwork) !");

@@ -9,8 +9,6 @@ target_link_libraries(
         FarCry
         CryCommon
         CryGame
-        CryMovie
-        CryNetwork
         CryPhysics
         CryScriptSystem
         CrySystem

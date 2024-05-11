@@ -17,15 +17,19 @@
 #include "Network.h"
 
 //////////////////////////////////////////////////////////////////////////
+
+#if !defined(FAR_CRY_STATIC_LIBS)
 // Pointer to Global ISystem.
 static ISystem* gISystem = 0;
 ISystem* GetISystem()
 {
 	return gISystem;
 }
+#endif
+
 //////////////////////////////////////////////////////////////////////////
 
-#if !defined(XBOX)
+#if !defined(XBOX) && !defined(FAR_CRY_STATIC_LIBS)
 _ACCESS_POOL;
 #if !defined(LINUX)
 
@@ -41,16 +45,20 @@ BOOL APIENTRY DllMain( HANDLE hModule,
 #endif
 #endif
 
-#ifndef _XBOX
+#if !defined(_XBOX) && !defined(FAR_CRY_STATIC_LIBS)
 CRYNETWORK_API INetwork *CreateNetwork(ISystem *pSystem)
 #else
 INetwork *CreateNetwork(ISystem *pSystem)
 #endif
 {
+#if defined(FAR_CRY_STATIC_LIBS)
+    SetISystem(pSystem);
+#else
 	gISystem = pSystem;
+#endif
 	CNetwork *pNetwork=new CNetwork;
 
-	if(!pNetwork->Init(gISystem->GetIScriptSystem()))
+	if(!pNetwork->Init(pSystem->GetIScriptSystem()))
 	{
 		delete pNetwork;
 		return NULL;

@@ -13,12 +13,12 @@
 
 #ifndef _INETWORK_H_
 #define _INETWORK_H_
-#if defined(WIN32) || defined(WIN64)
+#if (defined(WIN32) || defined(WIN64)) && !defined(FAR_CRY_STATIC_LIBS)
 	#ifdef CRYNETWORK_EXPORTS
 	#define CRYNETWORK_API __declspec(dllexport)
 	#else
 	#define CRYNETWORK_API __declspec(dllimport)
-#endif
+    #endif
 #else
 	#define CRYNETWORK_API 
 #endif
