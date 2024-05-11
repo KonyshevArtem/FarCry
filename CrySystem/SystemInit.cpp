@@ -728,7 +728,7 @@ bool CSystem::InitPhysics()
 bool CSystem::InitMovieSystem()
 {
 #if !defined(LINUX)
-#ifdef WIN32
+#if defined(WIN32) && !defined(FAR_CRY_STATIC_LIBS)
 	m_dll.hMovie = LoadDLL(DLL_MOVIE);
 	if(!m_dll.hMovie)
 		return false;

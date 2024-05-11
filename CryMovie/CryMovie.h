@@ -5,7 +5,7 @@
 // that uses this DLL. This way any other project whose source files include this file see 
 // CRYMOVIE_API functions as being imported from a DLL, wheras this DLL sees symbols
 // defined with this macro as being exported.
-#ifdef WIN32
+#if defined(WIN32) && !defined(FAR_CRY_STATIC_LIBS)
 	#ifdef CRYMOVIE_EXPORTS
 		#define CRYMOVIE_API __declspec(dllexport)
 	#else

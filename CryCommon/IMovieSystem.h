@@ -36,6 +36,11 @@ struct IGame;
 
 typedef IMovieSystem* (*PFNCREATEMOVIESYSTEM)(struct ISystem*);
 
+extern "C"
+{
+    IMovieSystem *CreateMovieSystem(ISystem *);
+}
+
 #define MAX_ANIM_NAME_LENGTH 64
 //! Very high priority for cut scene sounds.
 #define MOVIE_SOUND_PRIORITY 230

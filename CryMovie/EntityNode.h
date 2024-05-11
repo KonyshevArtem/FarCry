@@ -121,7 +121,7 @@ private:
 	//! Last animated key in Entity track.
 	int m_lastEntityKey;
 	int m_lastCharacterKey[3];
-	SSoundInfo m_SoundInfo[ENTITY_SOUNDTRACKS];
+	SMovieSoundInfo m_SoundInfo[ENTITY_SOUNDTRACKS];
 	TStringSet m_setExpressions;
 
 	//! World transformation matrix.

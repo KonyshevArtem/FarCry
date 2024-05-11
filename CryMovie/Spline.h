@@ -481,7 +481,7 @@ inline	void	TCBSpline<T>::interp_keys( int from,int to,float u,T& val )
 }
 
 /****************************************************************************
-**                        TCBQuatSpline class implementation							 **
+**                        TCBQuatMovieSpline class implementation							 **
 ****************************************************************************/
 ///////////////////////////////////////////////////////////////////////////////
 // Quaternion TCB slerp, specification.
@@ -498,7 +498,7 @@ inline	void TCBSpline<Quat>::compLastDeriv()	{}
 template<>
 inline	void TCBSpline<Quat>::comp2KeyDeriv()	{}
 
-class	TCBQuatSpline : public TCBSpline<Quat> {
+class	TCBQuatMovieSpline : public TCBSpline<Quat> {
 public:
 	void	interpolate( float time,value_type& val );
 
@@ -519,7 +519,7 @@ private:
 	}
 };
 
-inline	void	TCBQuatSpline::interpolate( float tm,value_type& val )
+inline	void	TCBQuatMovieSpline::interpolate( float tm,value_type& val )
 {
 	if (empty()) return;
 
@@ -551,7 +551,7 @@ inline	void	TCBQuatSpline::interpolate( float tm,value_type& val )
 	}
 }
 
-inline	void	TCBQuatSpline::interp_keys( int from,int to,float u,value_type& val ) {
+inline	void	TCBQuatMovieSpline::interp_keys( int from,int to,float u,value_type& val ) {
 	u = calc_ease( u,key(from).easefrom,key(to).easeto );
 	basis_type basis( u );
 	//val = SquadRev( angle(to),axis(to), value(from), dd(from), ds(to), value(to), u );
@@ -559,7 +559,7 @@ inline	void	TCBQuatSpline::interp_keys( int from,int to,float u,value_type& val 
 	val = GetNormalized(val);	// Normalize quaternion.
 }
 
-inline	void TCBQuatSpline::comp_deriv()
+inline	void TCBQuatMovieSpline::comp_deriv()
 {
 	if (num_keys() > 1)
 	{
@@ -572,7 +572,7 @@ inline	void TCBQuatSpline::comp_deriv()
 }
 
 #define	M_2PI		(2.0f*3.14159f - 0.00001f)
-inline	void TCBQuatSpline::compMiddleDeriv( int curr )
+inline	void TCBQuatMovieSpline::compMiddleDeriv( int curr )
 {
 	Quat  qp,qm;	
 	float fp,fn;

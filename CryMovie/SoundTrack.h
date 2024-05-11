@@ -3,7 +3,7 @@
 #include "IMovieSystem.h"
 #include "AnimTrack.h"
 
-struct SSoundInfo
+struct SMovieSoundInfo
 {
 	int nLastKey;
 	string sLastFilename;

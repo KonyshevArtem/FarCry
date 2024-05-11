@@ -76,7 +76,7 @@ private:
 	int m_lastMusicKey;
 	int m_lastSequenceKey;
 	int m_sequenceCameraId;
-	SSoundInfo m_SoundInfo[SCENE_SOUNDTRACKS];
+	SMovieSoundInfo m_SoundInfo[SCENE_SOUNDTRACKS];
 };
 
 #endif // __entitynode_h__

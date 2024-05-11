@@ -181,7 +181,7 @@ void TAnimTcbTrack<Vec3>::SetValue(float time, const Vec3 &value, bool bDefault)
 template<>
 TAnimTcbTrack<Quat>::TAnimTcbTrack()
 {
-    m_spline = new TCBQuatSpline;
+    m_spline = new TCBQuatMovieSpline;
     m_flags = 0;
     m_defaultValue.SetIdentity();
 }
