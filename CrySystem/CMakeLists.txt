@@ -191,6 +191,7 @@ target_link_libraries(
         CryMovie
         CrySoundSystem
         CryNetwork
+        CryPhysics
         wininet
         dbghelp
         version

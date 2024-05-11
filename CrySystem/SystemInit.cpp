@@ -554,7 +554,7 @@ bool CSystem::InitSound(WIN_HWND hwnd)
 /////////////////////////////////////////////////////////////////////////////////
 bool CSystem::InitPhysics()
 {
-#ifndef _XBOX
+#if !defined(_XBOX) && !defined(FAR_CRY_STATIC_LIBS)
 	m_dll.hPhysics = LoadDLL(DLL_PHYSICS);
 	if(!m_dll.hPhysics)
 		return false;

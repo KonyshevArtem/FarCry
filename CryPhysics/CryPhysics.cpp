@@ -24,28 +24,36 @@ _ACCESS_POOL;
 float g_costab[SINCOSTABSZ],g_sintab[SINCOSTABSZ];
 
 //////////////////////////////////////////////////////////////////////////
+
+#if !defined(FAR_CRY_STATIC_LIBS)
 // Pointer to Global ISystem.
 static ISystem* gISystem = 0;
 ISystem* GetISystem()
 {
 	return gISystem;
 }
+#endif
+
 //////////////////////////////////////////////////////////////////////////
 
-#ifdef _WIN32
+#if defined(_WIN32) && !defined(FAR_CRY_STATIC_LIBS)
 BOOL APIENTRY DllMain(HANDLE hModule, DWORD ul_reason_for_call, LPVOID lpReserved)
 {
 	return TRUE;
 }
 #endif
 
-#ifndef _XBOX
+#if !defined(_XBOX) && !defined(FAR_CRY_STATIC_LIBS)
 CRYPHYSICS_API IPhysicalWorld *CreatePhysicalWorld(ISystem *pSystem)
 #else
 IPhysicalWorld *CreatePhysicalWorld(ISystem *pSystem)
 #endif
 {
-	gISystem = pSystem;
+#if defined(FAR_CRY_STATIC_LIBS)
+    SetISystem(pSystem);
+#else
+    gISystem = pSystem;
+#endif
 	g_bHasSSE = (pSystem->GetCPUFlags() & CPUF_SSE)!=0;
 	for(int i=0; i<SINCOSTABSZ; i++) {
 		g_costab[i] = cosf(i*(pi*0.5f/SINCOSTABSZ));

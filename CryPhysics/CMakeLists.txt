@@ -1,4 +1,4 @@
-add_library(CryPhysics SHARED
+add_library(CryPhysics STATIC
         "aabbtree.cpp"
         "articulatedentity.cpp"
         "boolean2d.cpp"
@@ -71,7 +71,5 @@ add_library(CryPhysics SHARED
         "wheeledvehicleentity.h"
 )
 
-target_include_directories(CryPhysics PRIVATE ../CryCommon)
-target_compile_definitions(CryPhysics PRIVATE _RELEASE NDEBUG WIN64 WIN32 _AMD64_ _WINDOWS _USRDLL PHYSICS_EXPORTS DONT_USE_CRY_MEMORY_MANAGER)
-target_compile_options(CryPhysics PRIVATE "-fpermissive")
-target_link_libraries(CryPhysics -static)
+target_compile_definitions(CryPhysics PRIVATE _RELEASE NDEBUG WIN64 WIN32 _AMD64_ _WINDOWS _USRDLL PHYSICS_EXPORTS DONT_USE_CRY_MEMORY_MANAGER FAR_CRY_STATIC_LIBS)
+target_link_libraries(CryPhysics CryCommon -static)

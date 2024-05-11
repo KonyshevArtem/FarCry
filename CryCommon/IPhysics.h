@@ -2,7 +2,7 @@
 #define cryphysics_h
 #pragma once
 
-#ifdef WIN32
+#if defined(WIN32) && !defined(FAR_CRY_STATIC_LIBS)
 	#ifdef PHYSICS_EXPORTS
 		#define CRYPHYSICS_API __declspec(dllexport)
 	#else

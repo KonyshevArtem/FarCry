@@ -9,7 +9,6 @@ target_link_libraries(
         FarCry
         CryCommon
         CryGame
-        CryPhysics
         CryScriptSystem
         CrySystem
         XRenderD3D9
