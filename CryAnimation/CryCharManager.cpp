@@ -63,8 +63,8 @@ ICryCharManager * CreateCharManager(ISystem	* pSystem, const char * szInterfaceV
 #endif
 	CryCharManager * pCryCharManager = new CryCharManager(pSystem);
 
-	g_CpuFlags = pSystem->GetCPUFlags();
-	g_SecondsPerCycle = pSystem->GetSecondsPerCycle();
+    g_AnimationCpuFlags = pSystem->GetCPUFlags();
+    g_AnimationSecondsPerCycle = pSystem->GetSecondsPerCycle();
 
 	return static_cast<ICryCharManager*>(pCryCharManager);
 }

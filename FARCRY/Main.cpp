@@ -680,6 +680,14 @@ bool RunGame(HINSTANCE hInstance,const char *sCmdLine)
 			}
 		}
 
+        // Initialize with instance and window handles.
+        sip.hInstance = hInstance;
+        sip.hWnd = hWnd;
+        sip.pSystem = g_pISystem;
+        sip.pCheckFunc = AuthCheckFunction;
+#endif
+
+#if !defined(_XBOX) && !defined(FAR_CRY_STATIC_LIBS)
 		g_hSystemHandle = LoadLibrary(DLL_SYSTEM);
 		if (!g_hSystemHandle)
 		{
@@ -691,12 +699,6 @@ bool RunGame(HINSTANCE hInstance,const char *sCmdLine)
 
 		PFNCREATESYSTEMINTERFACE pfnCreateSystemInterface =
 			(PFNCREATESYSTEMINTERFACE)::GetProcAddress( g_hSystemHandle,"CreateSystemInterface" );
-
-		// Initialize with instance and window handles.
-		sip.hInstance = hInstance;
-		sip.hWnd = hWnd;
-		sip.pSystem = g_pISystem;
-		sip.pCheckFunc = AuthCheckFunction;
 
 		// initialize the system
 		g_pISystem = pfnCreateSystemInterface( sip );

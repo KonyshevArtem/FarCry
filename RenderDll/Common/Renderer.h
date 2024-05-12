@@ -33,7 +33,7 @@ typedef void (PROCRENDEF)(SShaderPass *l, int nPrimType);
 #define USE_3DC 1
 //#define USE_FX 1
 
-#ifdef LINUX
+#if defined(LINUX) || defined(FAR_CRY_STATIC_LIBS)
 #	define DLL_IMPORT	
 #	define DLL_EXPORT 
 #else

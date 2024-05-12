@@ -825,7 +825,7 @@ bool CREOcean::mfPreDraw(SShaderPass *sl)
 
 
 
-
+#if !defined(FAR_CRY_STATIC_LIBS)
 char BoxSides[0x40*8] = {
 	  0,0,0,0, 0,0,0,0, //00
 		0,4,6,2, 0,0,0,4, //01
@@ -892,6 +892,7 @@ char BoxSides[0x40*8] = {
 		0,0,0,0, 0,0,0,0, //3e
 		0,0,0,0, 0,0,0,0, //3f
 };
+#endif
 
 
 

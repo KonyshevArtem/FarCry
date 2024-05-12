@@ -374,7 +374,7 @@ void CGLRenderer::ChangeLog()
 //////////////////////////////////////////////////////////////////////
 void CGLRenderer::BeginFrame()
 {
-  g_bProfilerEnabled = iSystem->GetIProfileSystem()->IsProfiling();
+    g_bRenderProfilerEnabled = iSystem->GetIProfileSystem()->IsProfiling();
 
   PROFILE_FRAME(Screen_Begin);
 

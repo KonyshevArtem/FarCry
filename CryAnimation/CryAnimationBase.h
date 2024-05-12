@@ -186,8 +186,8 @@ extern unsigned g_nAsyncAnimCounter;
 // this is the sum of all delays between animation load and animation load finish, in frames
 extern unsigned g_nAsyncAnimFrameDelays;
 
-extern int g_CpuFlags;
-extern double g_SecondsPerCycle;
+extern int g_AnimationCpuFlags;
+extern double g_AnimationSecondsPerCycle;
 
 #define ENABLE_GET_MEMORY_USAGE 1
 

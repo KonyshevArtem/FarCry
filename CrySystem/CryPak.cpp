@@ -879,21 +879,6 @@ int CCryPak::Ungetc(int c, FILE *hFile)
 		return ungetc(c, hFile);
 }
 
-#ifndef _XBOX
-const char *GetExtension (const char *in)
-{
-	while (*in)
-	{
-		if (*in=='.')
-			return in;
-		in++;
-	}
-	return NULL;
-}
-#else
-const char *GetExtension (const char *in);
-#endif //_XBOX
-
 //////////////////////////////////////////////////////////////////////////
 intptr_t CCryPak::FindFirst(const char *pDir, struct _finddata_t *fd)
 {

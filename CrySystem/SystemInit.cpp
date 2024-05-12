@@ -172,7 +172,7 @@ bool CSystem::OpenRenderLibrary(int type)
   sp.ipTimer = GetITimer();
 	sp.pIPhysicalWorld = m_pIPhysicalWorld;
 
-#ifndef _XBOX
+#if !defined(_XBOX) && !defined(FAR_CRY_STATIC_LIBS)
 	char libname[128];
 	if (type == R_GL_RENDERER)
     strcpy(libname, "XRenderOGL.dll");

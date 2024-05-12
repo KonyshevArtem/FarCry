@@ -1,7 +1,7 @@
 #ifndef _CRY_SYSTEM_H_
 #define _CRY_SYSTEM_H_
 
-#ifdef WIN32
+#if defined(WIN32) && !defined(FAR_CRY_STATIC_LIBS)
 	#ifdef CRYSYSTEM_EXPORTS
 		#define CRYSYSTEM_API __declspec(dllexport)
 	#else

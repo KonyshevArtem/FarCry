@@ -1,4 +1,4 @@
-add_library(XRenderD3D9 SHARED
+add_library(XRenderD3D9 STATIC
         "../Common/3DUtils.cpp"
         "../Common/CRT.cpp"
         "../Common/EvalFuncs_C.cpp"
@@ -174,12 +174,11 @@ add_library(XRenderD3D9 SHARED
 )
 
 set(COMPILE_DEFINITIONS _RELEASE NDEBUG WIN64 WIN32 _AMD64_ ENABLE_FRAME_PROFILER COMP_VC DIRECT3D9 OS_WIN32 PROC_INTEL
-        _WINDOWS _USRDLL XRENDERD3D9_EXPORTS DO_RENDERLOG DO_RENDERSTATS _RENDERER DONT_USE_CRY_MEMORY_MANAGER)
+        _WINDOWS _USRDLL XRENDERD3D9_EXPORTS DO_RENDERLOG DO_RENDERSTATS _RENDERER DONT_USE_CRY_MEMORY_MANAGER FAR_CRY_STATIC_LIBS)
 set(CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH};${CMAKE_CURRENT_LIST_DIR}")
 
 find_package(DirectX9 MODULE)
 
-target_include_directories(XRenderD3D9 PRIVATE ../../CryCommon ../ ${DIRECTX_INCLUDE_DIRS})
+target_include_directories(XRenderD3D9 PRIVATE ../ ${DIRECTX_INCLUDE_DIRS})
 target_compile_definitions(XRenderD3D9 PRIVATE ${COMPILE_DEFINITIONS})
-target_compile_options(XRenderD3D9 PRIVATE "-fpermissive")
-target_link_libraries(XRenderD3D9 -static winmm ${DIRECTX_LIBRARIES})
+target_link_libraries(XRenderD3D9 CryCommon -static winmm ${DIRECTX_LIBRARIES})

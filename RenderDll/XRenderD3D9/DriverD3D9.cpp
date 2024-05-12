@@ -599,7 +599,7 @@ void CD3D9Renderer::BeginFrame()
 
   assert(m_pd3dDevice);
 
-	g_bProfilerEnabled = iSystem->GetIProfileSystem()->IsProfiling();
+    g_bRenderProfilerEnabled = iSystem->GetIProfileSystem()->IsProfiling();
   
   PROFILE_FRAME(Screen_Begin);
 
@@ -4436,14 +4436,20 @@ ISystem  *iSystem;
 int *pTest_int;
 IPhysicalWorld *pIPhysicalWorld;
 
+#if !defined(FAR_CRY_STATIC_LIBS)
 ISystem *GetISystem()
 {
   return iSystem;
 }
+#endif
 
 extern "C" DLL_EXPORT IRenderer* PackageRenderConstructor(int argc, char* argv[], SCryRenderInterface *sp);
 DLL_EXPORT IRenderer* PackageRenderConstructor(int argc, char* argv[], SCryRenderInterface *sp)
 {
+#if defined(FAR_CRY_STATIC_LIBS)
+    SetISystem(sp->ipSystem);
+#endif
+
   gbRgb = false;
 
   iConsole = sp->ipConsole;

@@ -1012,7 +1012,7 @@ void CryCharInstance::Render(const struct SRendParams& RendParams, const Vec3& t
 		if (RendParams.pMatrix)
 			mtxObjMatrix = *RendParams.pMatrix;
 		else
-			mathCalcMatrix(mtxObjMatrix, RendParams.vPos+m_pModelState->m_vOffset, vAngles, Vec3d(1,1,1), g_CpuFlags);
+			mathCalcMatrix(mtxObjMatrix, RendParams.vPos+m_pModelState->m_vOffset, vAngles, Vec3d(1,1,1), g_AnimationCpuFlags);
 
 
 //		Vec3 trans=mtxObjMatrix.GetTranslationOLD();

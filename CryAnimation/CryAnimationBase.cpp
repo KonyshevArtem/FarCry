@@ -71,8 +71,8 @@ double g_dTimeTest2;
 double g_dTimeTest3;
 double g_dTimeTest4;
 
-int g_CpuFlags;
-double g_SecondsPerCycle;
+int g_AnimationCpuFlags;
+double g_AnimationSecondsPerCycle;
 
 // the number of animations that were loaded asynchronously
 // (one animation can be counted several times if it has been loaded/unloaded)

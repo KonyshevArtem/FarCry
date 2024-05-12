@@ -108,4 +108,4 @@ add_library(Cry3DEngine STATIC
 )
 
 target_compile_definitions(Cry3DEngine PRIVATE WIN32 NDEBUG _WINDOWS _USRDLL CRY3DENGINE_EXPORTS WIN64 _AMD64_ DONT_USE_CRY_MEMORY_MANAGER FAR_CRY_STATIC_LIBS)
-target_link_libraries(Cry3DEngine PRIVATE CryCommon -static XRenderD3D9)
+target_link_libraries(Cry3DEngine PRIVATE CryCommon -static)

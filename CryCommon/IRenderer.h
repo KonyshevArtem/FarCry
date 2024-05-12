@@ -1258,4 +1258,11 @@ struct ItShadowVolume
   virtual	void CheckUnload() {};
 };
 
+#if defined(FAR_CRY_STATIC_LIBS)
+extern "C"
+{
+    IRenderer *PackageRenderConstructor(int argc, char *argv[], SCryRenderInterface *sp);
+}
+#endif
+
 #endif //rende

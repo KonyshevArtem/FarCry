@@ -20,7 +20,7 @@
 
 //////////////////////////////////////////////////////////////////////
 extern CRenderer *gRenDev;
-extern bool g_bProfilerEnabled;
+extern bool g_bRenderProfilerEnabled;
 
 
 class CryModel;

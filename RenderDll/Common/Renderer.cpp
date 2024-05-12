@@ -27,7 +27,7 @@
 // Globals.
 //////////////////////////////////////////////////////////////////////////
 CRenderer *gRenDev = NULL;
-bool g_bProfilerEnabled = false;
+bool g_bRenderProfilerEnabled = false;
 int g_CpuFlags;
 double g_SecondsPerCycle;
 

@@ -10,6 +10,5 @@ target_link_libraries(
         CryCommon
         CryGame
         CrySystem
-        XRenderD3D9
         -static
 )

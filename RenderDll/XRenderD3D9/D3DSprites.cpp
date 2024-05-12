@@ -148,7 +148,7 @@ uint CD3D9Renderer::MakeSprite(float _fSpriteDistance, int tex_size, float angle
 
 
 
-#ifdef WIN32
+#if defined(WIN32) && !defined(FAR_CRY_STATIC_LIBS)
 
 // duplicated definition (first one is in 3dengine)
 ISystem * Cry3DEngineBase::m_pSys=0;

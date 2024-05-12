@@ -37,14 +37,14 @@ const SFileVersion& CSystem::GetProductVersion()
 //////////////////////////////////////////////////////////////////////////
 void CSystem::QueryVersionInfo()   
 {
-#if defined(LINUX)
+#if defined(LINUX) || defined(FAR_CRY_STATIC_LIBS)
 		//do we need some other values here?
-		m_fileVersion.v[0] = VERSION_INFO; 
+		m_fileVersion.v[0] = 1;
 		m_fileVersion.v[1] = 1;
 		m_fileVersion.v[2] = 1;
 		m_fileVersion.v[3] = 1;
  
-		m_productVersion.v[0] = VERSION_INFO;
+		m_productVersion.v[0] = 1;
 		m_productVersion.v[1] = 1;
 		m_productVersion.v[2] = 1;
 		m_productVersion.v[3] = 1;
