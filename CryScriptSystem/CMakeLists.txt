@@ -68,5 +68,4 @@ add_library(CryScriptSystem STATIC
 )
 
 target_include_directories(CryScriptSystem PRIVATE ./LUA)
-target_compile_definitions(CryScriptSystem PRIVATE _RELEASE NDEBUG WIN64 WIN32 _AMD64_ _WINDOWS CRYSCRIPTSYSTEM_EXPORTS DONT_USE_CRY_MEMORY_MANAGER FAR_CRY_STATIC_LIBS)
 target_link_libraries(CryScriptSystem CryCommon -static)

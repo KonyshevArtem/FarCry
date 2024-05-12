@@ -149,5 +149,5 @@ add_library(CryAnimation STATIC
         "VertexBufferArrayDrivers.h"
 )
 
-target_compile_definitions(CryAnimation PRIVATE _RELEASE NDEBUG WIN64 WIN32 _AMD64_ COMP_VC OS_WIN64 PROC_AMD64 NDEBUG _WINDOWS _USRDLL CRYANIMATION_EXPORTS DONT_USE_CRY_MEMORY_MANAGER FAR_CRY_STATIC_LIBS)
+target_compile_definitions(CryAnimation PRIVATE COMP_VC)
 target_link_libraries(CryAnimation -static CryCommon)

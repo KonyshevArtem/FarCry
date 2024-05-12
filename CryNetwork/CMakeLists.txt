@@ -53,5 +53,5 @@ add_library(CryNetwork STATIC
         "StdAfx.h"
 )
 
-target_compile_definitions(CryNetwork PRIVATE _RELEASE NDEBUG WIN64 WIN32 _AMD64_ _WINDOWS _USRDLL CRYNETWORK_EXPORTS NOT_USE_UBICOM_SDK DONT_USE_CRY_MEMORY_MANAGER FAR_CRY_STATIC_LIBS)
+target_compile_definitions(CryNetwork PRIVATE NOT_USE_UBICOM_SDK)
 target_link_libraries(CryNetwork CryCommon ws2_32 -static)

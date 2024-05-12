@@ -2,7 +2,7 @@
 #define cryphysics_h
 #pragma once
 
-#ifndef _XBOX
+#if !defined(_XBOX) && !defined(FAR_CRY_STATIC_LIBS)
 	#ifdef PHYSICS_EXPORTS
 		#define CRYPHYSICS_API __declspec(dllexport)
 	#else

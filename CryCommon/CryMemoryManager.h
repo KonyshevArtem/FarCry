@@ -5,14 +5,13 @@
 #include <platform.h>
 #include <stdlib.h>
 
-#ifdef WIN32
+#if defined(WIN32) && !defined(FAR_CRY_STATIC_LIBS)
 	#ifdef CRYSYSTEM_EXPORTS
 		#define CRYMEMORYMANAGER_API __declspec(dllexport)
 	#else
 		#define CRYMEMORYMANAGER_API __declspec(dllimport)
 	#endif
-#endif //WIN32 
-#if defined(LINUX)
+#else
 	#define CRYMEMORYMANAGER_API
 #endif //LINUX 
 

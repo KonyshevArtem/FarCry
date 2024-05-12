@@ -1,4 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CMakeWorkspace" PROJECT_DIR="$PROJECT_DIR$" />
+  <component name="CidrRootsConfiguration">
+    <excludeRoots>
+      <file path="$PROJECT_DIR$/.vs" />
+      <file path="$PROJECT_DIR$/Cry3DEngine/Release" />
+      <file path="$PROJECT_DIR$/Cry3DEngine/Release64" />
+      <file path="$PROJECT_DIR$/Cry3DEngine/x64" />
+      <file path="$PROJECT_DIR$/CryAISystem/Release" />
+      <file path="$PROJECT_DIR$/CryAISystem/Release64" />
+      <file path="$PROJECT_DIR$/CryAISystem/x64" />
+      <file path="$PROJECT_DIR$/CryAnimation/Release" />
+      <file path="$PROJECT_DIR$/CryAnimation/Release64" />
+      <file path="$PROJECT_DIR$/CryAnimation/x64" />
+      <file path="$PROJECT_DIR$/CryCommon/Release" />
+      <file path="$PROJECT_DIR$/CryCommon/x64" />
+      <file path="$PROJECT_DIR$/CryEntitySystem/Release" />
+      <file path="$PROJECT_DIR$/CryEntitySystem/Release64" />
+      <file path="$PROJECT_DIR$/CryEntitySystem/x64" />
+      <file path="$PROJECT_DIR$/CryFont/Release" />
+      <file path="$PROJECT_DIR$/CryFont/Release64" />
+      <file path="$PROJECT_DIR$/CryFont/x64" />
+      <file path="$PROJECT_DIR$/CryGame/Release" />
+      <file path="$PROJECT_DIR$/CryGame/Release64" />
+      <file path="$PROJECT_DIR$/CryGame/x64" />
+      <file path="$PROJECT_DIR$/CryInput/Release" />
+      <file path="$PROJECT_DIR$/CryInput/Release64" />
+      <file path="$PROJECT_DIR$/CryInput/x64" />
+      <file path="$PROJECT_DIR$/CryMovie/Release" />
+      <file path="$PROJECT_DIR$/CryMovie/Release64" />
+      <file path="$PROJECT_DIR$/CryMovie/x64" />
+      <file path="$PROJECT_DIR$/CryNetwork/Release" />
+      <file path="$PROJECT_DIR$/CryNetwork/Release64" />
+      <file path="$PROJECT_DIR$/CryNetwork/x64" />
+      <file path="$PROJECT_DIR$/CryPhysics/Release" />
+      <file path="$PROJECT_DIR$/CryPhysics/Release64" />
+      <file path="$PROJECT_DIR$/CryPhysics/x64" />
+      <file path="$PROJECT_DIR$/CryScriptSystem/Release" />
+      <file path="$PROJECT_DIR$/CryScriptSystem/Release64" />
+      <file path="$PROJECT_DIR$/CryScriptSystem/x64" />
+      <file path="$PROJECT_DIR$/CrySoundSystem/Release" />
+      <file path="$PROJECT_DIR$/CrySoundSystem/Release64" />
+      <file path="$PROJECT_DIR$/CrySoundSystem/x64" />
+      <file path="$PROJECT_DIR$/CrySystem/Release" />
+      <file path="$PROJECT_DIR$/CrySystem/Release64" />
+      <file path="$PROJECT_DIR$/CrySystem/x64" />
+      <file path="$PROJECT_DIR$/Editor/Release" />
+      <file path="$PROJECT_DIR$/Editor/Release64" />
+      <file path="$PROJECT_DIR$/Editor/x64" />
+      <file path="$PROJECT_DIR$/FARCRY/Release" />
+      <file path="$PROJECT_DIR$/FARCRY/Release64" />
+      <file path="$PROJECT_DIR$/FARCRY/x64" />
+      <file path="$PROJECT_DIR$/FarCry_WinSV/Release" />
+      <file path="$PROJECT_DIR$/FarCry_WinSV/Release64" />
+      <file path="$PROJECT_DIR$/FarCry_WinSV/x64" />
+      <file path="$PROJECT_DIR$/RenderDll/XRenderD3D9/Release" />
+      <file path="$PROJECT_DIR$/RenderDll/XRenderD3D9/Release64" />
+      <file path="$PROJECT_DIR$/RenderDll/XRenderD3D9/x64" />
+      <file path="$PROJECT_DIR$/RenderDll/XRenderNULL/Release" />
+      <file path="$PROJECT_DIR$/RenderDll/XRenderNULL/Release64" />
+      <file path="$PROJECT_DIR$/RenderDll/XRenderNULL/x64" />
+      <file path="$PROJECT_DIR$/ResourceCompiler/Release" />
+      <file path="$PROJECT_DIR$/ResourceCompiler/Release64" />
+      <file path="$PROJECT_DIR$/ResourceCompiler/x64" />
+      <file path="$PROJECT_DIR$/ResourceCompilerPC/Release" />
+      <file path="$PROJECT_DIR$/ResourceCompilerPC/Release64" />
+      <file path="$PROJECT_DIR$/ResourceCompilerPC/x64" />
+      <file path="$PROJECT_DIR$/out" />
+      <file path="$PROJECT_DIR$/x64" />
+    </excludeRoots>
+  </component>
 </project>

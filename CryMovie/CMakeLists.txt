@@ -47,5 +47,4 @@ add_library(CryMovie STATIC
         "StdAfx.h"
 )
 
-target_compile_definitions(CryMovie PRIVATE _RELEASE NDEBUG WIN64 WIN32 _AMD64_ _WINDOWS _USRDLL CRYMOVIE_EXPORTS DONT_USE_CRY_MEMORY_MANAGER FAR_CRY_STATIC_LIBS)
 target_link_libraries(CryMovie CryCommon -static)

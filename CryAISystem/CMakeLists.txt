@@ -42,5 +42,4 @@ add_library(CryAISystem STATIC
         "VertexList.h"
 )
 
-target_compile_definitions(CryAISystem PRIVATE _RELEASE NDEBUG WIN64 WIN32 _AMD64_ _WINDOWS _USRDLL CRYAISYSTEM_EXPORTS DONT_USE_CRY_MEMORY_MANAGER FAR_CRY_STATIC_LIBS)
 target_link_libraries(CryAISystem CryCommon -static)

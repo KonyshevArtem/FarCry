@@ -17,5 +17,5 @@ add_library(CryInput STATIC
         "XMouse.h"
 )
 
-target_compile_definitions(CryInput PRIVATE _RELEASE NDEBUG WIN64 WIN32 _AMD64_ _WINDOWS _USRDLL CRYINPUT_EXPORTS DIRECTINPUT_VERSION=0x0800 DONT_USE_CRY_MEMORY_MANAGER FAR_CRY_STATIC_LIBS)
+target_compile_definitions(CryInput PRIVATE DIRECTINPUT_VERSION=0x0800)
 target_link_libraries(CryInput CryCommon -static dinput8 dxguid winmm)

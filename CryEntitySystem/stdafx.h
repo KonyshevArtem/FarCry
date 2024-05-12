@@ -18,6 +18,12 @@
 #define _STLP_NO_THREADS
 //////////////////////////////////////////////////////////////////////////
 
+#if defined(__GNUC__)
+#include <algorithm>
+using std::min;
+using std::max;
+#endif
+
 #include "Cry_Math.h"
 #include "Cry_XOptimise.h"
 

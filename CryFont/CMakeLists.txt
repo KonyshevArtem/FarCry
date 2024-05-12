@@ -40,5 +40,4 @@ add_library(CryFont STATIC
 )
 
 target_include_directories(CryFont PRIVATE FreeType2/include)
-target_compile_definitions(CryFont PRIVATE _RELEASE NDEBUG WIN64 WIN32 _AMD64_ _WINDOWS _USRDLL CRYFONT_EXPORTS DONT_USE_CRY_MEMORY_MANAGER FAR_CRY_STATIC_LIBS)
 target_link_libraries(CryFont CryCommon -static)

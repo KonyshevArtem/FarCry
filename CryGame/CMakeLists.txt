@@ -175,5 +175,4 @@ add_library(CryGame STATIC
         "XVehicleSystem.h"
 )
 
-target_compile_definitions(CryGame PRIVATE _RELEASE NDEBUG WIN64 WIN32 _AMD64_ _WINDOWS _USRDLL CRYGAME_EXPORTS DIVX DONT_USE_CRY_MEMORY_MANAGER FAR_CRY_STATIC_LIBS)
 target_link_libraries(CryGame CryCommon -static dxguid dsound imagehlp version ws2_32)

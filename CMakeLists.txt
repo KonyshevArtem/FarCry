@@ -11,6 +11,10 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${OUTPUT_DIR})
 set(CMAKE_SHARED_LIBRARY_PREFIX "")
 set(CMAKE_STATIC_LIBRARY_PREFIX "")
 
+set(FAR_CRY_PLATFORM_DEFINES WIN32 WIN64 _WINDOWS)
+# Destination path is the default path for Ubisoft Connect and Far Cry 1 installation
+set(FAR_CRY_INSTALL_DESTINATION "C:/Program Files (x86)/Ubisoft/Ubisoft Game Launcher/games/FAR CRY 1/CustomBuild_GCC")
+
 add_subdirectory(Cry3DEngine)
 add_subdirectory(CryAISystem)
 add_subdirectory(CryAnimation)
@@ -29,8 +33,4 @@ add_subdirectory(ResourceCompiler)
 add_subdirectory(RenderDll/XRenderD3D9)
 add_subdirectory(FARCRY)
 
-# Destination path is the default path for Ubisoft Connect and Far Cry 1 installation
-install(
-        TARGETS FarCry
-        DESTINATION "C:/Program Files (x86)/Ubisoft/Ubisoft Game Launcher/games/FAR CRY 1/CustomBuild_GCC"
-)
+install(TARGETS FarCry DESTINATION ${FAR_CRY_INSTALL_DESTINATION})

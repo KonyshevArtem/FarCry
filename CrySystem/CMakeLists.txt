@@ -175,7 +175,7 @@ add_library(CrySystem STATIC
 )
 
 target_include_directories(CrySystem PRIVATE ./)
-target_compile_definitions(CrySystem PRIVATE _RELEASE NDEBUG WIN64 WIN32 _AMD64_ _WINDOWS _USRDLL CRYSYSTEM_EXPORTS GARBAGEMEMORY DONT_USE_CRY_MEMORY_MANAGER FAR_CRY_STATIC_LIBS)
+target_compile_definitions(CrySystem PRIVATE CRYSYSTEM_EXPORTS GARBAGEMEMORY)
 
 target_link_libraries(
         CrySystem
