@@ -7,10 +7,14 @@
 #include <cctype>
 
 
-#define __forceinline inline
-#define _inline inline
-#define _finite finite
-#define _snprintf snprintf
+#define __forceinline   inline
+#define _inline         inline
+#define _finite         finite
+#define _snprintf       snprintf
+#define _isnan          isnan
+#define stricmp         strcasecmp
+#define _stricmp        strcasecmp
+#define strnicmp        strncasecmp
 
 typedef signed char         int8;
 typedef signed short        int16;
@@ -31,22 +35,17 @@ typedef unsigned short		u16;
 typedef unsigned long		u32;
 typedef uint64_t    		u64;
 
-
-
+typedef unsigned char	BYTE;
+typedef unsigned short	WORD;
 typedef unsigned int    DWORD;
 typedef uint64          DWORD_PTR;
 
-
-typedef int HRESULT;
-
-
+typedef int     HRESULT;
 typedef void*   HWND;
 
-
-typedef intptr_t    INT_PTR, *PINT_PTR;
-typedef uintptr_t   UINT_PTR, *PUINT_PTR;
-
-typedef unsigned long   ULONG_PTR, *PULONG_PTR;
+typedef intptr_t        INT_PTR,    *PINT_PTR;
+typedef uintptr_t       UINT_PTR,   *PUINT_PTR;
+typedef unsigned long   ULONG_PTR,  *PULONG_PTR;
 
 
 typedef struct _FILETIME
@@ -129,6 +128,11 @@ inline void strlwr(char* str)
             *str = tolower(c);
         ++str;
     }
+}
+
+inline void OutputDebugString(const char* str)
+{
+    // TODO: apple
 }
 
 #endif

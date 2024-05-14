@@ -29,13 +29,13 @@
 
 #include "platform.h"
 
-#if !defined(PS2) && !defined(_XBOX) && !defined(LINUX)
+#if !defined(PS2) && !defined(_XBOX) && !defined(LINUX) && !defined(APPLE)
 	#include <winsock.h>
 #else
 	#ifdef _XBOX
 		#include <Xtl.h>
 	#endif
-	#ifdef LINUX
+	#if defined(LINUX) || defined(APPLE)
 		#include <sys/socket.h>
 	#endif
 #endif

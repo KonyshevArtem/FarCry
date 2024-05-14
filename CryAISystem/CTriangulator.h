@@ -40,7 +40,7 @@ typedef struct Tri
 	
 } Tri;
 
-#if defined(__MWERKS__) || defined(LINUX)
+#if defined(__MWERKS__) || defined(LINUX) || defined(APPLE)
 struct POINT {int x,y; };
 #endif
 

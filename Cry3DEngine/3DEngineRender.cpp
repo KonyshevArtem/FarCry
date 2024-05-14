@@ -992,10 +992,10 @@ void C3DEngine::DisplayInfo(float & fTextPosX, float & fTextPosY, float & fTextS
 
 #ifdef GAMECUBE
 		OSReport("- Timedemo result -\n");
-#elif (defined (PS2) || defined (_XBOX) || defined(LINUX))
+#elif (defined (PS2) || defined (_XBOX) || defined(LINUX) || defined(APPLE))
 	  snprintf(buffer, sizeof(buffer),"- Timedemo result -");
 	  OutputDebugString(buffer);
-#elif !defined(APPLE) // TODO: apple output debug string
+#else
     if(GetCVars()->e_timedemo_frames>10)
       MessageBox(0, buffer, "- Timedemo result -", MB_OK);
 #endif      
