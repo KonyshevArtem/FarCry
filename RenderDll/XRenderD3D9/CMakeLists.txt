@@ -1,3 +1,5 @@
+if (${FAR_CRY_WINDOWS})
+
 add_library(XRenderD3D9 STATIC
         "../Common/3DUtils.cpp"
         "../Common/CRT.cpp"
@@ -180,3 +182,5 @@ find_package(DirectX9 MODULE)
 target_include_directories(XRenderD3D9 PRIVATE ../ ${DIRECTX_INCLUDE_DIRS})
 target_compile_definitions(XRenderD3D9 PRIVATE ENABLE_FRAME_PROFILER COMP_VC DIRECT3D9 OS_WIN32 PROC_INTEL DO_RENDERLOG DO_RENDERSTATS _RENDERER)
 target_link_libraries(XRenderD3D9 CryCommon -static winmm ${DIRECTX_LIBRARIES})
+
+endif ()
