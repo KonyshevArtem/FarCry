@@ -75,7 +75,7 @@ using std::max;
 
 #endif
 
-#if !defined(LINUX)
+#if !defined(LINUX) && !defined(APPLE)
 #include <Windows.h>
 #endif
 
@@ -85,7 +85,7 @@ using std::max;
 #endif
 
 #include <IFont.h>
-#if !defined(LINUX)
+#if !defined(LINUX) && !defined(APPLE)
 #include <assert.h>
 #endif
 

@@ -1,5 +1,5 @@
 //-------------------------------------------------------------------------------------------------
-// Author: Márcio Martins
+// Author: Mï¿½rcio Martins
 //
 // Purpose:
 //  - Create and update a texture with the most recently used glyphs
@@ -16,7 +16,7 @@
 #include <map>
 #define hash_map map
 #else
-#if defined(LINUX)
+#if defined(LINUX) || defined(APPLE)
 #include <ext/hash_map>
 #else
 #include <hash_map>

@@ -1,5 +1,5 @@
 //-------------------------------------------------------------------------------------------------
-// Author: Márcio Martins
+// Author: Mï¿½rcio Martins
 //
 // Purpose:
 //  - Manage and cache glyphs, retrieving them from the renderer as needed
@@ -17,7 +17,7 @@
 #include <map>
 #define hash_map map
 #else
-#if defined(LINUX)
+#if defined(LINUX) || defined(APPLE)
 #include <ext/hash_map>
 #else
 #include <hash_map>
