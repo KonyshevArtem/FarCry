@@ -57,8 +57,9 @@ void CryModelState::BuildPhysicalEntity(IPhysicalEntity *pent,float mass,int sur
 	
 	if (surface_idx>=0)
 		pgp->surface_idx = surface_idx;
-	
-	pent->Action(&pe_action_remove_all_parts());
+
+    pe_action_remove_all_parts action = pe_action_remove_all_parts();
+	pent->Action(&action);
 	
 	for(i=0;i<(int)numBones();i++) if (getBoneInfo(i)->m_PhysInfo[nLod].pPhysGeom) {
 		mtx = getBoneMatrixGlobal(i);
@@ -194,7 +195,7 @@ int CryModelState::CreateAuxilaryPhysics(IPhysicalEntity *pHost, float scale,Vec
 	{
 		CryBoneInfo* pBoneInfo = getBoneInfo(i);
 		const char* szBoneName = pBoneInfo->getNameCStr();
-#if defined(LINUX)
+#if defined(LINUX) || defined(APPLE)
 		if (!strnicmp(szBoneName,"rope",4))
 #else
 		if (!_strnicoll(szBoneName,"rope",4))
@@ -404,9 +405,15 @@ void CryModelState::SynchronizeWithPhysicalEntity(IPhysicalEntity *pent, const V
 		pe_status_joint sj;
 		m_bPhysicsAwake = 0;
 		if (pent)
-			m_bPhysicsAwake = pent->GetStatus(&pe_status_awake());
+        {
+            pe_status_awake status = pe_status_awake();
+            m_bPhysicsAwake = pent->GetStatus(&status);
+        }
 		for(j=0;j<m_nAuxPhys;j++)
-			m_bPhysicsAwake |= m_auxPhys[j].pPhysEnt->GetStatus(&pe_status_awake());
+        {
+            pe_status_awake status = pe_status_awake();
+            m_bPhysicsAwake |= m_auxPhys[j].pPhysEnt->GetStatus(&status);
+        }
 
 		if (!m_bPhysicsAwake && !m_bPhysicsWasAwake)
 			return;
@@ -685,7 +692,8 @@ void CryModelState::ProcessPhysics(float fDeltaTimePhys, int nNeff)
 		for(i=0;i<4;i++) if (m_pIKEffectors[i])
 			m_pIKEffectors[i]->Tick (fDeltaTimePhys);
 
-	if (m_pCharPhysics && (m_bPhysicsAwake = m_pCharPhysics->GetStatus(&pe_status_awake())))
+    pe_status_awake status = pe_status_awake();
+	if (m_pCharPhysics && (m_bPhysicsAwake = m_pCharPhysics->GetStatus(&status)))
 	{
 		if (nNeff==0) 
 		{	// if there's no animation atm, just read the state from physics verbatim
@@ -786,7 +794,10 @@ void CryModelState::ProcessPhysics(float fDeltaTimePhys, int nNeff)
 	}
 
 	for(i=0;i<m_nAuxPhys;i++)
-		m_bPhysicsAwake |= m_auxPhys[i].pPhysEnt->GetStatus(&pe_status_awake());
+    {
+        pe_status_awake status = pe_status_awake();
+        m_bPhysicsAwake |= m_auxPhys[i].pPhysEnt->GetStatus(&status);
+    }
 
 	if (m_bPhysicsAwake)
 		m_uFlags |= nFlagsNeedReskinAllLODs;
@@ -800,7 +811,7 @@ IPhysicalEntity *CryModelState::GetCharacterPhysics(const char *pRootBoneName)
 
 	for(int i=0;i<m_nAuxPhys;i++) 
 	{
-#if defined(LINUX)
+#if defined(LINUX) || defined(APPLE)
 		if (!stricmp(m_auxPhys[i].strName,pRootBoneName))
 #else
 		if (!_stricoll(m_auxPhys[i].strName,pRootBoneName))

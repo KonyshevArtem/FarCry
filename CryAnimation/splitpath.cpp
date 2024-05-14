@@ -10,7 +10,7 @@
 #include "stdafx.h"
 #include <stdlib.h>
 
-#if !defined(LINUX)
+#if !defined(LINUX) && !defined(APPLE)
 #	include <tchar.h>
 #endif
 

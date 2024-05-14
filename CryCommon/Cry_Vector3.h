@@ -38,6 +38,10 @@ template<class F>
 F GetLengthSquared( const Vec3_tpl<F> &v );
 template<class F> 
 F GetLength( const Vec3_tpl<F>& v );
+
+inline int isneg(double x);
+inline int isneg(float x);
+inline int isneg(int x);
 #endif
 
 ///////////////////////////////////////////////////////////////////////////////

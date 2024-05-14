@@ -22,7 +22,7 @@ struct CryAnimVars
 {
 	enum {nDefaultAnimWarningLevel = 2};
 	enum {
-#if defined(WIN64) || defined(LINUX64)
+#if defined(WIN64) || defined(LINUX64) || defined(APPLE)
 		nDefaultAnimUnloadDelay = 0, // don't need to unload animation of Win64 architecture
 		nDefaultAnimDeferredLoad = 0, // don't need to defer anim loading
 #else

@@ -17,7 +17,7 @@ public:
 
 	// rotates the target morph vertices; transforms each vertex with the specified matrix, using only its
 	// ROTATIONAL components (no translation)
-#if !defined(LINUX)
+#if !defined(LINUX) && !defined(APPLE)
 	__declspec(deprecated)
 #endif
 	void rotate (unsigned nLOD, const Matrix44& tm);
@@ -28,7 +28,7 @@ public:
 	// given the source morph object, morphs it with the given weight to this morph target;
 	// 1 means the morph target will replace the target with itself; 0 means it will just copy the source
 	// into the destination (or leave it alone, if the two coincide)
-#if !defined(LINUX)
+#if !defined(LINUX) && !defined(APPLE)
 	__declspec(deprecated)
 #endif
 	void morph (unsigned nLOD, const Vec3d* pSrc, Vec3d* pDst, unsigned numVertices, float fWeight)const;

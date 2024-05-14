@@ -15,6 +15,13 @@
 #define stricmp         strcasecmp
 #define _stricmp        strcasecmp
 #define strnicmp        strncasecmp
+#define _vsnprintf      vsnprintf
+
+// stdlib.h stuff
+#define _MAX_DRIVE  3   // max. length of drive component
+#define _MAX_DIR    256 // max. length of path component
+#define _MAX_FNAME  256 // max. length of file name component
+#define _MAX_EXT    256 // max. length of extension component
 
 typedef signed char         int8;
 typedef signed short        int16;
@@ -39,6 +46,7 @@ typedef unsigned char	BYTE;
 typedef unsigned short	WORD;
 typedef unsigned int    DWORD;
 typedef uint64          DWORD_PTR;
+typedef void*			LPVOID;
 
 typedef int     HRESULT;
 typedef void*   HWND;
@@ -134,6 +142,27 @@ inline void OutputDebugString(const char* str)
 {
     // TODO: apple
 }
+
+struct _finddata64i32_t {
+    unsigned attrib;
+    int64_t time_create;
+    int64_t time_access;
+    int64_t time_write;
+    unsigned long size;
+    char name[260];
+};
+
+struct __finddata64_t {
+    unsigned attrib;
+    int64_t time_create;
+    int64_t time_access;
+    int64_t time_write;
+    int64_t size;
+    char name[260];
+};
+
+#define _finddata_t     _finddata64i32_t
+#define _finddatai64_t  __finddata64_t
 
 #endif
 
