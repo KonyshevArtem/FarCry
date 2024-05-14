@@ -2,10 +2,10 @@
 //
 
 #include "stdafx.h"
-#if !defined(_XBOX) && !defined(LINUX)
+#if !defined(_XBOX) && !defined(LINUX) && !defined(APPLE)
 #include <windows.h>
 #else
-#if !defined(LINUX)
+#if !defined(LINUX) && !defined(APPLE)
 #include <xtl.h>
 #endif
 #endif

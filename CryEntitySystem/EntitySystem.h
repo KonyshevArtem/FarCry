@@ -39,7 +39,7 @@ class CEntityClonesMgr;
 #include <map>
 #define hash_map map 
 #else
-#if defined(LINUX)
+#if defined(LINUX) || defined(APPLE)
 #include <ext/hash_map>
 #include "ientityrenderstate.h"
 #else

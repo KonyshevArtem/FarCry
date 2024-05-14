@@ -83,7 +83,7 @@ extern bool g_bCryEntityProfilerEnabled;
 #endif //PS2
 
 // Windows defines
-#if !defined(LINUX)
+#if !defined(LINUX) && !defined(APPLE)
 typedef unsigned long       DWORD;
 typedef int                 BOOL;
 typedef unsigned char       BYTE;

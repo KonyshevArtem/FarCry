@@ -7,8 +7,7 @@
 *       arbitrary path name
 *
 *******************************************************************************/
-#include "stdafx.h"
-#include <stdlib.h>
+#include "platform.h"
 
 #if !defined(LINUX) && !defined(APPLE)
 #	include <tchar.h>

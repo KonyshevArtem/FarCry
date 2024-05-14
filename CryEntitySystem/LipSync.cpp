@@ -20,6 +20,11 @@
 #include <StringUtils.h> // for strnstr
 #include <IScriptSystem.h>
 
+#if defined(APPLE)
+#include "splitpath.h"
+#include "mach/mach_time.h"
+#endif
+
 #include <IXGame.h>
 
 #define MAGPIE_SUPPORT
@@ -306,7 +311,7 @@ void CLipSync::StreamOnComplete(IReadStream *pStream, unsigned nError)
 				fLen[i]+=fFramesPerSecondRecp*1000.0f;
 			int nFrame;
 			//m_pPak->FGets(sBuffer, nBufferSize, pFile);	//"%d,%s", &nFrame, sBuffer);
-			const char *pNewBuffer=strnstr(pBuffer, "\n",pEndBuffer-pBuffer);
+			const char *pNewBuffer=strnstr(pBuffer, "\n",(int)(pEndBuffer-pBuffer));
 			if (pNewBuffer)
 			{
 				nBytesRead+=(pNewBuffer-pBuffer)+1;
@@ -320,7 +325,7 @@ void CLipSync::StreamOnComplete(IReadStream *pStream, unsigned nError)
 				{
 					const char *pCheckBuffer=pBuffer;
 					const char *pLastCheckBuffer=pCheckBuffer;
-					while (((pCheckBuffer=strnstr(pLastCheckBuffer, ",",pEndBuffer-pLastCheckBuffer))!=NULL) && (pCheckBuffer<strnstr(pLastCheckBuffer, "\n",pEndBuffer-pLastCheckBuffer)))
+					while (((pCheckBuffer=strnstr(pLastCheckBuffer, ",",(int)(pEndBuffer-pLastCheckBuffer)))!=NULL) && (pCheckBuffer<strnstr(pLastCheckBuffer, "\n",(int)(pEndBuffer-pLastCheckBuffer))))
 					{
 						m_nLipSyncTracks++;
 						pLastCheckBuffer=pCheckBuffer+1;
@@ -348,10 +353,10 @@ void CLipSync::StreamOnComplete(IReadStream *pStream, unsigned nError)
 			const char *pLastScanBuffer=pBuffer;
 			const char *pScanBufferComma;
 			const char *pScanBufferBreak;
-			while (((pScanBufferComma=strnstr(pLastScanBuffer, ",",pEndBuffer-pLastScanBuffer))!=NULL) || ((pScanBufferBreak=strnstr(pLastScanBuffer, "\n",pEndBuffer-pLastScanBuffer))!=NULL))
+			while (((pScanBufferComma=strnstr(pLastScanBuffer, ",",(int)(pEndBuffer-pLastScanBuffer)))!=NULL) || ((pScanBufferBreak=strnstr(pLastScanBuffer, "\n",(int)(pEndBuffer-pLastScanBuffer)))!=NULL))
 			{
-				pScanBufferComma=strnstr(pLastScanBuffer, ",",pEndBuffer-pLastScanBuffer);
-				pScanBufferBreak=strnstr(pLastScanBuffer, "\n",pEndBuffer-pLastScanBuffer);
+				pScanBufferComma=strnstr(pLastScanBuffer, ",",(int)(pEndBuffer-pLastScanBuffer));
+				pScanBufferBreak=strnstr(pLastScanBuffer, "\n",(int)(pEndBuffer-pLastScanBuffer));
 				if ((!pScanBufferComma) && (!pScanBufferBreak))
 					break;
 				if (!pScanBufferComma)
@@ -568,7 +573,9 @@ bool CLipSync::PlayDialog(bool bUnloadWhenDone)
 		m_pAITable=NULL;
 	}
 
-#ifndef PS2	
+#if defined(APPLE)
+    srand(mach_absolute_time());
+#elif !defined(PS2)
 	srand(GetTickCount());
 #endif
 	TRACE("PLAYING DIALOG !!!");

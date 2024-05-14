@@ -17,7 +17,7 @@
 #define LIST_3DENGINE_H
 
 #include 	"platform.h"
-#if defined(LINUX)
+#if defined(LINUX) || defined(APPLE)
 	#include "ILog.h"
 	#include "ICryPak.h"
 #else

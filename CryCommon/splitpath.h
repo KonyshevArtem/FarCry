@@ -20,6 +20,9 @@ void portable_splitpath (
         );
 #endif // __cplusplus
 #else // _XBOX
+#if defined(APPLE)
+#define _splitpath portable_splitpath
+#endif
 extern "C" void portable_splitpath (
         const char *path,
         char *drive,
