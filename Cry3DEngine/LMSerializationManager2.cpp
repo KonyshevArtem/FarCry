@@ -332,7 +332,9 @@ unsigned int CLMSerializationManager2::Save(const char *pszFilePath, LMGenParam 
 	string strPakName = strDirName + "\\" LEVELLM_PAK_NAME;
 	GetPak()->ClosePack(strPakName.c_str());
 	// make sure the pak file in which this LM data resides is opened
+#if !defined(APPLE) // TODO apple make file readable
 	SetFileAttributes(strPakName.c_str(), FILE_ATTRIBUTE_NORMAL);
+#endif
 	ICryArchive_AutoPtr pPak = GetPak()->OpenArchive (strPakName.c_str(), ICryArchive::FLAGS_RELATIVE_PATHS_ONLY);
 	if (!pPak)
 		return NSAVE_RESULT::EPAK_FILE_OPEN_FAIL;
@@ -828,7 +830,9 @@ bool CLMSerializationManager2::ExportDLights(const char *pszFilePath, const CDLi
 	string strPakName = strDirName + "\\" LEVELLM_PAK_NAME;
 	GetPak()->ClosePack(strPakName.c_str());
 	// make sure the pak file in which this LM data resides is opened
+#if !defined(APPLE) // TODO apple make file readable
 	SetFileAttributes(strPakName.c_str(), FILE_ATTRIBUTE_NORMAL);
+#endif
 	if (!bNewZip)
 		GetPak()->ClosePack( strPakName.c_str() );
 	ICryArchive_AutoPtr pPak = GetPak()->OpenArchive (strPakName.c_str(), ICryArchive::FLAGS_RELATIVE_PATHS_ONLY|(bNewZip?ICryArchive::FLAGS_CREATE_NEW:0));

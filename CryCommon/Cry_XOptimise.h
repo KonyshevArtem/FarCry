@@ -412,7 +412,7 @@ ILINE void cryPrefetchT0SSE(const void *src)
   }
 #endif
 
-#if defined(WIN64) &&  defined(_CPU_AMD64) && !defined(LINUX)
+#if defined(WIN64) &&  defined(_CPU_AMD64) && !defined(LINUX) && !defined(APPLE)
 		_mm_prefetch( (char*)src, _MM_HINT_T0 );
 #endif
 
@@ -2431,7 +2431,7 @@ ILINE void cryMemcpy(void* Dst, const void* Src, int n) {
 	char* src=(char*)Src;
 	while (n > PREFNTA_BLOCK) 
 	{
-#if !defined(LINUX)
+#if !defined(LINUX) && !defined(APPLE)
 		for (int p = 0; p < PREFNTA_BLOCK; p+=64) { _mm_prefetch((char *) src + p, _MM_HINT_NTA); }
 #endif
 		memcpy(dst, src, PREFNTA_BLOCK);
@@ -2439,7 +2439,7 @@ ILINE void cryMemcpy(void* Dst, const void* Src, int n) {
 		dst += PREFNTA_BLOCK;
 		n -= PREFNTA_BLOCK;
 	}
-#if !defined(LINUX)
+#if !defined(LINUX) && !defined(APPLE)
 	for (int p = 0; p < n; p+=64) { _mm_prefetch((char *) src + p, _MM_HINT_NTA); }
 #endif
 	memcpy(dst, src, n);
@@ -2451,7 +2451,7 @@ ILINE void cryMemcpy( void* Dst, const void* Src, INT n, int nFlags )
 	char* src=(char*)Src;
 	while (n > PREFNTA_BLOCK) 
 	{
-#if !defined(LINUX)
+#if !defined(LINUX) && !defined(APPLE)
 		for (int p = 0; p < PREFNTA_BLOCK; p+=64) { _mm_prefetch((char *) src + p, _MM_HINT_NTA); }
 #endif
 		memcpy(dst, src, PREFNTA_BLOCK);
@@ -2459,7 +2459,7 @@ ILINE void cryMemcpy( void* Dst, const void* Src, INT n, int nFlags )
 		dst += PREFNTA_BLOCK;
 		n -= PREFNTA_BLOCK;
 	}
-#if !defined(LINUX)
+#if !defined(LINUX) && !defined(APPLE)
 	for (int p = 0; p < n; p+=64) { _mm_prefetch((char *) src + p, _MM_HINT_NTA); }
 #endif
 	memcpy(dst, src, n);

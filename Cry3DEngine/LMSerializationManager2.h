@@ -124,9 +124,8 @@ protected:
 	{
 		EntityId OcclIds[4*2];	//new: the occlusion map colour channel light id's, this corresponds to the std::pair<EntityId, EntityId>
 		unsigned char ucOcclCount/*1..4*/;
-		UVSetHeader3():ucOcclCount(0)
+		UVSetHeader3(): UVSetHeader(), ucOcclCount(0)
 		{
-			UVSetHeader::UVSetHeader();
 			OcclIds[0] = OcclIds[1] = OcclIds[2] = OcclIds[3] = 0;
 		}
 	};

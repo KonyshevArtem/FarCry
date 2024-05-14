@@ -45,7 +45,8 @@ void C3DEngine::Draw()
 	{
 		return;
 	}
-#if !defined(LINUX)
+    // TODO: apple sleep
+#if !defined(LINUX) && !defined(APPLE)
 	if(GetCVars()->e_sleep)
 		Sleep(GetCVars()->e_sleep);
 #endif
@@ -177,7 +178,7 @@ void C3DEngine::RenderScene(unsigned int dwDrawFlags)
 #endif
   
 	// it's correct only before StartEf()
-  int nRecursionLevel = (int)GetRenderer()->EF_Query(EFQ_RecurseLevel);
+  int nRecursionLevel = (int)(size_t)GetRenderer()->EF_Query(EFQ_RecurseLevel);
 	assert(nRecursionLevel>=0);
 	m_pObjManager->m_nRenderStackLevel = m_pTerrain->m_nRenderStackLevel = nRecursionLevel;
 	if(m_pObjManager->m_nRenderStackLevel<0 || m_pObjManager->m_nRenderStackLevel>1)
@@ -994,7 +995,7 @@ void C3DEngine::DisplayInfo(float & fTextPosX, float & fTextPosY, float & fTextS
 #elif (defined (PS2) || defined (_XBOX) || defined(LINUX))
 	  snprintf(buffer, sizeof(buffer),"- Timedemo result -");
 	  OutputDebugString(buffer);
-#else      
+#elif !defined(APPLE) // TODO: apple output debug string
     if(GetCVars()->e_timedemo_frames>10)
       MessageBox(0, buffer, "- Timedemo result -", MB_OK);
 #endif      
@@ -1348,7 +1349,7 @@ void C3DEngine::RenderVolumeFogTopPlane()
 
 void C3DEngine::MakeHiResScreenShot()
 {
-#if !defined(LINUX)
+#if !defined(LINUX) && !defined(APPLE) // TODO apple: screenshots
 	static int nFileId = 0;
 	static int nHiResShootCounter = -1;
 	static list2<unsigned char*> lstSubImages;
@@ -1465,7 +1466,7 @@ void C3DEngine::MakeHiResScreenShot()
 
 void C3DEngine::CaptureFrameBufferToFile()
 {
-#if !defined(LINUX)
+#if !defined(LINUX) && !defined(APPLE) // TODO: apple
 	if(GetCVars()->e_capture_frames>0)
 	{
 		char * pFolderName = GetCVars()->e_capture_folder->GetString();
@@ -1587,7 +1588,10 @@ void C3DEngine::DrawShadowSpotOnTerrain(Vec3d vPos, float fRadius)
 		}
 
 		if(verts.Count())
-			GetRenderer()->DrawTriStrip(&(CVertexBuffer (&verts[0].xyz.x,VERTEX_FORMAT_P3F_COL4UB_TEX2F)),verts.Count());
+        {
+            CVertexBuffer vertexBuffer = CVertexBuffer(&verts[0].xyz.x,VERTEX_FORMAT_P3F_COL4UB_TEX2F);
+            GetRenderer()->DrawTriStrip(&vertexBuffer,verts.Count());
+        }
 	}
 }
 

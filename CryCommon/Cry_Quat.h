@@ -80,7 +80,7 @@ typedef Quaternion_tpl<real>	quaternion;
 #define m_33 m.data[SI1*3+SJ1*3]
 
 
-#if defined(LINUX)
+#if defined(LINUX) || defined(APPLE)
 template<class F,int SI,int SJ> 
 Quaternion_tpl<F> GetQuatFromMat33(const Matrix33_tpl<F,SI,SJ>& m);
 #endif

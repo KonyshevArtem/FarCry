@@ -17,7 +17,7 @@
 #include <functional>
 
 // searches the given entry in the map by key, and if there is none, returns the default value
-#ifdef WIN64
+#if defined(WIN64) || defined(APPLE)
 #include <map>
 #define hash_map map
 template <typename Map, typename key_type, typename mapped_type>
@@ -44,7 +44,7 @@ inline typename Map::mapped_type find_in_map(const Map& mapKeyToValue, typename 
 
 // searches the given entry in the map by key, and if there is none, returns the default value
 // The values are taken/returned in REFERENCEs rather than values
-#ifdef WIN64
+#if defined(WIN64) || defined(APPLE)
 template <typename Map, typename key_type, typename mapped_type>
 inline mapped_type& find_in_map_ref(Map& mapKeyToValue, key_type key, mapped_type& valueDefault)
 #else
@@ -113,7 +113,7 @@ namespace stl
 	//////////////////////////////////////////////////////////////////////////
 	//! Searches the given entry in the map by key, and if there is none, returns the default value
 	//////////////////////////////////////////////////////////////////////////
-#ifdef WIN64
+#if defined(WIN64) || defined(APPLE)
 	template <typename Map, typename key_type, typename mapped_type>
 		inline mapped_type find_in_map(const Map& mapKeyToValue, key_type key, mapped_type valueDefault)
 #else
@@ -130,7 +130,7 @@ namespace stl
 
 	// searches the given entry in the map by key, and if there is none, returns the default value
 	// The values are taken/returned in REFERENCEs rather than values
-#ifdef WIN64
+#if defined(WIN64) || defined(APPLE)
 	template <typename Map, typename key_type, typename mapped_type>
 		inline mapped_type& find_in_map_ref(Map& mapKeyToValue, key_type key, mapped_type& valueDefault)
 #else

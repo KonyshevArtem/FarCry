@@ -172,7 +172,7 @@ protected:
 // default implementation is int counter - for better alignment
 typedef _reference_target<int> _reference_target_t;
 
-#if (defined(_WINDOWS_)||defined(LINUX))
+#if (defined(_WINDOWS_)||defined(LINUX)||defined(APPLE))
 
 // reference target for smart pointer
 // implements AddRef() and Release() strategy using reference counter of the specified type
@@ -252,7 +252,7 @@ protected:
 
 typedef _i_reference_target<int> _i_reference_target_t;
 
-#if (defined(WIN32) || defined(LINUX))
+#if (defined(WIN32) || defined(LINUX) || defined(APPLE))
 
 //////////////////////////////////////////////////////////////////////////
 // This class describes the set template that facilitates creation

@@ -16,7 +16,7 @@ public:
 	Vec3 m_vBoxMax;
 #ifdef OPENGL
 	uint m_nOcclusionID;
-#if defined(WIN64) || defined(LINUX64)
+#if defined(WIN64) || defined(LINUX64) || defined(APPLE)
 	uint m_nOcclusionID2; // this is the safety dummy value to make the occlusion id extendable to 64-bit
 #endif
 #else

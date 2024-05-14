@@ -83,6 +83,11 @@ typedef void *EVENT_HANDLE;
 #include <Linux32Specific.h>
 #endif
 
+#if defined(APPLE)
+#include <AppleSpecific.h>
+#define RC_EXECUTABLE "rc64"
+#endif
+
 #include "stdio.h"
 
 #define CPUF_SSE   1
@@ -109,7 +114,7 @@ typedef void *EVENT_HANDLE;
 #ifdef __cplusplus
 // define the standard string
 #include <string>
-#if defined(WIN64)// || defined(LINUX64)// && defined(_DLL), be careful when changing this to adapt the changes to IXml.h too
+#if defined(WIN64) || defined(APPLE) // || defined(LINUX64)// && defined(_DLL), be careful when changing this to adapt the changes to IXml.h too
 namespace cry_std
 {
 	template<typename T>
@@ -137,7 +142,7 @@ namespace cry_std
 		// the string gets destructed, which renders the pointer hanging.
 		// to correct this, we avoid self-assignment through pointer
 		if (s.c_str() != this->c_str())
-			assign(s.c_str());
+			this->assign(s.c_str());
 		return *this;
 		}
 		string& operator = (const T* p)
@@ -147,7 +152,7 @@ namespace cry_std
 		// the string gets destructed, which renders the pointer hanging.
 		// to correct this, we avoid self-assignment through pointer
 		if (p != this->c_str())
-			assign(p);
+			this->assign(p);
 		return *this;
 		}
 		string& operator = (const string& s)
@@ -157,15 +162,15 @@ namespace cry_std
 		// the string gets destructed, which renders the pointer hanging.
 		// to correct this, we avoid self-assignment through pointer
 		if (s.c_str() != this->c_str())
-			assign (s.c_str());
+			this->assign (s.c_str());
 		return *this;
 		}
 		void push_back(char c) {(*this) += c;}
 		void clear() {this->resize(0);}
 
-		string& operator += (const Base& s) {append(s);return *this;}
-		string& operator += (char c) {append(1,c); return *this;}
-		string& operator += (const T* p) {append(p);return *this;}
+		string& operator += (const Base& s) {this->append(s);return *this;}
+		string& operator += (char c) {this->append(1,c); return *this;}
+		string& operator += (const T* p) {this->append(p);return *this;}
 	};
 	template <typename T> string<T> operator + (const string<T>& left, const string<T>& right) {return string<T>(left)+=right;}
 	template <typename T> string<T> operator + (const typename string<T>::Base& left, const string<T>& right) {return string<T>(left)+=right;}
@@ -219,14 +224,14 @@ typedef int                 INT;
 typedef unsigned int        UINT;
 typedef unsigned int        *PUINT;
 
-#if defined(WIN64) || defined(LINUX)
+#if defined(WIN64) || defined(LINUX) || defined(APPLE)
 #ifdef __cplusplus
 inline int64 GetTicks()
 #else
 static int64 GetTicks()
 #endif
 {
-#if defined(WIN64)
+#if defined(WIN64) || defined(APPLE)
 	return __rdtsc ();
 #else
 	typedef union _LARGE_INTEGER 

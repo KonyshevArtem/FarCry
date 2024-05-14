@@ -22,7 +22,7 @@ typedef HRESULT (*MIPDXTcallback)(void * data, int miplevel, DWORD size, int wid
 // Global typedefs.
 //////////////////////////////////////////////////////////////////////
 typedef const char*			cstr;
-#if !defined(LINUX)
+#if !defined(LINUX) && !defined(APPLE)
 typedef unsigned long       DWORD;
 #endif //LINUX
 #ifndef BOOL

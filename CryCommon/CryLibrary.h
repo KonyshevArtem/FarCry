@@ -45,7 +45,7 @@
 	#define CryLoadLibrary(libName) ::LoadLibrary(libName)
 	#define CryGetProcAddress(libHandle, procName) ::GetProcAddress((HMODULE)libHandle, procName)
 	#define CryFreeLibrary(libHandle) ::FreeLibrary(libHandle)
-#elif defined(LINUX)
+#elif defined(LINUX) || defined(APPLE)
 	#include <dlfcn.h>
 	#include <stdlib.h>
 	#include "platform.h"

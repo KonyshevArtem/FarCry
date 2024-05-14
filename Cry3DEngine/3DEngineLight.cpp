@@ -768,7 +768,8 @@ void C3DEngine::LightSourcesDebug()
 	static float sRad = 10.0f;
 	if (true)
 	{
-#if !defined(LINUX)
+        // TODO: apple input
+#if !defined(LINUX) && !defined(APPLE)
 		if ((GetAsyncKeyState('F') & 0x8000))
 			bFreeze = 1;
 		else
@@ -781,7 +782,8 @@ void C3DEngine::LightSourcesDebug()
 
 		if (!Light.m_pShader)
 			Light.m_pShader = GetRenderer()->EF_LoadShader("GlowingMonkeyEyes", eSH_World, EF_SYSTEM);
-#if !defined(LINUX)    
+        // TODO: apple input
+#if !defined(LINUX) && !defined(APPLE)
 		if (GetAsyncKeyState(VK_DELETE) & 0x8000)
 			sAngs[2] += 1.0f;
 		if (GetAsyncKeyState(VK_NEXT) & 0x8000)
@@ -806,7 +808,8 @@ void C3DEngine::LightSourcesDebug()
 			sRad = 0;
 		if (sRad > 100)
 			sRad = 100;
-#if !defined(LINUX)    
+        // TODO: apple input
+#if !defined(LINUX) && !defined(APPLE)
 		if (GetAsyncKeyState(VK_INSERT) & 0x8000)
 			Light.m_fLightFrustumAngle -= 1.0f;
 		if (GetAsyncKeyState(VK_PRIOR) & 0x8000)
@@ -830,7 +833,8 @@ void C3DEngine::LightSourcesDebug()
 			Light.m_Origin = vCam.GetPos();
 			//Light.m_Origin += Vec3d(1, 0, 0.0f);
 		}
-#if !defined(LINUX)
+        // TODO: apple input
+#if !defined(LINUX) && !defined(APPLE)
 		if (GetAsyncKeyState('6') & 0x8000)
 			Light.m_Flags = 0;
 		else
@@ -1160,7 +1164,7 @@ bool ReadString(FILE * hFile, char * szBuff, int nMaxChars, ICryPak * pPak)
 	return true;
 }
 
-#ifdef WIN64
+#if defined(WIN64) || defined(APPLE)
 #pragma pack(push,4)
 // dummy structure that's binary compatible with the 32-bit version of CDLight
 struct CDLightDummy32

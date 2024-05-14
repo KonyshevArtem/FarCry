@@ -134,7 +134,7 @@ struct ISoundEventListener
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 //crysound definitions
-#ifdef WIN64
+#if defined(WIN64) || defined(APPLE)
 #include <CrySound64.h>
 #else
 #include <CrySound.h>

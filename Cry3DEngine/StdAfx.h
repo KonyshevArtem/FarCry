@@ -192,7 +192,7 @@ inline float GetDist2D(float x1, float y1, float x2, float y2)
   return cry_sqrtf(xm*xm + ym*ym);
 }
 
-#if !defined(LINUX)	//than it does already exist
+#if !defined(LINUX) && !defined(APPLE)	//than it does already exist
 inline int vsnprintf(char * buf, int size, const char * format, va_list & args)
 {
 	int res = _vsnprintf(buf, size, format, args);

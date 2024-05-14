@@ -2,7 +2,7 @@
 #define __TARRAY_H__
 
 #include 	"platform.h"
-#if defined(LINUX)
+#if defined(LINUX) || defined(APPLE)
 	#include "ILog.h"
 #else
 	#include <assert.h>

@@ -140,7 +140,7 @@ typedef struct GoalParameters
 		m_pTarget = 0;
 	}
 
-#if (defined(WIN64) || defined(LINUX64)) && !defined(_DLL) 
+#if (defined(WIN64) || defined(LINUX64) || defined(APPLE)) && !defined(_DLL)
 	// FIX: refcounted STL with static libs (e.g. on AMD64 compiler) will crash without these
 	// TODO: AMD64 port: make a robust solution
 	inline GoalParameters (const GoalParameters& params)

@@ -29,7 +29,8 @@ bool CStatObj::CompileInNeeded()
 	if(!GetCVars()->e_ccgf_make_if_not_found)
 		return true;
 
-#ifdef WIN32
+    // TODO apple: compare file time
+#if defined(WIN32) && !defined(APPLE)
 
 	char szCompiledFileName[MAX_PATH_LENGTH];
 	MakeCompiledFileName(szCompiledFileName,MAX_PATH_LENGTH);

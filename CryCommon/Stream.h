@@ -275,7 +275,7 @@ public:
 	bool WritePkd( const IStreamData &inData );
 
 	bool WritePacked(unsigned int ui);
-#if defined(WIN64)
+#if defined(WIN64) || defined(APPLE)
 	// Win64 defines size_t as 64-bit integer and there's an ambiguity between converting it to long or int automatically
 	// if we need to save/restore it really as a 64-bit int, care must be taken to match the write/read functions in 32-bit version
 	bool WritePacked(size_t sz) {return WritePacked((unsigned int)sz);}
@@ -296,7 +296,7 @@ public:
 	bool GetAt(size_t dwPos, BYTE &c);
 	bool GetAt(size_t dwPos, WORD &w);
 	bool GetAt(size_t dwPos, DWORD &dw);
-#if defined(WIN64) || defined(LINUX64)
+#if defined(WIN64) || defined(LINUX64) || defined(APPLE)
 	bool GetAt(size_t dwPos, ULONG_PTR &dw);
 #endif
 //@}

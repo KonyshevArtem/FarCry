@@ -83,7 +83,7 @@ const real sqrt3	= (real)1.7320508075688772935274463415059;
 //-------------------------------------------
 //-- the portability functions for AMD64
 //-------------------------------------------
-#if defined(WIN64) &&  defined(_CPU_AMD64) && !defined(LINUX)
+#if defined(WIN64) &&  defined(_CPU_AMD64) && !defined(LINUX) && !defined(APPLE)
 #define ILINE __forceinline
 
 ILINE void cry_sincosf (float angle, float* pCosSin) {	pCosSin[0] = cos(angle);	pCosSin[1] = sin(angle); }
@@ -164,7 +164,7 @@ ILINE float cry_powf(float x, float y) {return powf(x,y);}
 //-------------------------------------------
 //-- the portability functions for LINUX
 //-------------------------------------------
-#if defined(LINUX)
+#if defined(LINUX) || defined(APPLE)
 #define ILINE inline
 
 ILINE void cry_sincosf (float angle, float* pCosSin) { 	pCosSin[0] = (float)cos(angle);	pCosSin[1] = (float)sin(angle); 	}
@@ -277,7 +277,7 @@ template<class F> inline F sqr_signed(const F &op) { return op*fabs_tpl(op); }
 
 
 
-#if (defined(WIN32) || defined (_XBOX))
+#if (defined(WIN32) || defined (_XBOX) || defined(APPLE))
 #include "Cry_XOptimise.h"
 #endif
 
@@ -358,6 +358,13 @@ inline int iszero(int x) {
 inline int64 iszero(__int64 x) 
 {
 	return -(x>>63^(x-1)>>63);
+}
+#endif
+
+#if defined(APPLE)
+inline int64 iszero(int64 x)
+{
+    return -(x>>63^(x-1)>>63);
 }
 #endif
 

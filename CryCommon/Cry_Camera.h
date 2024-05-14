@@ -26,7 +26,7 @@
 #include "Cry_Geo.h"
 //DOC-IGNORE-END
 
-#ifdef WIN64
+#if defined(WIN64) || defined(APPLE)
 #include "Cry_XOptimise.h" // workaround for Amd64 compiler
 #endif
 //////////////////////////////////////////////////////////////////////
