@@ -6,8 +6,7 @@
 #include "Input.h"
 #include <ILog.h>
 #include <stdio.h>
-#ifdef	PS2
-#else
+#if !defined(PS2) && !defined(APPLE)
 #include <dinput.h>
 #endif
 #include "XKeyboard.h"
@@ -128,7 +127,9 @@ bool CXKeyboard::Init(CInput *pInput,ISystem *pSystem, LPDIRECTINPUT8 &g_pdi,HIN
 	m_hinst=hinst;
 
 	m_hwnd=hwnd;
-	
+
+    // TODO apple input
+#if !defined(APPLE)
 	HRESULT hr;
 	DIPROPDWORD dipdw = {{sizeof(DIPROPDWORD), sizeof(DIPROPHEADER), 0, DIPH_DEVICE}, KEYFLAG_BUFFERSIZE};
 
@@ -178,6 +179,7 @@ bool CXKeyboard::Init(CInput *pInput,ISystem *pSystem, LPDIRECTINPUT8 &g_pdi,HIN
 			return false;
 		}
 	}
+#endif
  	
 	memset(m_cKeysState, 0, sizeof(m_cKeysState));
 	memset(m_cOldKeysState, 0, sizeof(m_cOldKeysState));
@@ -289,7 +291,8 @@ void CXKeyboard::SetExclusive(bool value,void *hwnd)
 //////////////////////////////////////////////////////////////////////////
 bool CXKeyboard::Acquire()
 {
-#ifdef PS2
+    // TODO apple input
+#if defined(PS2) || defined(APPLE)
 	return true;
 #else
 	m_modifiers = 0;
@@ -306,7 +309,8 @@ bool CXKeyboard::Acquire()
 //////////////////////////////////////////////////////////////////////////
 bool CXKeyboard::UnAcquire()
 {
-#ifdef PS2
+    // TODO apple input
+#if defined(PS2) || defined(APPLE)
 	return true;
 #else
 	m_modifiers = 0;
@@ -323,7 +327,9 @@ bool CXKeyboard::UnAcquire()
 //////////////////////////////////////////////////////////////////////////
 unsigned short CXKeyboard::DIK2XKEY(unsigned char cCode )
 {
-#ifndef PS2
+    // TODO apple input
+#if defined(APPLE)
+#elif !defined(PS2)
    switch(cCode)
    {
       case DIK_ESCAPE:        return XKEY_ESCAPE;
@@ -579,7 +585,9 @@ unsigned short CXKeyboard::DIK2XKEY(unsigned char cCode )
 //////////////////////////////////////////////////////////////////////////
 unsigned char CXKeyboard::XKEY2DIK(unsigned short nCode )
 {
-#ifndef PS2
+    // TODO apple input
+#if defined(APPLE)
+#elif !defined(PS2)
    switch (nCode)
    {
       case XKEY_BACKSPACE:     return DIK_BACK;
@@ -853,6 +861,8 @@ unsigned char CXKeyboard::XKEY2ASCII(unsigned short nCode,int modifiers)
 
 bool CXKeyboard::GetOSKeyName(int nKey, wchar_t *szwKeyName, int iBufSize)
 {
+    // TODO apple input
+#if !defined(APPLE)
 	if (IS_KEYBOARD_KEY(nKey) && m_pKeyboard)
 	{
 		int iDIK = XKEY2DIK(nKey);
@@ -878,6 +888,7 @@ bool CXKeyboard::GetOSKeyName(int nKey, wchar_t *szwKeyName, int iBufSize)
 		}
 		return false;
 	}
+#endif
 	return false;
 }
 
@@ -900,7 +911,9 @@ inline ToAscii(unsigned long vKeyCode, int k, unsigned char sKState[], unsigned 
 //////////////////////////////////////////////////////////////////////////
 void CXKeyboard::SetupKeyNames()
 {
-#ifndef PS2
+#if defined(APPLE)
+    // TODO apple input
+#elif !defined(PS2)
 	////////////////////////////////////////////////////////////
 	for (int k=0;k<256;k++) 
 	{
@@ -1038,7 +1051,9 @@ void CXKeyboard::FeedVirtualKey(int nVirtualKey,long lParam,bool bDown)
 
 	if (!m_bExclusiveMode)
 		return; // windows has no focus
-	
+
+    // TODO apple input
+#if !defined(APPLE)
 	// hardcoded windows system key values(?) 
 	// couldn't find them
 	if (nVirtualKey==0x10) // SHIFT
@@ -1064,6 +1079,7 @@ void CXKeyboard::FeedVirtualKey(int nVirtualKey,long lParam,bool bDown)
 		else
 			nVirtualKey=VK_LMENU;
 	}
+#endif
 
 	int cKey=XKEY2DIK(m_pInput->VK2XKEY(nVirtualKey));
 	m_cTempKeys[cKey]=m_cKeysState[cKey];
@@ -1086,10 +1102,12 @@ void CXKeyboard::ProcessKey(int cKey,bool bPressed,unsigned char *cTempKeys)
 	else
 	{
 		cTempKeys[cKey] &= ~0x80;
-	}		
+	}
 
 	if (bPressed)
 	{
+        // TODO apple input
+#if !defined(APPLE)
 		if (cKey == DIK_LSHIFT) m_modifiers |= XKEY_MOD_LSHIFT;
 		if (cKey == DIK_RSHIFT) m_modifiers |= XKEY_MOD_RSHIFT;
 		if (cKey == DIK_LCONTROL) m_modifiers |= XKEY_MOD_LCONTROL;
@@ -1145,6 +1163,7 @@ void CXKeyboard::ProcessKey(int cKey,bool bPressed,unsigned char *cTempKeys)
 		if (cKey == DIK_RCONTROL) m_modifiers &= ~XKEY_MOD_RCONTROL;
 		if (cKey == DIK_LALT) m_modifiers &= ~XKEY_MOD_LALT;
 		if (cKey == DIK_RALT) m_modifiers &= ~XKEY_MOD_RALT;
+#endif
 	}
 	else
 	{
@@ -1168,6 +1187,8 @@ void CXKeyboard::ProcessKey(int cKey,bool bPressed,unsigned char *cTempKeys)
 	event.moidifiers = m_modifiers;
 	event.keyname = m_pInput->GetKeyName( event.key,event.moidifiers );
 
+    // TODO apple input
+#if !defined(APPLE)
 	// if alt+tab was pressed
 	// auto-release it, because we lost the focus on the press, so we don't get the up message
 	if ((event.key == XKEY_TAB) && (event.type == SInputEvent::KEY_PRESS) && (cTempKeys[DIK_LALT] & 0x80))
@@ -1181,6 +1202,7 @@ void CXKeyboard::ProcessKey(int cKey,bool bPressed,unsigned char *cTempKeys)
 		cTempKeys[DIK_LALT] = 0;
 	}
 	else
+#endif
 	{
 		m_pInput->PostInputEvent( event );
 	}
@@ -1193,7 +1215,9 @@ void CXKeyboard::Update()
 	if (!m_cvDirectInputKeys->GetIVal())
 		return; // use windows messages
 
-#ifndef PS2
+#if defined(APPLE)
+    // TODO apple input
+#elif !defined(PS2)
 	HRESULT hr;    	
 	DIDEVICEOBJECTDATA rgdod[256];	
 	DWORD dwItems = 256;
@@ -1305,7 +1329,9 @@ void CXKeyboard::Update()
 //////////////////////////////////////////////////////////////////////////
 void CXKeyboard::ShutDown()
 {
-#ifndef PS2
+#if defined(APPLE)
+    // TODO apple input
+#elif !defined(PS2)
 	m_pLog->LogToFile("Keyboard Shutdown\n");
 	UnAcquire();
 	if (m_pKeyboard) m_pKeyboard->Release();

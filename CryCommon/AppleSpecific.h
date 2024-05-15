@@ -61,6 +61,9 @@ typedef unsigned long   ULONG_PTR,  *PULONG_PTR;
 
 typedef int         HRESULT;
 typedef void*       HWND;
+typedef void*       HINSTANCE;
+typedef void*       LPDIRECTINPUT8;
+typedef void*       LPDIRECTINPUTDEVICE8;
 typedef UINT_PTR 	WPARAM;
 typedef LONG_PTR 	LPARAM;
 typedef LONG_PTR 	LRESULT;

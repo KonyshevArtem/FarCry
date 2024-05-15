@@ -228,6 +228,8 @@ bool CInput::Init(ISystem *pSystem,HINSTANCE hinst,HWND hwnd,bool dinput)
 	{
 		m_pLog->Log("Initializing Direct Input\n");
 
+        // TODO apple input
+#if !defined(APPLE)
 		HRESULT hr = DirectInput8Create(m_hinst,
 			DIRECTINPUT_VERSION, 
 			IID_IDirectInput8, 
@@ -239,7 +241,8 @@ bool CInput::Init(ISystem *pSystem,HINSTANCE hinst,HWND hwnd,bool dinput)
 		{
 			m_pLog->Log("Cannot initialize Direct Input\n");		
 			return (false);
-		}			
+		}
+#endif
 	}
 	//else
 	//	return (true);
@@ -374,14 +377,13 @@ void CInput::ShutDown()
 #endif //DEBUG_KEYBOARD 
 #endif //_XBOX
 
-#ifndef PS2
-#ifndef _XBOX
+  // TODO apple input
+#if !defined(_XBOX) && !defined(PS2) && !defined(APPLE)
 	if (m_g_pdi)
 	{
 		m_g_pdi->Release();
 		m_g_pdi = NULL;
-	}	
-#endif //_XBOX
+	}
 #endif
 	//
 	delete this;
@@ -693,6 +695,8 @@ bool CInput::GetOSKeyName(int nKey, wchar_t *szwKeyName, int iBufSize)
 int CInput::VK2XKEY(int nKey)
 {
 //#ifdef DEBUG_KEYBOARD
+    // TODO apple input
+#if !defined(APPLE)
 	switch(nKey)
    {
       case VK_ESCAPE:        return XKEY_ESCAPE;
@@ -819,6 +823,7 @@ int CInput::VK2XKEY(int nKey)
 			case VK_OEM_MINUS:		 return XKEY_MINUS;	
    };
 //#endif // DEBUG_KEYBOARD
+#endif
 
 
    return XKEY_NULL;

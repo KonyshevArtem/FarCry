@@ -16,6 +16,10 @@
 #include "Input.h"
 #include <IGame.h>
 
+#if defined(APPLE)
+#include "mach/mach_time.h"
+#endif
+
 /////PS2 Specific include /////////////////
 #ifdef PS2
 
@@ -43,7 +47,8 @@ static char g_mdata[0x80] __attribute__((aligned(64)));
 #endif
 /////End PS2 specific include /////////////
 
-#ifdef WIN32
+// TODO apple input
+#if defined(WIN32) || defined(APPLE)
 #ifndef _XBOX
 ///////////////////////////////////////////
 bool CXMouse::Init(ISystem *pSystem,LPDIRECTINPUT8 &g_pdi, HINSTANCE hinst, HWND hwnd, bool dinput)
@@ -101,7 +106,9 @@ bool CXMouse::Init(ISystem *pSystem,LPDIRECTINPUT8 &g_pdi, HINSTANCE hinst, HWND
 	m_fSensitivityScale=1;
 
 	m_fLastRelease[0]=m_fLastRelease[1]=m_fLastRelease[2]=0.0f;
-	
+
+    // TODO apple input
+#if !defined(APPLE)
 	if (m_dinput)
 	{	
 		hr = g_pdi->CreateDevice(GUID_SysMouse, &m_pMouse, NULL);
@@ -159,6 +166,7 @@ bool CXMouse::Init(ISystem *pSystem,LPDIRECTINPUT8 &g_pdi, HINSTANCE hinst, HWND
 		m_previouspoint.x = GetSystemMetrics(SM_CXFULLSCREEN)/2;
 		m_previouspoint.y = GetSystemMetrics(SM_CYFULLSCREEN)/2;
 	}
+#endif
 	
 	memset(m_Deltas, 0, sizeof(m_Deltas));	
 	//smooth
@@ -1201,6 +1209,8 @@ bool CXMouse::MouseReleased(int p_numButton)
 
 bool CXMouse::GetOSKeyName(int nKey, wchar_t *szwKeyName, int iBufSize)
 {
+    // TODO apple input
+#if !defined(APPLE)
 	if (IS_MOUSE_KEY(nKey) && m_pMouse)
 	{
 		DIDEVICEOBJECTINSTANCE dido;
@@ -1272,6 +1282,7 @@ bool CXMouse::GetOSKeyName(int nKey, wchar_t *szwKeyName, int iBufSize)
 
 		return true;
 	}
+#endif
 
 	return false;
 }
@@ -1281,7 +1292,8 @@ void CXMouse::Shutdown()
 {
 	m_pLog->LogToFile("Mouse Shutdown\n");
 	UnAcquire();
-#if !defined(_XBOX) && !defined(PS2)
+    // TODO apple input
+#if !defined(_XBOX) && !defined(PS2) && !defined(APPLE)
 	if (m_pMouse) 
 		m_pMouse->Release();
 	m_pMouse = NULL;
@@ -1303,7 +1315,9 @@ bool CXMouse::SetExclusive(bool value,void *hwnd)
 		HRESULT hr;
 		
 		HWND wind = m_hwnd;
-		
+
+        // TODO apple input
+#if !defined(APPLE)
 		if (value)
 		{
 			UnAcquire();		
@@ -1326,6 +1340,7 @@ bool CXMouse::SetExclusive(bool value,void *hwnd)
 				return (false);
 			}				
 		}
+#endif
 		
 		if (!Acquire()) 
 			return (false);
@@ -1425,7 +1440,13 @@ void CXMouse::PostEvent( int key,SInputEvent::EType type,float value,unsigned in
 	if (timestamp)
 		event.timestamp = timestamp;
 	else
-		event.timestamp = GetTickCount();
+    {
+#if defined(APPLE)
+        event.timestamp = mach_absolute_time();
+#else
+        event.timestamp = GetTickCount();
+#endif
+    }
 	event.moidifiers = m_pInput->GetModifiers();
 	event.keyname = m_pInput->GetKeyName( event.key,event.moidifiers );
 	event.value = value;

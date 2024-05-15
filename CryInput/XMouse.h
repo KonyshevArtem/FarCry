@@ -39,7 +39,7 @@ public:
 
 	class CInput* m_pInput;
 	
-#ifdef WIN32
+#if defined(WIN32) || defined(APPLE)
 	bool	Init(ISystem *pSystem,LPDIRECTINPUT8 &g_pdi,HINSTANCE hinst,HWND hwnd,bool dinput);
 #else
 	
@@ -129,7 +129,7 @@ private:
 	HINSTANCE				m_hinst;
 	HWND						m_hwnd;	
 
-#ifndef PS2
+#if !defined(PS2) && !defined(APPLE)
 	POINT						m_previouspoint;
 #endif
 

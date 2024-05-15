@@ -18,4 +18,8 @@ add_library(CryInput STATIC
 )
 
 target_compile_definitions(CryInput PRIVATE DIRECTINPUT_VERSION=0x0800)
-target_link_libraries(CryInput CryCommon -static dinput8 dxguid winmm)
+target_link_libraries(CryInput CryCommon -static)
+
+if (${FAR_CRY_WINDOWS})
+    target_link_libraries(CryInput dinput8 dxguid winmm)
+endif ()

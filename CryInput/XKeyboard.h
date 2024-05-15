@@ -106,7 +106,8 @@ protected:
 	unsigned char	m_cOldKeysState[256];	
 	unsigned char m_cTempKeys[256];	
 	CInput *m_pInput;
-#ifdef WIN32	
+    // TODO apple input
+#if defined(WIN32) || defined(APPLE)
 	LPDIRECTINPUTDEVICE8 m_pKeyboard;	
 	HINSTANCE m_hinst;
 	HWND	m_hwnd;
