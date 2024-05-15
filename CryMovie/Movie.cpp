@@ -26,7 +26,11 @@
 #include "MaterialNode.h"
 
 #include <ISystem.h>
+#if defined(APPLE)
+#include <sys/uio.h>
+#else
 #include <io.h>
+#endif
 #include <ILog.h>
 #include <IConsole.h>
 #include <ITimer.h>

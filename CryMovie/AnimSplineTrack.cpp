@@ -27,14 +27,14 @@ template<class ValueType>
 EAnimTrackType TAnimTcbTrack<ValueType>::GetType()
 {
     assert(0);
-    return 0;
+    return static_cast<EAnimTrackType>(0);
 }
 
 template<class ValueType>
 EAnimValue TAnimTcbTrack<ValueType>::GetValueType()
 {
     assert(0);
-    return 0;
+    return static_cast<EAnimValue>(0);
 }
 
 template<class ValueType>
