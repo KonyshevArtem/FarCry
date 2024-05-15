@@ -32,6 +32,7 @@
 //////////////////////////////////////////////////////////////////////////
 void CXGame::DevModeInit()
 {
+    // TODO apple input
 #ifdef WIN32
 	for (int i = 0; i < 255; i++)
 	{
@@ -61,6 +62,7 @@ bool CXGame::IsDevModeEnable()
 //////////////////////////////////////////////////////////////////////////
 void CXGame::DevModeUpdate()
 {
+    // TODO apple possible have to be reimplemented
 #ifdef WIN32
 
 	m_pTimeDemoRecorder->Update();
@@ -152,6 +154,7 @@ void CXGame::DevModeUpdate()
 //////////////////////////////////////////////////////////////////////////
 void CXGame::DevMode_SavePlayerPos( int index,const char *sTagName,const char *sDescription )
 {
+    // TODO apple possible have to be reimplemented
 #ifdef WIN32
 	if (index < 0 && index > 11)
 		return;
@@ -236,6 +239,7 @@ void CXGame::DevMode_SavePlayerPos( int index,const char *sTagName,const char *s
 //////////////////////////////////////////////////////////////////////////
 void CXGame::DevMode_LoadPlayerPos( int index,const char *sTagName )
 {
+    // TODO apple possible have to be reimplemented
 #ifdef WIN32
 	if (index < 0 && index > 11)
 		return;

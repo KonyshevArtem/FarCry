@@ -206,7 +206,7 @@ bool CStringTableMgr::LoadExcelXmlSpreadsheet( const string &sFileName )
 		wchar_t *sUnicodeStr = new wchar_t[ nUnicodeLen*sizeof(wchar_t) + 16 ];
 		// Use UTF-8 multibyte unicode decoding to convert to wide string.
 		// This is potentially not porrtable, for different platforms, alternative function must be used.
-#if defined(LINUX)
+#if defined(LINUX) || defined(APPLE)
 		mbstowcs( sUnicodeStr, sUTF_8_Str, nUTF_8_Len );
 		sUnicodeStr[ nUTF_8_Len ] = 0;
 #else

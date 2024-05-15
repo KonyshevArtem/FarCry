@@ -732,7 +732,8 @@ bool CXGame::Init(struct ISystem *pSystem,bool bDedicatedSrv,bool bInEditor,cons
 	if(!bInEditor)
 		m_pEntitySystem->SetDynamicEntityIdMode(true);	
 
-#if !defined(_XBOX) && !defined(PS2) && !defined(LINUX)
+    // TODO apple possible need to be reimplemented
+#if !defined(_XBOX) && !defined(PS2) && !defined(LINUX) && !defined(APPLE)
 	SetCursor(NULL);
 #endif
 
@@ -770,12 +771,10 @@ bool CXGame::Run(bool &bRelaunch)
 	return true;
 }
 
-#if !defined(_XBOX) && !defined(PS2) && !defined(LINUX)
+#if !defined(_XBOX) && !defined(PS2) && !defined(LINUX) && !defined(APPLE)
 #include <Mmsystem.h>
 #include ".\game.h"
 #pragma comment (lib , "Winmm.lib")
-#else
-#define GetCurrentTime() ((unsigned int)(GetSystem()->GetITimer()->GetCurrTime() * 1000.f))
 #endif
 
 //////////////////////////////////////////////////////////////////////////
@@ -833,7 +832,9 @@ bool CXGame::Update()
 //		while(extraTime - pTimer->GetAsyncCurTime() > 0)
 //			;
 		DWORD	extraTime = (DWORD)((1.0f/maxFPS - pTimer->GetFrameTime())*1000.0f);
-#if !defined(LINUX)
+
+        // TODO apple wait for target FPS
+#if !defined(LINUX) && !defined(APPLE)
 		if(extraTime>0&&extraTime<300)//thread sleep not process sleep
 			Sleep(extraTime);
 #endif
@@ -1901,6 +1902,7 @@ void CXGame::LoadingError(const char *szError)
 bool CXGame::GetCDPath(string &szCDPath)
 {
 	bool bRet( false );
+    // TODO apple: possible need to be reimplemented
 #ifdef WIN32
 	DWORD nBufferSize( GetLogicalDriveStrings( 0, 0 ) );
 	if( 0 < nBufferSize )

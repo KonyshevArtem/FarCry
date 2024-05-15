@@ -435,7 +435,7 @@ bool CXServer::CreateServerSlot(IServerSlot *pIServerSlot)
 #define ADDSTRING(c, s)	{ (c) += s; c.push_back('\0'); }
 #define ADDBOOL(c, b)	{ (c).push_back(b ? '\1' : '\0'); }
 #define ADDCHAR(c, ch)	{ (c).push_back((char)ch); }
-#if defined(WIN64)
+#if defined(WIN64) || defined(APPLE)
 	#define ADDINT(c, i)	{ char t=(char)(i & 0x000000FF);c+=t;t=(char)((i&0x0000FF00)>>8);c+=t;t=(char)((i&0x00FF0000)>>16);c+=t;t=(char)((i&0xFF000000)>>24);c+=t;}
 #else
 	#define ADDINT(c, i)	{ for(int j=0;j<4;j++) (c).push_back(((char *)&(i))[j]); }

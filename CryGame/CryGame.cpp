@@ -18,7 +18,7 @@ _ACCESS_POOL;
 //#endif//LINUX
 #endif //_XBOX
 
-#if !defined(PS2) && !defined(_XBOX) && !defined(LINUX)
+#if !defined(PS2) && !defined(_XBOX) && !defined(LINUX) && !defined(APPLE)
 // DLL-EntryPoint
 BOOL APIENTRY DllMain( HANDLE hModule, 
                        DWORD  ul_reason_for_call, 

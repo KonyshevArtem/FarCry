@@ -489,7 +489,9 @@ void CBoidBird::Update( float dt,SBoidContext &bc )
 				sym.density = BIRDS_PHYSICS_INWATER_DENSITY;
 				m_pPhysics->SetParams( &sym );
 			}
-			bool bAwake = m_pPhysics->GetStatus(&pe_status_awake()) != 0;
+
+            pe_status_awake statusAwake = pe_status_awake();
+			bool bAwake = m_pPhysics->GetStatus(&statusAwake) != 0;
 			if (bAwake && m_pPhysics->GetType() == PE_ARTICULATED)
 			{
 				m_object->SynchronizeWithPhysicalEntity(m_pPhysics);

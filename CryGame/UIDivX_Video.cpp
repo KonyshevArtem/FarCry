@@ -12,7 +12,7 @@
 #define STRICT
 #include "StdAfx.h"
 
-#if !defined(LINUX) &&  !defined(NOT_USE_DIVX_SDK)
+#if !defined(LINUX) && !defined(APPLE) &&  !defined(NOT_USE_DIVX_SDK)
 
 #include <Cry_Math.h>
 #include <windows.h>

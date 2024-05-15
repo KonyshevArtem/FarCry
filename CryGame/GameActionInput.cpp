@@ -58,7 +58,7 @@ void CXGame::SetConfigToActionMap(const char *pszActionName, ...)
 	ActionInfo &Info=It->second;
 	va_list v;
 	va_start(v, pszActionName);            
-#if defined(LINUX64)
+#if defined(LINUX64) || defined(APPLE)
 	char *sActionMapName=va_arg(v, char*);
 	while (*sActionMapName)
 	{

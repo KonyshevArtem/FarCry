@@ -161,8 +161,11 @@ void CVehicle::Update()
 	UpdateWeaponPosAngl();
 
 	if(GetEntity()->GetPhysics())
-	if(!GetEntity()->GetPhysics()->GetStatus(&pe_status_awake()))
-		UpdateCamera(fTimeStep, m_pGame->IsSynchronizing());
+    {
+        pe_status_awake statusAwake = pe_status_awake();
+        if (!GetEntity()->GetPhysics()->GetStatus(&statusAwake))
+            UpdateCamera(fTimeStep, m_pGame->IsSynchronizing());
+    }
 
 	if ((m_Type == VHT_BOAT) )
 		WakeupPhys();
@@ -1491,7 +1494,9 @@ UsersList::iterator	itr = std::find(m_UsersList.begin(), m_UsersList.end(), entI
 
 void CVehicle::PreloadInstanceResources(Vec3d vPrevPortalPos, float fPrevPortalDistance, float fTime)
 {
+#if !defined(APPLE)
 #pragma message( "Warning: Preloading of render resources is not implemented in " __FUNCTION__ )
+#endif
 	// for all objects what will be used for rendering call 
 	// ICryCharInstance::PreloadResources or
 	// IStatObj::PreloadResources

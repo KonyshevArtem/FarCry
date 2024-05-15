@@ -12,6 +12,8 @@
 #include "stdafx.h"
 #if defined LINUX
 #include <sys/io.h>
+#elif defined(APPLE)
+#include <sys/uio.h>
 #else
 #include <io.h>
 #endif
@@ -42,7 +44,7 @@
 
 #include "GameMods.h"
 
-#if !defined(LINUX)
+#if !defined(LINUX) && !defined(APPLE)
 #	include <direct.h>
 #	pragma comment (lib, "version.lib")
 #else
@@ -1239,7 +1241,8 @@ int CScriptObjectGame::GetVersion(IFunctionHandler *pH)
 
 int CScriptObjectGame::GetVersionString(IFunctionHandler *pH)
 {
-#if !defined(LINUX)
+    // TODO apple possible needs to be reimplemented
+#if !defined(LINUX) && !defined(APPLE)
 	char szDate[128] = __DATE__;
 	
 	char *szMonth = szDate;
@@ -1719,8 +1722,9 @@ int CScriptObjectGame::GetWaterHeight(IFunctionHandler *pH)
 	if (pH->GetParamCount()>0) 
 	{
 		CScriptObjectVector vPosition(m_pScriptSystem,true);
-		pH->GetParam(1, *vPosition);		
-		return pH->EndFunction(m_pSystem->GetI3DEngine()->GetWaterLevel(&vPosition.Get()));
+		pH->GetParam(1, *vPosition);
+        Vec3 pos = vPosition.Get();
+		return pH->EndFunction(m_pSystem->GetI3DEngine()->GetWaterLevel(&pos));
 	}
 
 	return pH->EndFunction(m_pSystem->GetI3DEngine()->GetWaterLevel());
@@ -3496,13 +3500,13 @@ int CScriptObjectGame::SaveConfiguration(IFunctionHandler *pH)
 	{
 		string path = "profiles/player/";
 		path += szProfileName;
-#if defined(LINUX)
+#if defined(LINUX) || defined(APPLE)
 		mkdir( path.c_str(), 0xFFFF );
 #else
 		_mkdir( path.c_str() );
 #endif
 		path += "savegames/";
-#if defined(LINUX)
+#if defined(LINUX) || defined(APPLE)
 		mkdir( path.c_str(), 0xFFFF );
 #else
 		_mkdir( path.c_str() );

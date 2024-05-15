@@ -29,7 +29,7 @@
 #define CRYGAME_API
 #endif
 
-#if defined(LINUX)
+#if defined(LINUX) || defined(APPLE)
 #	include "platform.h"
 #	include "Cry_Math.h"
 #	include <vector>

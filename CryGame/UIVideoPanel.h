@@ -1,5 +1,5 @@
 //-------------------------------------------------------------------------------------------------
-// Author: Márcio Martins
+// Author: Mï¿½rcio Martins
 //
 // Purpose:
 //  - A Bink Video Control
@@ -17,7 +17,7 @@
 #include "UIWidget.h"
 #include "UISystem.h"
 
-#if !defined(WIN64) && !defined(LINUX) && !defined(NOT_USE_BINK_SDK)
+#if !defined(WIN64) && !defined(LINUX) && !defined(APPLE) && !defined(NOT_USE_BINK_SDK)
 #	include "../binksdk/bink.h"
 #endif
 
@@ -90,7 +90,7 @@ public:
 	bool					m_DivX_Active;
 
 	string				m_szVideoFile;
-#if !defined(WIN64) && !defined(LINUX) && !defined(NOT_USE_BINK_SDK)
+#if !defined(WIN64) && !defined(LINUX) && !defined(APPLE) && !defined(NOT_USE_BINK_SDK)
 	HBINK					m_hBink;
 #endif
 	bool					m_bPaused;

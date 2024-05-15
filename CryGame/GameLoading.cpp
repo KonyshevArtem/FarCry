@@ -46,14 +46,14 @@
 #include <ISound.h>
 #include <IAgent.h>
 
-#if !defined(LINUX)
+#if !defined(LINUX) && !defined(APPLE)
 #	include <dbghelp.h>
 #	pragma comment(lib, "dbghelp.lib")
 #else
 #	include <stdio.h>
 #endif
 
-#if defined(LINUX)
+#if defined(LINUX) || defined(APPLE)
 	#include "ILog.h"
 #endif
 
@@ -118,7 +118,8 @@ struct PropertyWriter : IScriptObjectDumpSink
 			{
 				_SmartScriptObject t(m_pScriptSystem, true);
 				_VERIFY(iskey ? table->GetValue(sName, t) : table->GetAt(nIdx, t));
-				t->Dump(&PropertyWriter(t, stm, m_pScriptSystem));
+                PropertyWriter writer = PropertyWriter(t, stm, m_pScriptSystem);
+				t->Dump(&writer);
 				stm.Write((char)TABLE_END);
 				break;
 			};
@@ -437,16 +438,25 @@ bool CXGame::SaveToStream(CStream &stm, Vec3d *pos, Vec3d *angles,string sFilena
 		stm.AlignWrite();
 
 		_SmartScriptObject props(m_pScriptSystem, true);
-		if(so->GetValue("Properties", props)) props->Dump(&PropertyWriter(props, stm, m_pScriptSystem));
-		stm.Write((char)TABLE_END);
+        {
+            PropertyWriter writer = PropertyWriter(props, stm, m_pScriptSystem);
+            if (so->GetValue("Properties", props)) props->Dump(&writer);
+            stm.Write((char) TABLE_END);
+        }
 
 		_SmartScriptObject propsi(m_pScriptSystem, true);
-		if(so->GetValue("PropertiesInstance", propsi)) propsi->Dump(&PropertyWriter(propsi, stm, m_pScriptSystem));
-		stm.Write((char)TABLE_END);
+        {
+            PropertyWriter writer = PropertyWriter(propsi, stm, m_pScriptSystem);
+            if (so->GetValue("PropertiesInstance", propsi)) propsi->Dump(&writer);
+            stm.Write((char) TABLE_END);
+        }
 
 		_SmartScriptObject events(m_pScriptSystem, true);
-		if(so->GetValue("Events", events)) events->Dump(&PropertyWriter(events, stm, m_pScriptSystem));
-		stm.Write((char)TABLE_END);
+        {
+            PropertyWriter writer = PropertyWriter(events, stm, m_pScriptSystem);
+            if (so->GetValue("Events", events)) events->Dump(&writer);
+            stm.Write((char) TABLE_END);
+        }
 
 		WRITE_COOKIE_NO(stm,78);
 
@@ -1772,7 +1782,7 @@ void CXGame::RemoveConfiguration(string &sSystemCfg,string &sGameCfg,const char 
 		sGameCfg=string("Profiles/Player/")+sProfileName+"_"+sGameCfg;
 	}
 	
-#if defined(LINUX)
+#if defined(LINUX) || defined(APPLE)
 	remove( sSystemCfg.c_str() ); 
 	remove( sGameCfg.c_str() );
 #else

@@ -188,7 +188,7 @@ public: // ---------------------------------------------------------------------
 	Vec3 GetCamPos() { return m_vCamPos; }
 	void SetCameraParams(Vec3 vCamStiffness[2],Vec3 vCamLimits[2],float fCamDamping,float fMaxCamTimestep,float fCamSnapDist,float fCamSnapVel);
 
-	void CVehicle::WeaponState(int userId=-1, bool shooting=false, int fireMode=0 );
+	void WeaponState(int userId=-1, bool shooting=false, int fireMode=0 );
 
 	bool	CrossOnScreen() { return m_bCrossOnScreen; }
 

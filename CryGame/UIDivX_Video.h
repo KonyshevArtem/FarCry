@@ -12,7 +12,7 @@
 #ifndef UIDivX_Video_H
 #define UIDivX_Video_H
 
-#if !defined(LINUX) && !defined(NOT_USE_DIVX_SDK)
+#if !defined(LINUX) && !defined(APPLE) && !defined(NOT_USE_DIVX_SDK)
 
 // TODO : video system
 //#ifdef WIN64

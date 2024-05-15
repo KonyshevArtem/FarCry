@@ -48,15 +48,19 @@ using std::max;
 #include <stdlib.h>
 #include <stdio.h>
 
-#if defined(LINUX)
+#if defined(LINUX) || defined(APPLE)
 #	include <stdarg.h>
 #	include "platform.h"
 #	include "IGame.h"
 #	include "string.h"
 #endif
 
-#if defined(_AMD64_) && !defined(LINUX)
+#if defined(_AMD64_) && !defined(LINUX) && !defined(APPLE)
 #include <io.h>
+#endif
+
+#if defined(APPLE)
+#include <sys/uio.h>
 #endif
 
 #define USE_NEWPOOL
@@ -68,7 +72,7 @@ using std::max;
 /////////////////////////////////////////////////////////////////////////////
 
 #ifndef PS2
-#if defined(WIN64) || defined(LINUX)
+#if defined(WIN64) || defined(LINUX) || defined(APPLE)
 #define FIXME_ASSERT(cond) { if(!(cond)) abort(); }
 #else
 #define FIXME_ASSERT(cond) { if(!(cond)) { DEBUG_BREAK; } }
@@ -144,7 +148,7 @@ _inline void __cdecl __CRYTEKDLL_TRACE(const char *sFormat, ... )
 #undef ASSERT
 #endif
 
-#if defined(WIN64) || defined(LINUX64)
+#if defined(WIN64) || defined(LINUX64) || defined(APPLE)
 #define ASSERT(x) {assert(x);}
 #else
 #define ASSERT(x)	{ if (!(x)) { TRACE("Assertion Failed (%s) File: \"%s\" Line: %d\n", #x, __FILE__, __LINE__); DEBUG_BREAK; } }
@@ -382,8 +386,9 @@ inline float	ClampAngle( float minA, float maxA, float angl)
 #endif
 
 
-
-
+#if defined(_XBOX) || defined(PS2) || defined(LINUX) || defined(APPLE)
+#define GetCurrentTime() ((unsigned int)(GetISystem()->GetITimer()->GetCurrTime() * 1000.f))
+#endif
 
 
 //{{AFX_INSERT_LOCATION}}

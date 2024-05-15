@@ -21,7 +21,7 @@
 
 #include "platform.h"
 
-#ifdef LINUX
+#if defined(LINUX) || defined(APPLE)
 	#include <sys/types.h>
 	#include <sys/socket.h>
 	#include <netinet/in.h>
@@ -33,7 +33,7 @@ struct _SOCKADDR_IN
 {
 	short sin_family;
 	unsigned short sin_port;
-#if defined(LINUX)
+#if defined(LINUX) || defined(APPLE)
 	union
 	{
 		struct in_addr_windows sin_addr_win;
@@ -99,7 +99,7 @@ inline unsigned short __ntohs(unsigned short us)
 	be careful because for some strange reason
 	was partially working :)	
 */
-#if defined(LINUX)
+#if defined(LINUX) || defined(APPLE)
 	#define ADDR sin_addr_win.S_un.S_addr
 #else
 	#define ADDR sin_addr.S_un.S_addr
@@ -208,7 +208,7 @@ inline char *CIPAddress::GetAsString(bool bPort) const
 {
 	static char s[64];
 	if (bPort)
-#ifndef LINUX	
+#if !defined(LINUX) && !defined(APPLE)
 		wsprintf(s, "%i.%i.%i.%i:%i", m_Address.sin_addr.S_un.S_un_b.s_b1,
 		m_Address.sin_addr.S_un.S_un_b.s_b2,
 		m_Address.sin_addr.S_un.S_un_b.s_b3,
@@ -220,7 +220,7 @@ inline char *CIPAddress::GetAsString(bool bPort) const
 		);
 #endif	//LINUX
 	else
-#ifndef LINUX
+#if !defined(LINUX) && !defined(APPLE)
 		wsprintf(s, "%i.%i.%i.%i", m_Address.sin_addr.S_un.S_un_b.s_b1,
 		m_Address.sin_addr.S_un.S_un_b.s_b2,
 		m_Address.sin_addr.S_un.S_un_b.s_b3,

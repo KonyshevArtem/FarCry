@@ -5078,7 +5078,7 @@ void CPlayer::OnDraw(const SRendParams & _RendParams)
 	OnDrawMountedWeapon( _RendParams );
 
 	// if nRecursionLevel is not 0 - use only 3tp person view ( for reflections )
-	int nRecursionLevel = (int)m_pGame->GetSystem()->GetIRenderer()->EF_Query(EFQ_RecurseLevel) - 1;
+	int nRecursionLevel = (int)(size_t)m_pGame->GetSystem()->GetIRenderer()->EF_Query(EFQ_RecurseLevel) - 1;
 
 	// draw first person weapon
 	if(m_bFirstPerson && !nRecursionLevel && m_stats.drawfpweapon	&& m_nSelectedWeaponID != -1)
@@ -6738,7 +6738,7 @@ void	CPlayer::GiveBinoculars(bool val)
 
 void CPlayer::PreloadInstanceResources(Vec3d vPrevPortalPos, float fPrevPortalDistance, float fTime)
 {
-	int nRecursionLevel = (int)m_pGame->GetSystem()->GetIRenderer()->EF_Query(EFQ_RecurseLevel) - 1;
+	int nRecursionLevel = (int)(size_t)m_pGame->GetSystem()->GetIRenderer()->EF_Query(EFQ_RecurseLevel) - 1;
 	if(m_bFirstPerson && !nRecursionLevel && m_stats.drawfpweapon	&& m_nSelectedWeaponID != -1)
 		return;
 

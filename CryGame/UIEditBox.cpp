@@ -320,7 +320,8 @@ int CUIEditBox::Cut()
 //------------------------------------------------------------------------------------------------- 
 int CUIEditBox::CopyToClipboard()
 {
-#if !defined(LINUX)
+    // TODO apple possible needs to be reimplemented
+#if !defined(LINUX) && !defined(APPLE)
 	if (m_szText.empty())
 	{
 		return 0;
@@ -371,7 +372,8 @@ int CUIEditBox::CutToClipboard()
 //------------------------------------------------------------------------------------------------- 
 int CUIEditBox::PasteFromClipboard()
 {
-#if !defined(LINUX)
+    // TODO apple possible needs to be reimplemented
+#if !defined(LINUX) && !defined(APPLE)
 	HGLOBAL	hGlobal;
 	LPVOID	pGlobal;
 	bool	bUnicode = true;
@@ -896,7 +898,7 @@ int CUIEditBox::ProcessInput(unsigned int iMessage, int iKeyCode, char *szKeyNam
 			{
 				wchar_t szwStr[256];
 				int iLength = strlen(szKeyName);
-#if defined(LINUX)
+#if defined(LINUX) || defined(APPLE)
 				mbstowcs(szwStr, szKeyName, iLength);
 				szwStr[iLength] = 0;
 #else

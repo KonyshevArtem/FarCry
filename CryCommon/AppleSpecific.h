@@ -16,6 +16,11 @@
 #define _stricmp        strcasecmp
 #define strnicmp        strncasecmp
 #define _vsnprintf      vsnprintf
+#define _strlwr         strlwr
+#define _wtof(str)      wcstod(str, 0)
+
+#define TRUE    1
+#define FALSE   0
 
 // stdlib.h stuff
 #define _MAX_DRIVE  3   // max. length of drive component
@@ -49,13 +54,16 @@ typedef unsigned int    DWORD;
 typedef uint64          DWORD_PTR;
 typedef void*			LPVOID;
 
-typedef int     HRESULT;
-typedef void*   HWND;
-
 typedef intptr_t        INT_PTR,    *PINT_PTR;
 typedef uintptr_t       UINT_PTR,   *PUINT_PTR;
+typedef long            LONG_PTR,   *PLONG_PTR, *PLONG;
 typedef unsigned long   ULONG_PTR,  *PULONG_PTR;
 
+typedef int         HRESULT;
+typedef void*       HWND;
+typedef UINT_PTR 	WPARAM;
+typedef LONG_PTR 	LPARAM;
+typedef LONG_PTR 	LRESULT;
 
 typedef struct _FILETIME
 {
@@ -115,9 +123,16 @@ inline const S& __max(const S& rS, const T& rT)
     return max(rS, rT);
 }
 
-inline void ltoa(int number, char *buffer, int base)
+inline char* ltoa(int number, char *buffer, int base)
 {
     std::sprintf(buffer, "%d", number);
+    return buffer;
+}
+
+inline char* itoa(int number, char *buffer, int base)
+{
+    std::sprintf(buffer, "%d", number);
+    return buffer;
 }
 
 inline void _makepath(char* buffer, const char* drive, const char* directory, const char* filename, const char* extension)
@@ -128,7 +143,7 @@ inline void _makepath(char* buffer, const char* drive, const char* directory, co
         std::sprintf(buffer, "%s/%s/%s.%s", drive, directory, filename, extension);
 }
 
-inline void strlwr(char* str)
+inline char* strlwr(char* str)
 {
     while (*str != '\0')
     {
@@ -137,9 +152,33 @@ inline void strlwr(char* str)
             *str = tolower(c);
         ++str;
     }
+    return str;
+}
+
+inline char* strupr(char* str)
+{
+    while (*str != '\0')
+    {
+        char c = *str;
+        if (isalpha(c))
+            *str = toupper(c);
+        ++str;
+    }
+    return str;
 }
 
 inline void OutputDebugString(const char* str)
+{
+    // TODO: apple
+}
+
+inline bool MakeSureDirectoryPathExists(const char* path)
+{
+    // TODO: apple
+    return false;
+}
+
+inline void DebugBreak()
 {
     // TODO: apple
 }
@@ -162,9 +201,28 @@ struct __finddata64_t {
     char name[260];
 };
 
+// TODO apple
 #define _finddata_t     _finddata64i32_t
+#define _finddata64_t   __finddata64_t
 #define _finddatai64_t  __finddata64_t
+#define _A_SUBDIR       0
 
+intptr_t _findfirst64(const char* filespec, struct _finddata64_t* fileinfo)
+{
+    // TODO apple
+    return -1L;
+}
+
+intptr_t _findnext64(intptr_t handle, struct _finddata64_t* fileinfo)
+{
+    // TODO apple
+    return -1L;
+}
+
+void _findclose(intptr_t handle)
+{
+    // TODO apple
+}
 
 typedef struct tagBITMAPFILEHEADER {
     WORD bfType;
@@ -188,6 +246,31 @@ typedef struct tagBITMAPINFOHEADER {
     DWORD biClrImportant;
 } BITMAPINFOHEADER,*LPBITMAPINFOHEADER,*PBITMAPINFOHEADER;
 
+typedef struct in_addr_windows
+{
+    union
+    {
+        struct { unsigned char s_b1,s_b2,s_b3,s_b4; } S_un_b;
+        struct { unsigned short s_w1,s_w2; } S_un_w;
+        unsigned int S_addr;
+    } S_un;
+}in_addr_windows;
+
+typedef struct _SYSTEMTIME {
+    WORD wYear;
+    WORD wMonth;
+    WORD wDayOfWeek;
+    WORD wDay;
+    WORD wHour;
+    WORD wMinute;
+    WORD wSecond;
+    WORD wMilliseconds;
+} SYSTEMTIME, *PSYSTEMTIME, *LPSYSTEMTIME;
+
+inline void GetLocalTime(SYSTEMTIME* outTime)
+{
+    // TODO apple
+}
 
 #endif
 

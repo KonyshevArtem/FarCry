@@ -8,7 +8,7 @@
 //  Description: UI Video Panel Manager
 //
 //  History:
-//  - [9/7/2003]: File created by Márcio Martins
+//  - [9/7/2003]: File created by Mï¿½rcio Martins
 //	- February 2005: Modified by Marco Corbetta for SDK release
 //
 //////////////////////////////////////////////////////////////////////
@@ -21,7 +21,7 @@
 #include "UIDivX_Video.h"
 #endif
 
-#if !defined(WIN64) && !defined(LINUX) && !defined(NOT_USE_BINK_SDK)
+#if !defined(WIN64) && !defined(LINUX) && !defined(APPLE) && !defined(NOT_USE_BINK_SDK)
 #pragma comment(lib, "binkw32.lib")
 #endif
 
@@ -33,7 +33,7 @@ static bool g_bBinkInit = 0;
 ////////////////////////////////////////////////////////////////////// 
 CUIVideoPanel::CUIVideoPanel()
 :
-#if !defined(WIN64) && !defined(LINUX) && !defined(NOT_USE_BINK_SDK)
+#if !defined(WIN64) && !defined(LINUX) && !defined(APPLE) && !defined(NOT_USE_BINK_SDK)
 	m_hBink(0),
 #endif
 	m_bLooping(1), m_bPlaying(0), m_bPaused(0), m_iTextureID(-1), m_pSwapBuffer(0), m_szVideoFile(""), m_bKeepAspect(1)
@@ -56,7 +56,7 @@ string CUIVideoPanel::GetClassName()
 ////////////////////////////////////////////////////////////////////// 
 int CUIVideoPanel::InitBink()
 {
-#if !defined(WIN64) && !defined(LINUX) && !defined(NOT_USE_BINK_SDK)
+#if !defined(WIN64) && !defined(LINUX) && !defined(APPLE) && !defined(NOT_USE_BINK_SDK)
 	if (g_bBinkInit)
 	{
 		return 1;
@@ -87,7 +87,7 @@ int CUIVideoPanel::LoadVideo(const string &szFileName, bool bSound)
 	
 	m_DivX_Active=1; //activate DivX
 
-#if !defined(WIN64) && !defined(NOT_USE_BINK_SDK)
+#if !defined(WIN64) && !defined(APPLE) && !defined(NOT_USE_BINK_SDK)
 	//check if a BINK-file exists 
 	HBINK hBink = BinkOpen(szFileName.c_str(), BINKSNDTRACK);
 	if (hBink) {
@@ -95,13 +95,13 @@ int CUIVideoPanel::LoadVideo(const string &szFileName, bool bSound)
 		BinkClose(hBink);
 	}
 #endif
-#if !defined(NOT_USE_DIVX_SDK)	
+#if !defined(APPLE) && !defined(NOT_USE_DIVX_SDK)
 	if (m_DivX_Active){
 		m_DivX_Active = g_DivXPlayer.Load_DivX( this, szFileName );
 		return m_DivX_Active;
 	}
 #endif
-#if !defined(WIN64) && !defined(NOT_USE_BINK_SDK)
+#if !defined(WIN64) && !defined(APPLE) && !defined(NOT_USE_BINK_SDK)
 
 	if (m_hBink)
 	{
@@ -232,13 +232,13 @@ LRESULT CUIVideoPanel::Update(unsigned int iMessage, WPARAM wParam, LPARAM lPara
 {
 
 	FUNCTION_PROFILER( m_pUISystem->GetISystem(), PROFILE_GAME );
-#if !defined(NOT_USE_DIVX_SDK)
+#if !defined(APPLE) && !defined(NOT_USE_DIVX_SDK)
 	if (m_DivX_Active){
 		g_DivXPlayer.Update_DivX(this);
 		return CUISystem::DefaultUpdate(this, iMessage, wParam, lParam);
 	}
 #endif
-#if !defined(WIN64) && !defined(NOT_USE_BINK_SDK)
+#if !defined(WIN64) && !defined(APPLE) && !defined(NOT_USE_BINK_SDK)
 
 	if ((iMessage == UIM_DRAW) && (wParam == 0))
 	{
@@ -302,7 +302,7 @@ int CUIVideoPanel::Play()
 		return 1;
 	}	
 
-#if !defined(WIN64) && !defined(LINUX) && !defined(NOT_USE_BINK_SDK)
+#if !defined(WIN64) && !defined(LINUX) && !defined(APPLE) && !defined(NOT_USE_BINK_SDK)
 	if (!m_hBink)
 	{
 		if (m_szVideoFile.empty())
@@ -330,7 +330,7 @@ int CUIVideoPanel::Play()
 ////////////////////////////////////////////////////////////////////// 
 int CUIVideoPanel::Stop()
 {
-#if !defined(NOT_USE_DIVX_SDK)
+#if !defined(APPLE) && !defined(NOT_USE_DIVX_SDK)
 	if (m_DivX_Active){
 		g_DivXPlayer.StopSound();
 		m_bPaused = 0;
@@ -338,7 +338,7 @@ int CUIVideoPanel::Stop()
 		return 1;
 	}
 #endif
-#if !defined(WIN64) && !defined(NOT_USE_BINK_SDK)
+#if !defined(WIN64) && !defined(APPLE) && !defined(NOT_USE_BINK_SDK)
 	if (!m_hBink)
 	{
 		return 0;
@@ -363,7 +363,7 @@ int CUIVideoPanel::ReleaseVideo()
 		return 1;
 	}
 
-#if !defined(WIN64) && !defined(LINUX) && !defined(NOT_USE_BINK_SDK)
+#if !defined(WIN64) && !defined(LINUX) && !defined(APPLE) && !defined(NOT_USE_BINK_SDK)
 	if (m_hBink)
 	{
 		BinkClose(m_hBink);
@@ -399,7 +399,7 @@ int CUIVideoPanel::Pause(bool bPause)
 	}
 
 
-#if !defined(WIN64) && !defined(LINUX) && !defined(NOT_USE_BINK_SDK)
+#if !defined(WIN64) && !defined(LINUX) && !defined(APPLE) && !defined(NOT_USE_BINK_SDK)
 	if (!m_hBink)
 	{
 		return 0;
@@ -436,7 +436,7 @@ int CUIVideoPanel::IsPlaying()
 		return (m_bPlaying ? 1 : 0);
 	}
 
-#if !defined(WIN64) && !defined(LINUX) && !defined(NOT_USE_BINK_SDK)
+#if !defined(WIN64) && !defined(LINUX) && !defined(APPLE) && !defined(NOT_USE_BINK_SDK)
 	if (!m_hBink)
 	{
 		return 0;
@@ -455,7 +455,7 @@ int CUIVideoPanel::IsPaused()
 	if (m_DivX_Active){
 		return (m_bPaused ? 1 : 0);
 	}
-#if !defined(WIN64) && !defined(LINUX) && !defined(NOT_USE_BINK_SDK)
+#if !defined(WIN64) && !defined(LINUX) && !defined(APPLE) && !defined(NOT_USE_BINK_SDK)
 	if (!m_hBink)
 	{
 		return 0;
@@ -476,7 +476,7 @@ int CUIVideoPanel::SetVolume(int iTrackID, float fVolume)
 		return 1;
 	}
 
-#if !defined(WIN64) && !defined(LINUX) && !defined(NOT_USE_BINK_SDK)
+#if !defined(WIN64) && !defined(LINUX) && !defined(APPLE) && !defined(NOT_USE_BINK_SDK)
 	if (!m_hBink)
 	{
 		return 0;
@@ -504,7 +504,7 @@ int CUIVideoPanel::SetPan(int iTrackID, float fPan)
 		return 1;
 	}
 
-#if !defined(WIN64) && !defined(LINUX) && !defined(NOT_USE_BINK_SDK)
+#if !defined(WIN64) && !defined(LINUX) && !defined(APPLE) && !defined(NOT_USE_BINK_SDK)
 	if (!m_hBink)
 	{
 		return 0;
@@ -535,7 +535,7 @@ int CUIVideoPanel::SetFrameRate(int iFrameRate)
 		return 1;
 	}
 
-#if !defined(WIN64) && !defined(LINUX) && !defined(NOT_USE_BINK_SDK)
+#if !defined(WIN64) && !defined(LINUX) && !defined(APPLE) && !defined(NOT_USE_BINK_SDK)
 	if (!m_hBink)	{
 		return 0;
 	}
@@ -592,7 +592,7 @@ int CUIVideoPanel::Draw(int iPass)
 		float fWidth = pAbsoluteRect.fWidth;
 		float fHeight = pAbsoluteRect.fHeight;
 
-#if !defined(WIN64) && !defined(LINUX) && !defined(NOT_USE_BINK_SDK)
+#if !defined(WIN64) && !defined(LINUX) && !defined(APPLE) && !defined(NOT_USE_BINK_SDK)
 		if (m_bKeepAspect && m_hBink)
 		{
 			float fAspect = m_hBink->Width / (float)m_hBink->Height;
@@ -667,7 +667,7 @@ int CUIVideoPanel::Draw(int iPass)
 ////////////////////////////////////////////////////////////////////// 
 int CUIVideoPanel::EnableVideo(bool bEnable)
 {
-#if !defined(WIN64) && !defined(LINUX) && !defined(NOT_USE_BINK_SDK)
+#if !defined(WIN64) && !defined(LINUX) && !defined(APPLE) && !defined(NOT_USE_BINK_SDK)
 	if (!m_hBink)
 	{
 		return 0;
@@ -684,7 +684,7 @@ int CUIVideoPanel::EnableVideo(bool bEnable)
 ////////////////////////////////////////////////////////////////////// 
 int CUIVideoPanel::EnableAudio(bool bEnable)
 {
-#if !defined(WIN64) && !defined(LINUX) && !defined(NOT_USE_BINK_SDK)
+#if !defined(WIN64) && !defined(LINUX) && !defined(APPLE) && !defined(NOT_USE_BINK_SDK)
 
 	if (!m_hBink)
 	{
