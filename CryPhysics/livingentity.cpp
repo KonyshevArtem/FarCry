@@ -875,7 +875,8 @@ float CLivingEntity::ShootRayDown(CPhysicalEntity **pentlist,int nents, const ve
 		R = matrix3x3f(m_qrot);
 	else
 		R.SetIdentity();
-	CRayGeom aray; aray.CreateRay(pos+R*vectorf(0,0,m_hCyl-m_hPivot),R*vectorf(0,0,-m_hCyl-m_size.x),&(R*vectorf(0,0,-1)));
+    Vec3 negZR = (R*vectorf(0,0,-1));
+	CRayGeom aray; aray.CreateRay(pos+R*vectorf(0,0,m_hCyl-m_hPivot),R*vectorf(0,0,-m_hCyl-m_size.x),&negZR);
 	geom_world_data gwd;
 	geom_contact *pcontacts;
 	CPhysicalEntity *pPrevCollider=m_pLastGroundCollider;

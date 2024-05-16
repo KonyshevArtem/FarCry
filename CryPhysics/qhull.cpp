@@ -31,7 +31,7 @@ struct qhtritem {
 };
 
 inline void relocate_ptritem(qhtritem *&ptr,intptr_t diff) {
-	ptr = (qhtritem*)((intptr_t)ptr+diff & ~-iszero((intptr_t)ptr));	// offset the pointer, but leave out 0s
+	ptr = (qhtritem*)((intptr_t)ptr+diff & ~-iszero((int64)(intptr_t)ptr));	// offset the pointer, but leave out 0s
 }
 
 inline void relocate_tritem(qhtritem *ptr,int diff) {

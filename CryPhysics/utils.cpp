@@ -1130,13 +1130,13 @@ int CoverPolygonWithCircles(strided_pointer<vector2df> pt,int npt,bool bConsecut
 		// find the farthest from the center vertex in +30 degrees vicinity of the global maximum
 		for(pvtx=(pvtx_left=pvtx_max)->next; 
 			pvtx!=pvtx_max && sqr(pvtx->pt^pvtx_max->pt) < 0.25f*pvtx->pt.len2()*len2 && pvtx->pt*pvtx_max->pt>0; pvtx=pvtx->next) 
-		{ imask = -((intptr_t)isneg(pvtx_left->pt.len2() - pvtx->pt.len2()) | iszero((intptr_t)pvtx_left-(intptr_t)pvtx_max));
+		{ imask = -((intptr_t)isneg(pvtx_left->pt.len2() - pvtx->pt.len2()) | iszero((int64)(intptr_t)pvtx_left-(intptr_t)pvtx_max));
 			pvtx_left = (ptitem2d*)((intptr_t)pvtx_left&~imask | (intptr_t)pvtx&imask);
 		}
 		// find the farthest from the center vertex in -30 degrees vicinity of the global maximum
 		for(pvtx=(pvtx_right=pvtx_max)->prev; 
 			pvtx!=pvtx_max && sqr(pvtx->pt^pvtx_max->pt) < 0.25f*pvtx->pt.len2()*len2 && pvtx->pt*pvtx_max->pt>0; pvtx=pvtx->prev) 
-		{ imask = -((intptr_t)isneg(pvtx_right->pt.len2() - pvtx->pt.len2()) | iszero((intptr_t)pvtx_right-(intptr_t)pvtx_max));
+		{ imask = -((intptr_t)isneg(pvtx_right->pt.len2() - pvtx->pt.len2()) | iszero((int64)(intptr_t)pvtx_right-(intptr_t)pvtx_max));
 			pvtx_right = (ptitem2d*)((intptr_t)pvtx_right&~imask | (intptr_t)pvtx&imask);
 		}
 

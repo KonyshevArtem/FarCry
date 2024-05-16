@@ -359,7 +359,9 @@ __ropeframe++;
 			m_segs[i].dir = dir;
 			m_segs[i].pt = ptend[0] + m_segs[i].dir*(newseglen*i);
 		}
-		m_bAwake = m_pTiedTo[0]->GetStatus(&pe_status_awake()) | m_pTiedTo[1]->GetStatus(&pe_status_awake());
+        pe_status_awake statusAwake1 = pe_status_awake();
+        pe_status_awake statusAwake2 = pe_status_awake();
+		m_bAwake = m_pTiedTo[0]->GetStatus(&statusAwake1) | m_pTiedTo[1]->GetStatus(&statusAwake2);
 		m_BBox[0].x = min(m_segs[0].pt.x,m_segs[m_nSegs].pt.x); m_BBox[1].x = max(m_segs[0].pt.x,m_segs[m_nSegs].pt.x); 
 		m_BBox[0].y = min(m_segs[0].pt.y,m_segs[m_nSegs].pt.y); m_BBox[1].y = max(m_segs[0].pt.y,m_segs[m_nSegs].pt.y); 
 		m_BBox[0].z = min(m_segs[0].pt.z,m_segs[m_nSegs].pt.z); m_BBox[1].z = max(m_segs[0].pt.z,m_segs[m_nSegs].pt.z); 
@@ -467,7 +469,7 @@ __ropeframe++;
 		if (m_pTiedTo[0] && m_pTiedTo[1])
 			iDir = isneg(m_pTiedTo[1]->GetRigidBody(m_iTiedPart[1])->Minv-m_pTiedTo[0]->GetRigidBody(m_iTiedPart[0])->Minv);
 		else 
-			iDir = iszero((intptr_t)m_pTiedTo[0]);
+			iDir = iszero((int64)(intptr_t)m_pTiedTo[0]);
 		iDir = 1-iDir*2;
 		iStart = m_nSegs & iDir>>31;
 		iEnd = m_nSegs & -iDir>>31;
@@ -670,7 +672,7 @@ __ropeframe++;
 	i = -isneg(E-m_Emin*(m_nSegs+1));
 	m_nSlowFrames = (m_nSlowFrames&i)-i;
 	if (!(m_bAwake = isneg(m_nSlowFrames-4)))
-		for(i=iszero((intptr_t)m_pTiedTo[0])^1; i<m_nSegs+iszero((intptr_t)m_pTiedTo[1]); i++)
+		for(i=iszero((int64)(intptr_t)m_pTiedTo[0])^1; i<m_nSegs+iszero((int64)(intptr_t)m_pTiedTo[1]); i++)
 			m_segs[i].vel.zero();
 
 	m_pos = m_segs[0].pt;

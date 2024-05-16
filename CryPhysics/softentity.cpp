@@ -449,7 +449,7 @@ int CSoftEntity::Action(pe_action *_action)
 		pe_action_attach_points *action = (pe_action_attach_points*)_action;
 		CPhysicalEntity* pent = action->pEntity==WORLD_ENTITY ? &g_StaticPhysicalEntity : 
 			action->pEntity ? ((CPhysicalPlaceholder*)action->pEntity)->GetEntity() : 0;
-		int ipart=0, bAttached=iszero((intptr_t)pent)^1;
+		int ipart=0, bAttached=iszero((int64)(intptr_t)pent)^1;
 		if (bAttached && is_unused(action->points))
 			bAttached = 2;
 		float rvtxmass = pent ? 0 : m_nVtx/m_parts[0].mass;

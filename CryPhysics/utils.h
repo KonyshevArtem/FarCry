@@ -35,7 +35,7 @@ union floatint {
 	int ival;
 };
 
-#if defined(WIN64) || defined(LINUX64)
+#if defined(WIN64) || defined(LINUX64) || defined(APPLE)
 const int	imag	= (23+127)<<23 | 1<<22; 
 int float2int(float x);
 

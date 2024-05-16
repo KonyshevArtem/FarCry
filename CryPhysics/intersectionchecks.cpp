@@ -220,7 +220,8 @@ int tri_box_intersection(const triangle *ptri, const box *pbox, prim_inters *pin
 	pinters->iFeature[1][0] = 0xA0 | dec_mod3[i];
 
 	haveinters:
-	iStart = idxmax3((const real*)&n.abs());
+    Vec3 abs = n.abs();
+	iStart = idxmax3((const real*)&abs);
 	// if triangle's area is comparable with the most parallel box face, check box edges vs triangle also
 	if ((pt[1]-pt[0]^pt[2]-pt[0]).len2() > sqr(pbox->size[inc_mod3[iStart]]*pbox->size[dec_mod3[iStart]])) { 
 		int nborderpt0 = pinters->nborderpt;
