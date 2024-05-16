@@ -25,8 +25,12 @@
 #define ANTI_CHEATS
 
 #include "platform.h"
-#if defined(LINUX)
+#if defined(LINUX) || defined(APPLE)
 #include "INetwork.h"
+#endif
+
+#if defined(APPLE)
+#include <unistd.h>
 #endif
 
 //////////////////////////////////////////////////////////////////////
@@ -181,7 +185,7 @@ bool CNetwork::Init( IScriptSystem *pScriptSystem )
 	if(CNetwork::m_nCryNetInitialized)
 		return true;
 	
-#if !defined(PS2) && !defined(LINUX)
+#if !defined(PS2) && !defined(LINUX) && !defined(APPLE)
 	WORD wVersionRequested;
 	WSADATA wsaData;
 	int err;
@@ -206,7 +210,9 @@ bool CNetwork::Init( IScriptSystem *pScriptSystem )
 
 	CNetwork::m_nCryNetInitialized+=1;
 	int n=0;
-	while(m_neNetErrors[n].sErrorDescription!='\0'){
+    char nullTerm[1];
+    nullTerm[0] = '\0';
+	while(m_neNetErrors[n].sErrorDescription!= nullTerm){
 		m_mapErrors[m_neNetErrors[n].nrErrorCode]=m_neNetErrors[n].sErrorDescription;
 		n++;
 	}
@@ -408,7 +414,7 @@ void CNetwork::Release()
 	
 	if (CNetwork::m_nCryNetInitialized)
 		return;
-#if !defined(LINUX)
+#if !defined(LINUX) && !defined(APPLE)
 	#if !defined(PS2)
 		else	
 			WSACleanup();
@@ -713,7 +719,7 @@ void CNetwork::LogNetworkInfo()
 
 				memcpy(&(temp.sin_addr), hp->h_addr_list[i], hp->h_length);
 
-#if defined(LINUX)
+#if defined(LINUX) || defined(APPLE)
 				const in_addr_windows *pin_addr_win = reinterpret_cast<const in_addr_windows*>(&temp.sin_addr);
 				CryLogAlways("  ip:%d.%d.%d.%d",		//  port:%d  family:%x",	
 					(int)(pin_addr_win->S_un.S_un_b.s_b1),

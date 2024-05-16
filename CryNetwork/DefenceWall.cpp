@@ -25,6 +25,10 @@
 
 #include <algorithm>
 
+#if defined(APPLE)
+#include "splitpath.h"
+#endif
+
 //#define LOGEVENTS							// don't use in public release
 
 enum CHEAT_PROTECTION_LEVEL {
@@ -65,7 +69,7 @@ CDefenceWall::CDefenceWall( CNetwork *pNetwork )
 	m_nEncryptKey[2] = 268651613;
 	m_nEncryptKey[3] = 156356231;
 
-#if defined(WIN64) || defined(LINUX64)
+#if defined(WIN64) || defined(LINUX64) || defined(APPLE)
 	m_b64bit = true;
 #else
 	m_b64bit = false;

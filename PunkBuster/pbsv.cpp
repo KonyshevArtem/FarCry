@@ -79,7 +79,7 @@ char * __cdecl PbAuthClient ( char *fromAddr , int cl_pb , char *cl_guid )
 int __cdecl isPbSvEnabled ( void )
 {
 	if ( !isPBmultiplayerMode() ) return 0 ;
-	return (int) pbsdk->pbsv.AddPbEvent ( PB_EV_ISENABLED , -1 , 0 , NULL ) ;
+	return (int) (size_t)pbsdk->pbsv.AddPbEvent ( PB_EV_ISENABLED , -1 , 0 , NULL ) ;
 }
 
 void __cdecl EnablePbSv ( void )
@@ -131,7 +131,7 @@ char * __cdecl PbSvGameCommand ( char *Cmd , char *Result )
 	if ( !isPBmultiplayerMode() ) return NULL ;
 	if ( !stricmp ( Cmd , "set_sv_punkbuster" ) ) pbsdk->pb_SetSvPunkBuster ( Result ) ;
 	else if ( !stricmp ( Cmd , "pakNames" ) ) PBpakNames ( Result ) ;//note: Result must be 1025+ bytes for this one
-	else if ( !stricmp ( Cmd , "ConCapBufLen" ) ) pbsdk->ConsoleCaptureBufLen = (int) Result ;
+	else if ( !stricmp ( Cmd , "ConCapBufLen" ) ) pbsdk->ConsoleCaptureBufLen = (int)(size_t) Result ;
 	else if ( !stricmp ( Cmd , "ConCapBuf" ) ) pbsdk->ConsoleCaptureBuf = Result ;
 	else if ( !stricmp ( Cmd , "Cmd_Exec" ) ) {
 		int pb = !strnicmp ( Result , "pb_" , 3 ) ;

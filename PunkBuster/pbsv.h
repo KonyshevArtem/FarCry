@@ -45,7 +45,7 @@
 
 
 
-#if !defined(_WIN32) && !defined(__TRMACH__)
+#if !defined(_WIN32) && !defined(__TRMACH__) && !defined(APPLE)
 #define _cdecl
 #define stricmp strcasecmp
 #define strnicmp strncasecmp

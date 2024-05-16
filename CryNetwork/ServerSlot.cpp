@@ -28,6 +28,9 @@ static char THIS_FILE[] = __FILE__;
 #define new DEBUG_CLIENTBLOCK
 #endif
 
+#if defined(APPLE)
+#include "mach/mach_time.h"
+#endif
 
 
 
@@ -582,4 +585,13 @@ void CServerSlot::OnPlayerAuthorization( bool bAllow, const char *szError, const
 	m_pbGlobalID = new BYTE[uiGlobalIDSize];
 	m_uiGlobalIDSize = uiGlobalIDSize;
 	memcpy( m_pbGlobalID,pGlobalID,uiGlobalIDSize );
+}
+
+unsigned int CServerSlotImpl::GetTickCount()
+{
+#if defined(APPLE)
+    return mach_absolute_time();
+#else
+    return ::GetTickCount();
+#endif
 }

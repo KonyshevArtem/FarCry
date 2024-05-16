@@ -4,13 +4,13 @@
 
 #include <INetwork.h>
 
-#if defined(LINUX) || defined(WIN64)
+#if defined(LINUX) || defined(WIN64) || defined(APPLE)
 #include <map>
 #endif
 #ifdef WIN64
 	#define hash_map map
 #else
-#if defined(LINUX)
+#if defined(LINUX) || defined(APPLE)
 #include <ext/hash_map>
 #else
 #include <hash_map>

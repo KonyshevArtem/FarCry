@@ -35,7 +35,7 @@
 #endif // _MSC_VER > 1000
 #endif
 
-#ifdef LINUX
+#if defined(LINUX) || defined(APPLE)
 #include <time.h>
 #endif //LINUX
 
@@ -100,6 +100,8 @@ public:
 	//!
 	void Close();
 
+    unsigned int GetTickCount();
+
 private:
 	SOCKET						m_hSocket;										//!<
 	SocketType				m_stSocketType;								//!<
@@ -110,7 +112,7 @@ private:
 	unsigned int			m_nReceivedBytesInThisSec;		//!< is counting up and reseted every second
 	unsigned int			m_nSentPacketsInThisSec;			//!< is counting up and reseted every second
 	unsigned int			m_nReceivedPacketsInThisSec;	//!< is counting up and reseted every second
-#if defined(LINUX)
+#if defined(LINUX) || defined(APPLE)
 	struct ip_mreq		m_imMulticastReq;							//!< needed for call to IP_DROP_MEMBERSHIP
 #endif
 

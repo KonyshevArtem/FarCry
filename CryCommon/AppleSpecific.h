@@ -22,6 +22,10 @@
 #define TRUE    1
 #define FALSE   0
 
+#define SOCKET          int
+#define INVALID_SOCKET  (-1)
+#define SOCKET_ERROR    (-1)
+
 // stdlib.h stuff
 #define _MAX_DRIVE  3   // max. length of drive component
 #define _MAX_DIR    256 // max. length of path component
@@ -46,7 +50,9 @@ typedef unsigned char		u8;
 typedef unsigned short		u16;
 typedef unsigned long		u32;
 typedef uint64_t    		u64;
+typedef unsigned char		byte;
 
+typedef int				BOOL;
 typedef unsigned char	BYTE;
 typedef unsigned short	WORD;
 typedef int				LONG;
@@ -186,6 +192,11 @@ inline void DebugBreak()
     // TODO: apple
 }
 
+inline int WSAGetLastError()
+{
+    return 0;
+}
+
 struct _finddata64i32_t {
     unsigned attrib;
     int64_t time_create;
@@ -275,6 +286,11 @@ inline void GetLocalTime(SYSTEMTIME* outTime)
     // TODO apple
 }
 
+inline void GetCurrentDirectory(size_t bufferSize, char* buffer)
+{
+    // TODO apple
+}
+
 #endif
 
 
@@ -291,5 +307,50 @@ inline void GetLocalTime(SYSTEMTIME* outTime)
 
 #define FILE_ATTRIBUTE_NORMAL 0x00000080
 
+#define WSAEINTR EINTR
+#define WSAEBADF EBADF
+#define WSAEACCES EACCES
+#define WSAEFAULT EFAULT
+#define WSAEACCES EACCES
+#define WSAEFAULT EFAULT
+#define WSAEINVAL EINVAL
+#define WSAEMFILE EMFILE
+#define WSAEWOULDBLOCK EAGAIN
+#define WSAEINPROGRESS EINPROGRESS
+#define WSAEALREADY EALREADY
+#define WSAENOTSOCK ENOTSOCK
+#define WSAEDESTADDRREQ EDESTADDRREQ
+#define WSAEMSGSIZE EMSGSIZE
+#define WSAEPROTOTYPE EPROTOTYPE
+#define WSAENOPROTOOPT ENOPROTOOPT
+#define WSAEPROTONOSUPPORT EPROTONOSUPPORT
+#define WSAESOCKTNOSUPPORT ESOCKTNOSUPPORT
+#define WSAEOPNOTSUPP EOPNOTSUPP
+#define WSAEPFNOSUPPORT EPFNOSUPPORT
+#define WSAEAFNOSUPPORT EAFNOSUPPORT
+#define WSAEADDRINUSE EADDRINUSE
+#define WSAEADDRNOTAVAIL EADDRNOTAVAIL
+#define WSAENETDOWN ENETDOWN
+#define WSAENETUNREACH ENETUNREACH
+#define WSAENETRESET ENETRESET
+#define WSAECONNABORTED ECONNABORTED
+#define WSAECONNRESET ECONNRESET
+#define WSAENOBUFS ENOBUFS
+#define WSAEISCONN EISCONN
+#define WSAENOTCONN ENOTCONN
+#define WSAESHUTDOWN ESHUTDOWN
+#define WSAETOOMANYREFS ETOOMANYREFS
+#define WSAETIMEDOUT ETIMEDOUT
+#define WSAECONNREFUSED ECONNREFUSED
+#define WSAELOOP ELOOP
+#define WSAENAMETOOLONG ENAMETOOLONG
+#define WSAEHOSTDOWN EHOSTDOWN
+#define WSAEHOSTUNREACH EHOSTUNREACH
+#define WSAENOTEMPTY ENOTEMPTY
+#define WSAEPROCLIM EPROCLIM
+#define WSAEUSERS EUSERS
+#define WSAEDQUOT EDQUOT
+#define WSAESTALE ESTALE
+#define WSAEREMOTE EREMOTE
 
 #endif //_CRY_COMMON_APPLE_SPECIFIC_HDR_

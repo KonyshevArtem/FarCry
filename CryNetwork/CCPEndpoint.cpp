@@ -149,7 +149,7 @@ void CCCPEndpoint::SendSetup()
 	}
 
 	// Detect version 32/64bit.
-#if defined(WIN64) || defined(LINUX64)
+#if defined(WIN64) || defined(LINUX64) || defined(APPLE)
 	pCCPSetup->m_nClientFlags |= CLIENT_FLAGS_64BIT;
 #endif
 	ICVar *cl_punkbuster = GetISystem()->GetIConsole()->GetCVar("cl_punkbuster");

@@ -251,13 +251,13 @@ char * __cdecl PbSetGuid ( char *nums , int len )//updated for ET
 int __cdecl isPbClEnabled ( void )
 {
 	if ( !isPBmultiplayerMode() ) return 0 ;
-	return (int) pbsdk->pbcl.AddPbEvent ( PB_EV_ISENABLED , 0 , NULL ) ;
+	return (int)(size_t) pbsdk->pbcl.AddPbEvent ( PB_EV_ISENABLED , 0 , NULL ) ;
 }
 
 int __cdecl getPbGuidAge ( void )
 {
 	if ( !isPbClEnabled() ) return -2 ;
-	return (int) pbsdk->pbcl.AddPbEvent ( PB_EV_GUIDAGE , 0 , NULL ) ;//returns -1 if bad/missing cdkey
+	return (int)(size_t) pbsdk->pbcl.AddPbEvent ( PB_EV_GUIDAGE , 0 , NULL ) ;//returns -1 if bad/missing cdkey
 }
 
 void __cdecl EnablePbCl ( void )

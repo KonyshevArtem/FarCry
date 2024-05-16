@@ -35,7 +35,7 @@ extern int isPBmultiplayerMode ( void ) ;//defined in PunkBusterInterface.cpp
 //
 // Ugly Platform dependency handling
 //
-#if defined (LINUX)
+#if defined (LINUX) || defined(APPLE)
 #define __linux__
 #endif
 #if defined (_WIN32)
@@ -360,7 +360,7 @@ inline void setRW ( char *fn )
 //
 // provided to convert from unicode and other wide-byte strings to standard zero-delimted ascii char string arrays used by PB
 //
-#if defined(LINUX)
+#if defined(LINUX) || defined(APPLE)
 #undef TCHAR
 inline char * TCHARchar(const unsigned short *t, char *cs, int maxlenminus1)
 {

@@ -28,7 +28,7 @@ static char THIS_FILE[] = __FILE__;
 #endif
 
 
-#if !defined(WIN64) && !defined(LINUX64) && !defined(NOT_USE_ASE_SDK)
+#if !defined(WIN64) && !defined(LINUX64) && !defined(APPLE) && !defined(NOT_USE_ASE_SDK)
 
 #pragma comment(lib, "ASEQuerySDK.lib")
 
@@ -160,7 +160,7 @@ CServer::~CServer()
 	// ASE Deinitialization
 	//------------------------------------------------------------------------------------------------- 
 	//------------------------------------------------------------------------------------------------- 
-#if !defined(WIN64) && !defined(LINUX64) && !defined(NOT_USE_ASE_SDK)
+#if !defined(WIN64) && !defined(LINUX64) && !defined(APPLE) && !defined(NOT_USE_ASE_SDK)
 	ASEQuery_shutdown();
 #endif
 	//------------------------------------------------------------------------------------------------- 
@@ -242,7 +242,7 @@ bool CServer::Init(IServerSlotFactory *pFactory, WORD wPort, bool listen)
 			szIP = ip.GetAsString();
 		}
 
-#if !defined(WIN64) && !defined(LINUX64) && !defined(NOT_USE_ASE_SDK)
+#if !defined(WIN64) && !defined(LINUX64) && !defined(APPLE) && !defined(NOT_USE_ASE_SDK)
 		ASEQuery_initialize((int)wPort, m_MPServerType!=eMPST_LAN ? 1 : 0, szIP);
 #endif
 		//------------------------------------------------------------------------------------------------- 
@@ -270,7 +270,7 @@ void CServer::Update(unsigned int nTime)
 	// ASE Update
 	//------------------------------------------------------------------------------------------------- 
 	//------------------------------------------------------------------------------------------------- 
-#if !defined(WIN64) && !defined(LINUX64) && !defined(NOT_USE_ASE_SDK)
+#if !defined(WIN64) && !defined(LINUX64) && !defined(APPLE) && !defined(NOT_USE_ASE_SDK)
 	g_pServer = this;
 	ASEQuery_check();
 #endif
@@ -738,7 +738,7 @@ void CServer::ProcessSetup(CNP &cnp, CStream &stmStream, CIPAddress &ip)
 bool CServer::IsLANIP(const CIPAddress &ip)
 {
 	unsigned char ipb[4];
-#if defined(LINUX)
+#if defined(LINUX) || defined(APPLE)
 	ipb[0] = ip.m_Address.sin_addr_win.S_un.S_un_b.s_b1;
 	ipb[1] = ip.m_Address.sin_addr_win.S_un.S_un_b.s_b2;
 	ipb[2] = ip.m_Address.sin_addr_win.S_un.S_un_b.s_b3;
