@@ -18,7 +18,11 @@ struct CryModuleMemoryInfo
 	//! Total number of memory allocations.
 	int num_allocations;
 };
-extern "C" __declspec(dllexport) void CryModuleGetMemoryInfo( CryModuleMemoryInfo *pMemInfo )
+extern "C"
+#if (defined(WIN32) || defined(WIN64)) && !defined(FAR_CRY_STATIC_LIBS)
+__declspec(dllexport)
+#endif
+void CryModuleGetMemoryInfo( CryModuleMemoryInfo *pMemInfo )
 {
 #if (defined CS_VERSION_372) || (defined CS_VERSION_361)
   unsigned int nCurrentAlloced;

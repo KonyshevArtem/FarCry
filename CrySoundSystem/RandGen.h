@@ -1,6 +1,6 @@
 #pragma once
 
-#ifndef WIN64
+#if !defined(WIN64) && !defined(APPLE)
 typedef unsigned int uint32;
 #endif
 

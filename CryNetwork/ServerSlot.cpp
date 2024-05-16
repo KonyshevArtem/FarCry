@@ -28,10 +28,6 @@ static char THIS_FILE[] = __FILE__;
 #define new DEBUG_CLIENTBLOCK
 #endif
 
-#if defined(APPLE)
-#include "mach/mach_time.h"
-#endif
-
 
 
 //////////////////////////////////////////////////////////////////////
@@ -57,7 +53,7 @@ CServerSlotImpl::CServerSlotImpl( CNetwork *pNetwork,_IServerServices *pParent)
 
 	//////////////////////////////////////////////////////////////////////////
 	// Generate random public key for this client.
-	GetISystem()->GetIDataProbe()->RandSeed(GetTickCount());
+	GetISystem()->GetIDataProbe()->RandSeed(::GetTickCount());
 	m_nPublicKey = GetISystem()->GetIDataProbe()->GetRand();
 	m_ccpEndpoint.SetPublicCryptKey( m_nPublicKey );
 	m_ctpEndpoint.SetPublicCryptKey( m_nPublicKey );
@@ -585,13 +581,4 @@ void CServerSlot::OnPlayerAuthorization( bool bAllow, const char *szError, const
 	m_pbGlobalID = new BYTE[uiGlobalIDSize];
 	m_uiGlobalIDSize = uiGlobalIDSize;
 	memcpy( m_pbGlobalID,pGlobalID,uiGlobalIDSize );
-}
-
-unsigned int CServerSlotImpl::GetTickCount()
-{
-#if defined(APPLE)
-    return mach_absolute_time();
-#else
-    return ::GetTickCount();
-#endif
 }

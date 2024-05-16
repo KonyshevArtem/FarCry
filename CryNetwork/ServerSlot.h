@@ -165,8 +165,6 @@ public: // --------------------------------------------------------------
 
 private: // --------------------------------------------------------------------------
 
-    unsigned int GetTickCount();
-
 	void ProcessPacket(unsigned char cFrameType,bool bSTC,CStream *pStream);
 
 	CServerStateMachine					m_smCCPMachine;					//!<

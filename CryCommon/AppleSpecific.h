@@ -5,6 +5,7 @@
 #include <cstdint>
 #include <cstdio>
 #include <cctype>
+#include <mach/mach_time.h>
 #else
 #include <stdint.h>
 #endif
@@ -77,6 +78,7 @@ typedef void*       LPDIRECTINPUTDEVICE8;
 typedef UINT_PTR 	WPARAM;
 typedef LONG_PTR 	LPARAM;
 typedef LONG_PTR 	LRESULT;
+typedef int         CRITICAL_SECTION; // TODO apple synchronization
 
 typedef struct _FILETIME
 {
@@ -293,6 +295,32 @@ inline void GetLocalTime(SYSTEMTIME* outTime)
 inline void GetCurrentDirectory(size_t bufferSize, char* buffer)
 {
     // TODO apple
+}
+
+void InitializeCriticalSection(CRITICAL_SECTION* criticalSection)
+{
+    // TODO apple
+}
+
+void DeleteCriticalSection(CRITICAL_SECTION* criticalSection)
+{
+    // TODO apple
+}
+
+void EnterCriticalSection(CRITICAL_SECTION* criticalSection)
+{
+    // TODO apple
+}
+
+void LeaveCriticalSection(CRITICAL_SECTION* criticalSection)
+{
+    // TODO apple
+}
+
+unsigned int GetTickCount()
+{
+    // TODO apple
+    return mach_absolute_time();
 }
 
 #endif

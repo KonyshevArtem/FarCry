@@ -123,7 +123,7 @@ int CSound::Release()
 	int ref=0;
 	if((ref=--m_refCount)<=0)
 	{
-#if defined(WIN64)// && defined(_DEBUG)
+#if defined(WIN64) || defined(APPLE)// && defined(_DEBUG)
 		// Win64 has a special variable to disable deleting all the sounds
 		ICVar* pVar = m_pSSys->GetSystem()->GetIConsole()->GetCVar("s_EnableRelease");
 		if (!pVar || pVar->GetIVal())

@@ -16,10 +16,6 @@
 #include "Input.h"
 #include <IGame.h>
 
-#if defined(APPLE)
-#include "mach/mach_time.h"
-#endif
-
 /////PS2 Specific include /////////////////
 #ifdef PS2
 
@@ -1441,11 +1437,7 @@ void CXMouse::PostEvent( int key,SInputEvent::EType type,float value,unsigned in
 		event.timestamp = timestamp;
 	else
     {
-#if defined(APPLE)
-        event.timestamp = mach_absolute_time();
-#else
         event.timestamp = GetTickCount();
-#endif
     }
 	event.moidifiers = m_pInput->GetModifiers();
 	event.keyname = m_pInput->GetKeyName( event.key,event.moidifiers );

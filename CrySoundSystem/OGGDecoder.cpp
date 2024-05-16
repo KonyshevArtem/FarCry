@@ -22,7 +22,7 @@ COGGDecoder::~COGGDecoder()
 
 void getTicks(int64* pnTime)
 {
-#ifdef WIN64
+#if defined(WIN64) || defined(APPLE)
 	*pnTime = __rdtsc();
 #else
 	__asm {

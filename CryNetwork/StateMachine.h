@@ -29,10 +29,6 @@
 #define DEBUG_STRING(sss) cout << sss;
 #endif
 
-#if defined(APPLE)
-#include "mach/mach_time.h"
-#endif
-
 #define BEGIN_STATUS_MAP()	void _ProcessSignal(unsigned int dwIncomingSignal,ULONG_PTR dwParam)	\
 	{		\
 	if(HandleANY(dwIncomingSignal,dwParam)==ANY_SIGNAL_NOT_HANDLED) \
@@ -78,19 +74,11 @@ class CStateMachine
 {
 protected:
 	virtual void _ProcessSignal(unsigned int dwIncomingSignal,ULONG_PTR dwParam)=0;
-    unsigned int GetTickCount()
-    {
-#if defined(APPLE)
-        return mach_absolute_time();
-#else
-        return ::GetTickCount();
-#endif
-    }
 	void SetTimer(unsigned int dwName,unsigned int dwElapsed)
 	{
 		m_dwTimerName=dwName;
 		m_dwTimerElapsed=dwElapsed;
-		m_dwTimerStart=GetTickCount();
+		m_dwTimerStart=::GetTickCount();
 	}
 	void ResetTimer()
 	{
@@ -132,7 +120,7 @@ public:
 	BOOL Update(unsigned int dwIncomingSignal=0,DWORD_PTR dwParam=0)
 	{
 		if(m_dwTimerName)
-			if((GetTickCount()-m_dwTimerStart)>=m_dwTimerElapsed)
+			if((::GetTickCount()-m_dwTimerStart)>=m_dwTimerElapsed)
 			{
 				unsigned int dwTimerName=m_dwTimerName;
 				ResetTimer();

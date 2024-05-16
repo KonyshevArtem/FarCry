@@ -68,7 +68,7 @@ protected:
 	bool m_b44KHz;	//keeps track of encoded frequency
 
 	//! decode function for one sample, called exclusively by AdpcmBlockExpandI
-	static int CADPCMDecoder::AdpcmDecode( int c, MsState& rState, int sample1, int sample2 );	
+	static int AdpcmDecode( int c, MsState& rState, int sample1, int sample2 );
 	void SetFileInfo(const unsigned int cuiSampleCount, const bool cbIs44KHz = true);
 
 	virtual ~CADPCMDecoder();

@@ -100,8 +100,6 @@ public:
 	//!
 	void Close();
 
-    unsigned int GetTickCount();
-
 private:
 	SOCKET						m_hSocket;										//!<
 	SocketType				m_stSocketType;								//!<

@@ -38,7 +38,7 @@ static char THIS_FILE[] = __FILE__;
 NRESULT CDatagramSocket::Create(SocketType st)
 {
 	int nErr = 0;
-	m_nStartTick=GetTickCount();
+	m_nStartTick=::GetTickCount();
 #if defined(LINUX) || defined(APPLE)
 	if ((m_hSocket = socket(AF_INET, SOCK_DGRAM, 0)) < 0) 
 #else
@@ -273,7 +273,7 @@ NRESULT CDatagramSocket::Send(BYTE *pBuffer, int nLenBytes, CIPAddress *saAddres
 		return MAKE_NRESULT(NET_FAIL, NET_FACILITY_SOCKET, nErr);
 	}
 	/// compute the bandwitdh///////////////////////
-	if ((GetTickCount() - m_nStartTick)>1000)
+	if ((::GetTickCount() - m_nStartTick)>1000)
 		ComputeBandwidth();
 
 	m_nSentBytesInThisSec += nLenBytes;
@@ -331,7 +331,7 @@ NRESULT CDatagramSocket::Receive(unsigned char *pBuf/*[MAX_UDP_PACKET_SIZE]*/, i
 	}
 	nRecvBytes = nRetValue;
 	/// compute the bandwith///////////////////////
-	if ((GetTickCount() - m_nStartTick)>1000)
+	if ((::GetTickCount() - m_nStartTick)>1000)
 	{
 		ComputeBandwidth();
 	}
@@ -382,19 +382,10 @@ void CDatagramSocket::ComputeBandwidth()
 	m_nOutgoingPacketsPerSec = m_nSentPacketsInThisSec;
 	m_nIncomingPacketsPerSec = m_nReceivedPacketsInThisSec;
 
-	m_nStartTick=GetTickCount();
+	m_nStartTick=::GetTickCount();
 
 	m_nSentBytesInThisSec = 0;
 	m_nReceivedBytesInThisSec = 0;
 	m_nSentPacketsInThisSec = 0;
 	m_nReceivedPacketsInThisSec = 0;
-}
-
-unsigned int CDatagramSocket::GetTickCount()
-{
-#if defined(APPLE)
-    return mach_absolute_time();
-#else
-    return ::GetTickCount();
-#endif
 }

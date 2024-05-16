@@ -22,7 +22,6 @@
 
 #if defined(APPLE)
 #include "splitpath.h"
-#include "mach/mach_time.h"
 #endif
 
 #include <IXGame.h>
@@ -573,9 +572,7 @@ bool CLipSync::PlayDialog(bool bUnloadWhenDone)
 		m_pAITable=NULL;
 	}
 
-#if defined(APPLE)
-    srand(mach_absolute_time());
-#elif !defined(PS2)
+#ifndef PS2
 	srand(GetTickCount());
 #endif
 	TRACE("PLAYING DIALOG !!!");
