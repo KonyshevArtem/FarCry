@@ -1,10 +1,14 @@
 #ifndef _CRY_COMMON_APPLE_SPECIFIC_HDR_
 #define _CRY_COMMON_APPLE_SPECIFIC_HDR_
 
+#ifdef __cplusplus
 #include <cstdint>
-#include <pthread.h>
 #include <cstdio>
 #include <cctype>
+#else
+#include <stdint.h>
+#endif
+#include <pthread.h>
 
 
 #define __forceinline   inline

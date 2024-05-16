@@ -412,7 +412,7 @@ void luaD_breakrun (lua_State *L, int errcode) {
       FORCE_EXIT();
 #else
 		//FORCE_EXIT();		
-#if defined(WIN64) || defined(LINUX64)
+#if defined(WIN64) || defined(LINUX64) || defined(APPLE)
 		abort();
 #else
 		DEBUG_BREAK;

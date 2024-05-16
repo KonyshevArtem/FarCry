@@ -5,7 +5,7 @@
 
 #if !defined(_XBOX)
 _ACCESS_POOL;
-#if !defined(LINUX)
+#if !defined(LINUX) && !defined(FAR_CRY_STATIC_LIBS)
 BOOL APIENTRY DllMain( HANDLE hModule, 
                        DWORD  ul_reason_for_call, 
                        LPVOID lpReserved

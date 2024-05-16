@@ -57,7 +57,7 @@ int CFunctionHandler::GetParamCount()
 	return lua_gettop(m_pLS)-2;// -2 are "this" and "func ID"
 }
 
-#if defined(WIN64) || defined(LINUX64)
+#if defined(WIN64) || defined(LINUX64) || defined(APPLE)
 bool CFunctionHandler::GetParam(int nIdx,INT_PTR &n)	//AMD Port
 {
 	int nRealIdx=nIdx+1;
@@ -193,7 +193,7 @@ ScriptVarType CFunctionHandler::GetParamType(int nIdx)
 		{
 			return svtObject;
 		}
-		else if (lua_isuserdata(m_pLS, nRealIdx))	// Added by Márcio
+		else if (lua_isuserdata(m_pLS, nRealIdx))	// Added by Mï¿½rcio
 		{											// was missing the userdata type
 			return svtUserData;						//
 		}											//

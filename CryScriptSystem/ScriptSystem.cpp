@@ -948,7 +948,7 @@ bool CScriptSystem::ExecuteFile(const char *sFileName, bool bRaiseError,bool bFo
 	{
 		if (!_ExecuteFile(sTemp.c_str(), bRaiseError))
 		{
-#if defined(_DEBUG) && (defined(WIN64) || defined(LINUX64))
+#if defined(_DEBUG) && (defined(WIN64) || defined(LINUX64) || defined(APPLE))
 			char szBuf[0x800];
 			_snprintf (szBuf, sizeof(szBuf), "Can't execute script %s : %s\n", sFileName, sTemp.c_str());
 			OutputDebugString (szBuf);
@@ -958,7 +958,7 @@ bool CScriptSystem::ExecuteFile(const char *sFileName, bool bRaiseError,bool bFo
 		if(itor == m_dqLoadedFiles.end())
 			m_dqLoadedFiles.insert(sTemp);
 	}
-#if defined(_DEBUG) && (defined(WIN64) || defined(LINUX64))
+#if defined(_DEBUG) && (defined(WIN64) || defined(LINUX64) || defined(APPLE))
 	char szBuf[0x800];
 	_snprintf (szBuf, sizeof(szBuf), "Script %s executed\n", sFileName);
 	OutputDebugString (szBuf);

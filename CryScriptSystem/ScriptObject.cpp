@@ -875,7 +875,7 @@ bool CScriptObject::AddSetGetHandlers(SCRIPT_FUNCTION pSetThunk,SCRIPT_FUNCTION 
 #else
 
 #ifdef _DEBUG
-#if defined(WIN64) || defined(LINUX64)
+#if defined(WIN64) || defined(LINUX64) || defined(APPLE)
 #define FIXME_ASSERT(cond) assert (cond)
 #else
 #define FIXME_ASSERT(cond) { if(!(cond)) { DEBUG_BREAK; } }

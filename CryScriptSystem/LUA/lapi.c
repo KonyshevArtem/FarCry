@@ -605,7 +605,7 @@ LUA_API int lua_xref(lua_State *L,int ref){
   lua_pushvalue(L,-2);
 	if(!lua_istable(L,-1))
 	{
-#if defined(WIN64) || defined(LINUX64)
+#if defined(WIN64) || defined(LINUX64) || defined(APPLE)
 		abort();
 #else
 		DEBUG_BREAK;
@@ -624,7 +624,7 @@ LUA_API void lua_xunref(lua_State *L,int ref){
 	lua_pop(L,1);
 	if(top!=lua_gettop(L))
 	{
-#if defined(WIN64) || defined(LINUX64)
+#if defined(WIN64) || defined(LINUX64) || defined(APPLE)
 		abort();
 #else
 		DEBUG_BREAK;

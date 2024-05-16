@@ -22,7 +22,7 @@
 #include "File.h"
 #endif
 
-#if defined(LINUX)
+#if defined(LINUX) || defined(APPLE)
 LUA_API void  lua_getxregistry (lua_State *L);
 #endif
 

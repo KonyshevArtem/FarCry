@@ -1247,7 +1247,8 @@ static void chunk (LexState *ls) {
 
 void implicit_local(char *s, char *source, int line, int cur)  
 {
-#if !defined(LINUX)
+    // TODO apple
+#if !defined(LINUX) && !defined(APPLE)
     char buf[256];
     if(s[0]<='Z' || s[0]=='_'|| s[1]=='_' || s[2]=='_' || cur=='(') return;
     sprintf(buf, "### implicit global: %s[%d]: %s\n", source, line, s);
