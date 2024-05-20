@@ -84,7 +84,10 @@ void CHTTPDownloader::CreateThread()
 {
 	DWORD dwThreadId = 0;
 
+    // TODO apple internet
+#if !defined(APPLE)
 	m_hThread = ::CreateThread(0, 0, (LPTHREAD_START_ROUTINE)DownloadProc, this, 0, &dwThreadId);
+#endif
 }
 
 //------------------------------------------------------------------------------------------------- 
@@ -92,7 +95,10 @@ DWORD CHTTPDownloader::DoDownload()
 {
 	m_iState = HTTP_STATE_WORKING;
 
+    // TODO apple internet
+#if !defined(APPLE)
 	m_hINET = InternetOpen("", INTERNET_OPEN_TYPE_PRECONFIG, 0, 0, 0);
+#endif
 
 	if (!m_hINET)
 	{
@@ -108,8 +114,11 @@ DWORD CHTTPDownloader::DoDownload()
 		return 1;
 	}
 
+    // TODO apple internet
+#if !defined(APPLE)
 	DWORD dwFlags = INTERNET_FLAG_NO_CACHE_WRITE | INTERNET_FLAG_NO_COOKIES | INTERNET_FLAG_NO_UI | INTERNET_FLAG_RELOAD;
 	m_hUrl = InternetOpenUrl(m_hINET, m_szURL.c_str(), 0, 0, dwFlags, 0);
+#endif
 
 	if (!m_hUrl)
 	{
@@ -127,6 +136,9 @@ DWORD CHTTPDownloader::DoDownload()
 
 	char	szBuffer[64] = {0};
 	DWORD dwSize = 64;
+
+    // TODO apple internet
+#if !defined(APPLE)
 	int bQuery = HttpQueryInfo(m_hUrl, HTTP_QUERY_CONTENT_LENGTH, szBuffer, &dwSize, 0);
 
 	if (bQuery)
@@ -137,6 +149,7 @@ DWORD CHTTPDownloader::DoDownload()
 	{
 		m_iFileSize = -1;
 	}
+#endif
 
 	if (!m_bContinue)
 	{
@@ -158,6 +171,8 @@ DWORD CHTTPDownloader::DoDownload()
 
 	DWORD dwRead = 0;
 
+    // TODO apple internet
+#if !defined(APPLE)
 	while (InternetReadFile(m_hUrl, m_pBuffer, HTTP_BUFFER_SIZE, &dwRead))
 	{
 		if (dwRead)
@@ -184,6 +199,7 @@ DWORD CHTTPDownloader::DoDownload()
 
 		Sleep(5);
 	}
+#endif
 
 	fclose(hFile);
 
@@ -206,6 +222,8 @@ void CHTTPDownloader::Release()
 {
 	m_bContinue = 0;
 
+    // TODO apple internet
+#if !defined(APPLE)
 	if (m_hUrl)
 	{
 		InternetCloseHandle(m_hUrl);
@@ -216,6 +234,7 @@ void CHTTPDownloader::Release()
 		InternetSetStatusCallback(m_hINET, 0);
 		InternetCloseHandle(m_hINET);
 	}
+#endif
 
 	if (m_pBuffer)
 	{
@@ -229,8 +248,11 @@ void CHTTPDownloader::Release()
 	m_szURL.clear();
 	m_szDstFile.clear();
 
+    // TODO apple internet
+#if !defined(APPLE)
 	WaitForSingleObject(m_hThread, 5); // wait five milliseconds for the thread to finish
 	CloseHandle(m_hThread);
+#endif
 	m_hThread = 0;
 
 	m_pParent->RemoveDownload(this);

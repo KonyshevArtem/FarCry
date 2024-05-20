@@ -21,7 +21,7 @@
 #include <ISound.h>
 #include <IGame.h>									// IGame
 #include <ICryPak.h>
-#if !defined(LINUX)
+#if !defined(LINUX) && !defined(APPLE)
 	#include "ddraw.h"
 #endif
 #include "HTTPDownloader.h"
@@ -620,7 +620,7 @@ int CScriptObjectSystem::GetLocalOSTime(IFunctionHandler *pH)
 {
 	CHECK_PARAMETERS(0);
 	//! Get time.
-#if defined(LINUX)
+#if defined(LINUX) || defined(APPLE)
 	time_t long_time = time( NULL );
 	struct tm *newtime = localtime( &long_time ); /* Convert to local time. */
 #else
@@ -724,8 +724,8 @@ int CScriptObjectSystem::GetEntities(IFunctionHandler *pH)
 	@return [if succeded]the id of the class specified by sClassName [if failed]return nil
 */
 
-#if !defined(XBOX) && !defined(PS2) && (defined(WIN32) || defined(LINUX))
-	#if !defined(LINUX)
+#if !defined(XBOX) && !defined(PS2) && (defined(WIN32) || defined(LINUX) || defined(APPLE))
+	#if !defined(LINUX) && !defined(APPLE)
 		#include <io.h>
 	#endif
 	inline bool Filter(struct __finddata64_t& fd, int nScanMode)
@@ -795,7 +795,7 @@ int CScriptObjectSystem::ScanDirectory(IFunctionHandler *pH)
 		// Find first file in current directory
 #if defined(WIN32)
 		if ((hFile = _findfirst64( (string(pszFolderName) + "\\*.*").c_str(), &c_file )) == -1L)
-#elif defined(LINUX)
+#elif defined(LINUX) || defined(APPLE)
 		if ((hFile = _findfirst64( (string(pszFolderName) + "/*").c_str(), &c_file )) == -1)
 #endif
 		{
@@ -2695,7 +2695,8 @@ int CScriptObjectSystem::GetGPUQuality( IFunctionHandler* pH )
 {
 	CHECK_PARAMETERS( 0 );
 	static int s_iGPUQuality( -1 );
-#if !defined(LINUX)
+    // TODO apple
+#if !defined(LINUX) && !defined(APPLE)
 	if( -1 == s_iGPUQuality )
 	{
 		HMODULE hDDraw( LoadLibrary( "ddraw.dll" ) );
@@ -2898,10 +2899,15 @@ int CScriptObjectSystem::GetSystemMem( IFunctionHandler* pH )
 {
 	CHECK_PARAMETERS( 0 );
 
+#if defined(APPLE)
+    // TODO apple
+    int iSysMemInMB = 0;
+#else
 	MEMORYSTATUS sMemStat;
 	GlobalMemoryStatus( &sMemStat );
 	// return size of total physical memory in MB
 	int iSysMemInMB( sMemStat.dwTotalPhys >> 20 );
+#endif
 
 	return( pH->EndFunction( iSysMemInMB ) );
 }
@@ -2911,7 +2917,8 @@ int CScriptObjectSystem::GetVideoMem( IFunctionHandler* pH )
 {
 	CHECK_PARAMETERS( 0 );
 	static DWORD s_dwTotalVideoMemory( 0xFFFFFFFF );
-#if !defined(LINUX)
+    // TODO apple
+#if !defined(LINUX) && !defined(APPLE)
 	if( 0xFFFFFFFF == s_dwTotalVideoMemory )
 	{
 		s_dwTotalVideoMemory = 0;

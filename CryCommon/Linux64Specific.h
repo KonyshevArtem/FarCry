@@ -26,7 +26,6 @@ typedef char *LPSTR, *PSTR;
 typedef unsigned long long __uint64;
 typedef signed long long __int64;
 
-typedef signed long long		INT64;
 typedef long long						UINT64;
 
 typedef UINT_PTR 						WPARAM;

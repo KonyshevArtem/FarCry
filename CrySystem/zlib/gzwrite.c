@@ -86,7 +86,10 @@ local int gz_comp(state, flush)
     if (state->direct) {
         while (strm->avail_in) {
             put = strm->avail_in > max ? max : strm->avail_in;
+            // TODO apple
+#if !defined(APPLE)
             writ = write(state->fd, strm->next_in, put);
+#endif
             if (writ < 0) {
                 gz_error(state, Z_ERRNO, zstrerror());
                 return -1;
@@ -116,7 +119,9 @@ local int gz_comp(state, flush)
             while (strm->next_out > state->x.next) {
                 put = strm->next_out - state->x.next > (int)max ? max :
                       (unsigned)(strm->next_out - state->x.next);
+#if !defined(APPLE)
                 writ = write(state->fd, state->x.next, put);
+#endif
                 if (writ < 0) {
                     gz_error(state, Z_ERRNO, zstrerror());
                     return -1;
@@ -670,8 +675,11 @@ int ZEXPORT gzclose_w(file)
     }
     gz_error(state, Z_OK, NULL);
     free(state->path);
+    // TODO apple
+#if !defined(APPLE)
     if (close(state->fd) == -1)
         ret = Z_ERRNO;
+#endif
     free(state);
     return ret;
 }

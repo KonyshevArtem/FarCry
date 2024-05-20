@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 #define XMLPARSEAPI(type) type
-#include "expat\expat.h"
+#include "expat/expat.h"
 #include "xml.h"
 #include <string>
 
@@ -349,7 +349,10 @@ XmlString CXmlNode::getXML( int level ) const
 bool CXmlNode::saveToFile( const char *fileName )
 {
 	XmlString xml = getXML();
+    // TODO apple
+#if !defined(APPLE)
 	SetFileAttributes( fileName,FILE_ATTRIBUTE_NORMAL );
+#endif
 	FILE *file = fxopen( fileName,"wt" );
 	if (file)
 	{

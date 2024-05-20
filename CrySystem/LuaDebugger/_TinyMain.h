@@ -11,8 +11,10 @@ right now this code is not GPL or LGPL in any way
 #pragma once
 #include "CryLibrary.h"
 
+#if !defined(APPLE)
 #include <commctrl.h>
 #pragma comment (lib , "comctl32.lib")
+#endif
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 // Common includes
@@ -33,7 +35,7 @@ right now this code is not GPL or LGPL in any way
 ///////////////////////////////////////////////////////////////////////////////////////////
 // Debug functions / macros
 ///////////////////////////////////////////////////////////////////////////////////////////
-#if defined(WIN64) || defined(LINUX64)
+#if defined(WIN64) || defined(LINUX64) || defined(APPLE)
 #define _TinyVerify(x) { if (!(x)) assert(0); }
 #else
 #define _TinyVerify(x) { if (!(x)) { DEBUG_BREAK; }; }
@@ -64,6 +66,8 @@ __inline void __cdecl _TinyTrace(const char *sFormat, ...)
 #define _TINY_CHECK_LAST_ERROR _TinyCheckLastError(__FILE__, __LINE__);
 __inline void _TinyCheckLastError(const char *pszFile, int iLine)
 {
+    // TODO apple
+#if !defined(APPLE)
 	if (GetLastError() != ERROR_SUCCESS)
 	{
 		// Format an error message
@@ -92,6 +96,7 @@ __inline void _TinyCheckLastError(const char *pszFile, int iLine)
 		// Error processed
 		SetLastError(ERROR_SUCCESS);
 	}
+#endif
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////

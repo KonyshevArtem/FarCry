@@ -125,7 +125,7 @@ public:
 			return (0 < _Count ? _Count : 1);
 		}
 
-#if defined(WIN64) || defined(LINUX64)
+#if defined(WIN64) || defined(LINUX64) || defined(APPLE)
 		char *_Charalloc(size_type _N)
 		{
 			return (char*)(Allocate((difference_type)_N, 0)); 

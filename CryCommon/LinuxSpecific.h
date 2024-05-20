@@ -22,16 +22,12 @@
 #include </usr/include/ctype.h>
 #include "UnixSpecific.h"
 
-typedef unsigned int*				LPDWORD;
-
 #define PHYSICS_EXPORTS
 
 // MSVC compiler-specific keywords
 #define __cdecl
 #define __stdcall
 #define __fastcall
-#define IN
-#define OUT
 
 // Safe memory freeing
 #ifndef SAFE_DELETE
@@ -91,12 +87,5 @@ typedef unsigned int 		ULONG;
 
 // io.h stuff
 typedef unsigned int _fsize_t;
-
-typedef struct _SECURITY_ATTRIBUTES 
-{
-    DWORD nLength;
-    LPVOID lpSecurityDescriptor;
-    BOOL bInheritHandle;
-} SECURITY_ATTRIBUTES, *PSECURITY_ATTRIBUTES, *LPSECURITY_ATTRIBUTES;
 
 #endif //_CRY_COMMON_LINUX_SPECIFIC_HDR_

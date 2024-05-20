@@ -41,7 +41,7 @@
 #include "ScriptSink.h"
 #include "Font.h"
 #include "Log.h"
-#include "XML\Xml.h"
+#include "XML/Xml.h"
 #include "DataProbe.h"
 #include "ApplicationHelper.h"				// CApplicationHelper
 
@@ -936,7 +936,10 @@ bool CSystem::InitFont()
 //////////////////////////////////////////////////////////////////////////
 bool CSystem::Init3DEngine()
 {
+    // TODO apple
+#if !defined(APPLE)
   ::SetLastError(0);
+#endif
 #if defined(FAR_CRY_STATIC_LIBS)
     m_pI3DEngine = CreateCry3DEngine(this, g3deInterfaceVersion);
 #else

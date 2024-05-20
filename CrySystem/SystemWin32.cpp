@@ -253,7 +253,10 @@ const char *CSystem::GetUserName()
 
 	DWORD dwSize = 1024;
 
+    // TODO apple
+#if !defined(APPLE)
 	::GetUserName(szNameBuffer, &dwSize);
+#endif
 
 	return szNameBuffer;
 }
@@ -904,7 +907,7 @@ void CSystem::Error( const char *format,... )
 //////////////////////////////////////////////////////////////////////////
 void CSystem::LogCallStack()
 {
-#if !defined(LINUX)
+#if !defined(LINUX) && !defined(APPLE)
 	DebugCallStack::instance()->LogCallstack();
 #endif
 }

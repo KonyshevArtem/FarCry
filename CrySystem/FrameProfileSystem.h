@@ -19,7 +19,7 @@
 
 #include "platform.h"
 #include "FrameProfiler.h"
-#if !defined (LINUX)
+#if !defined (LINUX) && !defined(APPLE)
 #	include <Psapi.h>
 #endif
 

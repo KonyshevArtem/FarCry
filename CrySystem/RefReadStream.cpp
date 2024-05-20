@@ -29,6 +29,8 @@ bool CRefReadStream::Activate()
 	AUTO_LOCK(g_csActivate);
 
 	m_bOverlapped = m_pEngine->isOverlappedIoEnabled();
+    // TODO apple
+#if !defined(APPLE)
 #if !defined(LINUX64) && !defined(__GNUC__)
 	if (m_pZipEntry == NULL && m_hFile == INVALID_HANDLE_VALUE)
 #else
@@ -97,6 +99,8 @@ bool CRefReadStream::Activate()
 		}
 		return true;
 	}
+#endif
+    return true;
 }
 
 // the clients are not allowed to destroy this object directly; only via Release()
@@ -115,7 +119,10 @@ void CRefReadStream::Abort(CRefReadStreamProxy* pProxy)
 	{
 		// there's only one proxy that uses this object; so we can safely cancel io
 		// on this file
+        // TODO apple
+#if !defined(APPLE)
 		CancelIo (m_hFile);
+#endif
 	}
 }
 

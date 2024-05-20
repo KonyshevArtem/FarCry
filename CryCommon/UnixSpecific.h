@@ -15,6 +15,7 @@ typedef signed char         int8;
 typedef signed short        int16;
 typedef signed int          int32;
 typedef signed long long    int64;
+typedef signed long long	INT64;
 typedef unsigned char		uint8;
 typedef unsigned short		uint16;
 typedef unsigned int		uint32;
@@ -38,6 +39,7 @@ typedef unsigned int    DWORD;
 typedef int				LONG;
 typedef long long		LONGLONG;
 typedef void*			LPVOID;
+typedef unsigned int*   LPDWORD;
 
 typedef long            LONG_PTR,   *PLONG_PTR, *PLONG;
 typedef unsigned long   ULONG_PTR,  *PULONG_PTR;
@@ -52,6 +54,8 @@ typedef LONG_PTR 	LRESULT;
 
 #define CALLBACK
 #define WINAPI
+#define IN
+#define OUT
 
 #define TRUE    1
 #define FALSE   0
@@ -190,6 +194,15 @@ typedef struct in_addr_windows
         unsigned int S_addr;
     } S_un;
 }in_addr_windows;
+
+// ---------------------
+
+typedef struct _SECURITY_ATTRIBUTES
+{
+    DWORD nLength;
+    LPVOID lpSecurityDescriptor;
+    BOOL bInheritHandle;
+} SECURITY_ATTRIBUTES, *PSECURITY_ATTRIBUTES, *LPSECURITY_ATTRIBUTES;
 
 // ---------------------
 

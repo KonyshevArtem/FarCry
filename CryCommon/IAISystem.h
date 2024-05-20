@@ -171,7 +171,10 @@ typedef struct IAISystem
 
 #if defined(FAR_CRY_STATIC_LIBS)
 
-IAISystem *CreateAISystem( ISystem *pSystem);
+extern "C"
+{
+    IAISystem *CreateAISystem( ISystem *pSystem);
+}
 
 #endif
 

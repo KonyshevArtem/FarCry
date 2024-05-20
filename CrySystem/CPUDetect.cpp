@@ -67,7 +67,7 @@ static double measure_clock_speed(double& SecondsPerCycle )
   LARGE_INTEGER Freq;
   LARGE_INTEGER c0, c1;
 
-#if !defined(_XBOX) && !defined(LINUX)
+#if !defined(_XBOX) && !defined(LINUX) && !defined(APPLE)
   
   uint  priority_class;
   int   thread_priority;
@@ -97,7 +97,7 @@ static double measure_clock_speed(double& SecondsPerCycle )
 
   SecondsPerCycle = (Count1-Count0) / (ts1-ts0);
 
-#if !defined(_XBOX) && !defined(LINUX)
+#if !defined(_XBOX) && !defined(LINUX) && !defined(APPLE)
 
   /* restore the thread priority */
   SetPriorityClass( GetCurrentProcess(), priority_class );
@@ -146,7 +146,7 @@ static unsigned long __stdcall DetectProcessor( void *arg )
   SCpu  *p = (SCpu *) arg;
   float     test_val[4] = { 1.f, 1.f, 1.f, 1.f };
 
-#if (!defined(WIN64) && !defined(LINUX))
+#if (!defined(WIN64) && !defined(LINUX) && !defined(APPLE))
   __asm
   {
     /*
@@ -168,7 +168,7 @@ static unsigned long __stdcall DetectProcessor( void *arg )
     jne check_80286     /* go check for 80286 */
     push sp         /* double check with push sp */
     pop dx          /* if value pushed was different */
-    cmp dx, sp        /* means it’s really an 8086 */
+    cmp dx, sp        /* means itï¿½s really an 8086 */
     jne end_cpu_type    /* jump if processor is 8086/8088 */
     mov cpu_type, 010h    /* indicate unknown processor */
     jmp end_cpu_type
@@ -207,7 +207,7 @@ check_80286:
     popfd         /* replace current EFLAGS value */
     pushfd          /* get new EFLAGS */
     pop eax         /* store new EFLAGS in EAX */
-    cmp eax, ebx      /* can’t toggle AC bit, processor=80386 */
+    cmp eax, ebx      /* canï¿½t toggle AC bit, processor=80386 */
     jz end_cpu_type     /* jump if 80386 processor */
     push ebx
     popfd         /* restore AC bit in EFLAGS */
@@ -400,7 +400,7 @@ end_fpu_type:
 
   if( features_edx & SERIAL_FLAG )
   {
-#if (defined(WIN64) || defined (LINUX))
+#if (defined(WIN64) || defined (LINUX) || defined(APPLE))
 		serial_number[0] = serial_number[1] = serial_number[2] = 0;
 #else
     /* read serial number */
@@ -950,7 +950,7 @@ end_fpu_type:
 /* ------------------------------------------------------------------------------ */
 void CCpuFeatures::Detect(void)
 {
-#if !defined(PS2) && !defined (GC) && !defined (LINUX)
+#if !defined(PS2) && !defined (GC) && !defined (LINUX) && !defined(APPLE)
 
 #if !defined(_XBOX) && !defined(LINUX)
   SYSTEM_INFO   sys_info;

@@ -197,6 +197,8 @@ unsigned CRefStreamEngine::GetFileSize (const char* szFilePathPC, unsigned nCryP
 	}  
    
 	// we didn't find the file size in the cache - open the file and query the size
+    // TODO apple
+#if !defined(APPLE)
 #if defined(LINUX)
 	HANDLE hFile = CreateFile (szFilePath, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, 0, NULL);
 #else
@@ -219,6 +221,8 @@ unsigned CRefStreamEngine::GetFileSize (const char* szFilePathPC, unsigned nCryP
 			return 0;
 		}
 	}
+#endif
+    return 0;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -602,7 +606,10 @@ void CRefStreamEngine::StartWorkerThread()
 {
 	StopWorkerThread();
 	m_bStopIOWorker = false;
+    // TODO apple
+#if !defined(APPLE)
 	m_hIOWorker = CreateThread (NULL, 0x8000, IOWorkerThreadProc, this, 0, &m_dwWorkerThreadId);
+#endif
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -640,7 +647,7 @@ void CRefStreamEngine::CheckOSCaps()
 		// only NT supports overlapped IO
 		m_bEnableOverlapped = false;
 	}
-#elif defined(_XBOX) || defined(LINUX)
+#elif defined(_XBOX) || defined(LINUX) || defined(APPLE)
 	// in XBox, nothing to disable
 #else
 #error // if your OS doesn't support it, you should disable Overlapped IO here

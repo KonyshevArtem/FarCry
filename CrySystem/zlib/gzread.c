@@ -32,7 +32,10 @@ local int gz_load(state, buf, len, have)
         get = len - *have;
         if (get > max)
             get = max;
+        // TODO apple
+#if !defined(APPLE)
         ret = read(state->fd, buf + *have, get);
+#endif
         if (ret <= 0)
             break;
         *have += (unsigned)ret;
@@ -644,7 +647,9 @@ int ZEXPORT gzclose_r(file)
     err = state->err == Z_BUF_ERROR ? Z_BUF_ERROR : Z_OK;
     gz_error(state, Z_OK, NULL);
     free(state->path);
+#if !defined(APPLE)
     ret = close(state->fd);
+#endif
     free(state);
     return ret ? Z_ERRNO : err;
 }

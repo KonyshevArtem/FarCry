@@ -15,9 +15,9 @@ add_library(CrySystem STATIC
         "getdxver.cpp"
         "HTTPDownloader.cpp"
         "Log.cpp"
-        "LuaDebugger/FileTree.cpp"
-        "LuaDebugger/LUADBG.cpp"
-        "LuaDebugger/LuaDbgInterface.cpp"
+#        "LuaDebugger/FileTree.cpp"
+#        "LuaDebugger/LUADBG.cpp"
+#        "LuaDebugger/LuaDbgInterface.cpp"
         "Mailer.cpp"
         "md5.c"
         "MTSafeAllocator.cpp"
@@ -90,21 +90,21 @@ add_library(CrySystem STATIC
         "FrameProfileSystem.h"
         "HTTPDownloader.h"
         "Log.h"
-        "LuaDebugger/AboutWnd.h"
-        "LuaDebugger/FileTree.h"
-        "LuaDebugger/LUADBG.h"
-        "LuaDebugger/LuaDbgInterface.h"
-        "LuaDebugger/_TinyBrowseFolder.h"
-        "LuaDebugger/_TinyCaptionWindow.h"
-        "LuaDebugger/_TinyCoolEdit.h"
-        "LuaDebugger/_TinyFileEnum.h"
-        "LuaDebugger/_TinyImageList.h"
-        "LuaDebugger/_TinyMain.h"
-        "LuaDebugger/_TinyRegistry.h"
-        "LuaDebugger/_TinySplitter.h"
-        "LuaDebugger/_TinyStatusBar.h"
-        "LuaDebugger/_TinyTreeList.h"
-        "LuaDebugger/_TinyWindow.h"
+#        "LuaDebugger/AboutWnd.h"
+#        "LuaDebugger/FileTree.h"
+#        "LuaDebugger/LUADBG.h"
+#        "LuaDebugger/LuaDbgInterface.h"
+#        "LuaDebugger/_TinyBrowseFolder.h"
+#        "LuaDebugger/_TinyCaptionWindow.h"
+#        "LuaDebugger/_TinyCoolEdit.h"
+#        "LuaDebugger/_TinyFileEnum.h"
+#        "LuaDebugger/_TinyImageList.h"
+#        "LuaDebugger/_TinyMain.h"
+#        "LuaDebugger/_TinyRegistry.h"
+#        "LuaDebugger/_TinySplitter.h"
+#        "LuaDebugger/_TinyStatusBar.h"
+#        "LuaDebugger/_TinyTreeList.h"
+#        "LuaDebugger/_TinyWindow.h"
         "Mailer.h"
         "md5.h"
         "MTSafeAllocator.h"
@@ -192,12 +192,20 @@ target_link_libraries(
         CryNetwork
         CryPhysics
         CryScriptSystem
-        wininet
-        dbghelp
-        version
-        dxguid
-        winmm
-        comctl32
-        XRenderD3D9
         -static
 )
+
+if (${FAR_CRY_WINDOWS})
+
+    target_link_libraries(
+            CrySystem
+            wininet
+            dbghelp
+            version
+            dxguid
+            winmm
+            comctl32
+            XRenderD3D9
+    )
+
+endif ()

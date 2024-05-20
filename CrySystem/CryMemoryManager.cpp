@@ -5,7 +5,9 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#if !defined(APPLE)
 #include <new.h>
+#endif
 
 #include <ISystem.h>
 
@@ -62,8 +64,8 @@ int numpools = 0;
 
 
 
-#if defined(WIN32) || defined(LINUX)
-#if defined(WIN64) || defined(LINUX64)
+#if defined(WIN32) || defined(LINUX) || defined(APPLE)
+#if defined(WIN64) || defined(LINUX64) || defined(APPLE)
 // non-512 doesn't work for some reason: an infinite loop (recursion with stack overflow) occurs
 #define BUCKETQUANT 512    // wouter: affects performance of bucket allocator, modify with care!
 #else

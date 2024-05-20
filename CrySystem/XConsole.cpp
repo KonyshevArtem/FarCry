@@ -1100,7 +1100,7 @@ void CXConsole::DumpCommandsVars(char *prefix)
 	if(!f) return;
 	
 	fprintf(f," CHEAT: stays in the default value if cheats are not disabled\n");
-	fprintf(f," REQUIRE_NET_SYNC: cannot be changed on client and when connecting it´s sent to the client\n");
+	fprintf(f," REQUIRE_NET_SYNC: cannot be changed on client and when connecting itï¿½s sent to the client\n");
 	fprintf(f," SAVEGAME: stored when saving a savegame\n");
 	fprintf(f," READONLY: can not be changed by the user\n");
 	fprintf(f,"-------------------------\n");
@@ -1857,7 +1857,7 @@ void CXConsole::AddCommandToHistory( const char *szCommand )
 
 void CXConsole::Copy()
 {
-#if !defined(_XBOX) && !defined(LINUX)
+#if !defined(_XBOX) && !defined(LINUX) && !defined(APPLE)
 	if (m_sInputBuffer.empty())
 		return;
 
@@ -1886,7 +1886,7 @@ void CXConsole::Copy()
 
 void CXConsole::Paste()
 {
-#if !defined(_XBOX) && !defined(LINUX)
+#if !defined(_XBOX) && !defined(LINUX) && !defined(APPLE)
 	//TRACE("Paste\n");
 	
 	static char sTemp[256];

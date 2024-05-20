@@ -117,7 +117,7 @@ public:
   bool hasMMX() { return (m_Cpu[0].mFeatures & CFI_MMX) != 0; }
 };
 
-#if defined(WIN64) || defined(LINUX64)
+#if defined(WIN64) || defined(LINUX64) || defined(APPLE)
 inline bool IsAMD64()
 {
 #ifdef _AMD64_

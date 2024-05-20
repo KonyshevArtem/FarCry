@@ -5088,7 +5088,8 @@ int CScriptObjectEntity::CheckCollisions(IFunctionHandler *pH)
 
 		pEnt->GetParams(&pbb);
 		pEnt->GetParams(&pfd);
-		nParts = pEnt->GetStatus(&pe_status_nparts());
+        pe_status_nparts statusNParts1 = pe_status_nparts();
+		nParts = pEnt->GetStatus(&statusNParts1);
 		pEnt->GetStatus(sp+0);
 		ip.bNoAreaContacts = true;
 		ip.vrel_min = 1E10f;
@@ -5102,7 +5103,8 @@ int CScriptObjectEntity::CheckCollisions(IFunctionHandler *pH)
 				psoEnt = (pIEnt = (IEntity*)ppEnts[i]->GetForeignData()) ? pIEnt->GetScriptObject() : 0;
 				nEntCont = 0;
 
-				for(pp[1].ipart=ppEnts[i]->GetStatus(&pe_status_nparts())-1; pp[1].ipart>=0; pp[1].ipart--)
+                pe_status_nparts statusNParts2 = pe_status_nparts();
+				for(pp[1].ipart=ppEnts[i]->GetStatus(&statusNParts2)-1; pp[1].ipart>=0; pp[1].ipart--)
 				{
 					MARK_UNUSED(pp[1].partid); ppEnts[i]->GetParams(pp+1);
 					gwd[1].offset = sp[1].pos + sp[1].q*pp[1].pos;

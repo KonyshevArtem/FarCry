@@ -7,6 +7,7 @@
 #include <cctype>
 #include <mach/mach_time.h>
 #include <sys/stat.h>
+#include <unistd.h>
 #else
 #include <stdint.h>
 #endif
@@ -17,6 +18,10 @@
 #define _finite         finite
 #define _strlwr         strlwr
 #define _fstat64        fstat64
+#define Sleep           usleep
+#define memicmp         strncasecmp
+
+#define INFINITE INT32_MAX
 
 typedef uint64          DWORD_PTR;
 typedef intptr_t        INT_PTR,    *PINT_PTR;
@@ -27,6 +32,10 @@ typedef void*       LPDIRECTINPUT8;
 typedef void*       LPDIRECTINPUTDEVICE8;
 typedef UINT_PTR 	WPARAM;
 typedef int         CRITICAL_SECTION; // TODO apple synchronization
+typedef void*       HINTERNET; // TODO apple
+typedef void*       THREAD_HANDLE; // TODO apple
+typedef void*       EVENT_HANDLE; // TODO apple
+typedef const char* LPCSTR;
 
 typedef struct _FILETIME
 {
@@ -234,6 +243,93 @@ int _mkdir(const char* dirPath)
 {
     // TODO apple
     return mkdir(dirPath, 0777);
+}
+
+void DeleteFile(const char* filepath)
+{
+    // TODO apple
+}
+
+void RemoveDirectory(const char* dirPath)
+{
+    // TODO apple
+}
+
+bool QueryPerformanceFrequency(LARGE_INTEGER* outFrequency)
+{
+    // TODO apple
+    outFrequency = 0;
+    return true;
+}
+
+bool QueryPerformanceCounter(LARGE_INTEGER* outPerformanceCount)
+{
+    // TODO apple
+    outPerformanceCount = 0;
+    return 0;
+}
+
+DWORD GetCurrentThreadId()
+{
+    // TODO apple
+    return 0;
+}
+
+EVENT_HANDLE CreateEvent(LPSECURITY_ATTRIBUTES lpEventAttributes, BOOL bManualReset, bool bInitialState, const char* lpName)
+{
+    // TODO apple
+    return nullptr;
+}
+
+void CloseHandle(HANDLE handle)
+{
+    // TODO apple
+}
+
+void CloseHandle(EVENT_HANDLE handle)
+{
+    // TODO apple
+}
+
+void SetEvent(EVENT_HANDLE handle)
+{
+    // TODO apple
+}
+
+void ResetEvent(EVENT_HANDLE handle)
+{
+    // TODO apple
+}
+
+void WaitForSingleObject(EVENT_HANDLE handle, int milliseconds)
+{
+    // TODO apple
+}
+
+void WaitForSingleObjectEx(EVENT_HANDLE handle, unsigned int milliseconds, bool b)
+{
+    // TODO apple
+}
+
+void SleepEx(unsigned int microseconds, bool b)
+{
+    // TODO apple
+    Sleep(microseconds);
+}
+
+bool GetDiskFreeSpace(const char* lpRootPathName, LPDWORD lpSectorsPerCluster, LPDWORD lpBytesPerSector, LPDWORD lpNumberOfFreeClusters, LPDWORD lpTotalNumberOfClusters)
+{
+    // TODO apple
+    lpSectorsPerCluster = 0;
+    lpBytesPerSector = 0;
+    lpNumberOfFreeClusters = 0;
+    lpTotalNumberOfClusters = 0;
+}
+
+DWORD timeGetTime()
+{
+    // TODO apple
+    return 0;
 }
 
 #endif

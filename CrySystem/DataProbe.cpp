@@ -20,18 +20,18 @@
 
 #include "StdAfx.h"
 
-#if defined(LINUX)
+#if defined(LINUX) || defined(APPLE)
 	#include <CryLibrary.h>
 #endif
 
 #include "DataProbe.h"
-#include "zlib\zlib.h"
+#include "zlib/zlib.h"
 #include "ISystem.h"
 #include "CryFile.h"
 
 #include "md5.h"
 //#define FARCRY_EXE_CRC_CHECK
-#if !defined(LINUX)
+#if !defined(LINUX) && !defined(FAR_CRY_STATIC_LIBS)
 	extern HMODULE gDLLHandle;
 #endif
 // embedd searchable string.
@@ -222,7 +222,7 @@ CDataProbe::CDataProbe()
 	SModuleInfo module;
 	module.filename = string("CrySystem")+string(".dll");
 	module.handle = (void*)test_name;
-#if !defined(LINUX)
+#if !defined(LINUX) && !defined(FAR_CRY_STATIC_LIBS)
 	module.handle = gDLLHandle;
 	m_loadedModules.push_back(module);
 #endif
@@ -645,7 +645,7 @@ void CDataProbe::RandomAlloc()
 #endif
 }
 
-#if !defined(LINUX)
+#if !defined(LINUX) && !defined(APPLE)
 //////////////////////////////////////////////////////////////////////////
 // Get address of executable code RAM for loaded DLL or EXE.
 //////////////////////////////////////////////////////////////////////////

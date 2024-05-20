@@ -17,8 +17,6 @@
 
 #include "LinuxSpecific.h"
 
-typedef signed long long		INT64;
-
 typedef DWORD								DWORD_PTR;
 typedef int intptr_t, INT_PTR, *PINT_PTR;
 typedef unsigned int uintptr_t, UINT_PTR, *PUINT_PTR;

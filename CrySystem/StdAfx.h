@@ -38,12 +38,16 @@
 #include <assert.h>
 #endif
 
+#if !defined(APPLE)
 #include <malloc.h>
+#endif
 #include <stdlib.h>
 #include <fcntl.h>
 
 #if defined( LINUX )
 #	include <sys/io.h>
+#elif defined(APPLE)
+#   include <sys/uio.h>
 #else
 #	include <io.h>
 #endif
@@ -57,7 +61,7 @@
 #ifdef WIN64
 #define hash_map map
 #else
-#if defined(LINUX)
+#if defined(LINUX) || defined(APPLE)
 #include <ext/hash_map>
 #else
 #include <hash_map>

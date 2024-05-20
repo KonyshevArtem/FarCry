@@ -83,7 +83,7 @@ void CFrameProfilerTimer::Init() // called once
 //////////////////////////////////////////////////////////////////////////
 void CFrameProfilerTimer::GetTicks(int64* pnTime)
 {
-#if defined(LINUX)
+#if defined(LINUX) || defined(APPLE)
 	*pnTime = ::GetTicks();
 #else
 

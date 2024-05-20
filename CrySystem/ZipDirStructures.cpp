@@ -305,7 +305,10 @@ FILETIME ZipDir::FileEntry::GetModificationTime()
 	st.wSecond= (nLastModTime<<1)&0x3F;
 	st.wMilliseconds = 0;
 	FILETIME ft;
+    // TODO apple
+#if !defined(APPLE)
 	SystemTimeToFileTime(&st, &ft);
+#endif
 	return ft;
 }
 

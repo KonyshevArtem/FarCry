@@ -1,7 +1,7 @@
 #pragma once
 
 
-#if !defined(LINUX)
+#if !defined(LINUX) && !defined(APPLE)
 	#include <wininet.h>
 	#include <dbghelp.h>
 #endif

@@ -90,7 +90,7 @@ protected:
 	void IOWorkerThread ();
 
 	// the static function used to start the thread
-#if defined(LINUX)
+#if defined(LINUX) || defined(APPLE)
 	static void* WINAPI IOWorkerThreadProc (LPVOID pThis)
 	{
 		((CRefStreamEngine*)pThis)->IOWorkerThread();

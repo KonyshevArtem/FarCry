@@ -34,6 +34,9 @@
 #ifdef LINUX
 #include <sys/dir.h>
 #include <sys/io.h>
+#elif defined(APPLE)
+#include <sys/dir.h>
+#include <sys/uio.h>
 #else
 #	include <direct.h>
 #	include <io.h>
@@ -69,7 +72,7 @@ m_mapMissingFiles ( std::less<string>(), MissingFileMapAllocator(g_pBigHeap) )
 				*p = tolower(*p);
 		}
 		// add the trailing slash if needed
-#if defined(LINUX)
+#if defined(LINUX) || defined(APPLE)
 		if (p > szCurrentDir && (p[-1] != g_cNativeSlash && p[-1] != g_cNonNativeSlash))
 #else
 		if (p > szCurrentDir && p[-1] != g_cNativeSlash)
@@ -486,7 +489,7 @@ FILE *CCryPak::FOpen(const char *pName, const char *szMode,unsigned nFlags2)
 		}
 	}
 
-#if defined(LINUX)
+#if defined(LINUX) || defined(APPLE)
 	const int _fmode = _O_BINARY;//it does not exist on linux
 #endif
 	unsigned nFlags = (_fmode & (_O_TEXT|_O_BINARY))|_O_RDONLY;
@@ -710,7 +713,7 @@ const char* CCryPak::GetFileArchivePath (FILE* hFile)
 FILETIME UnixTimeToFileTime(time_t t)
 {
 	// Note that LONGLONG is a 64-bit value
-#if defined(LINUX)
+#if defined(LINUX) || defined(APPLE)
 	LONGLONG ll = Int32x32To64(t, 10000000) + 116444736000000000ll;
 #else
 	LONGLONG ll = Int32x32To64(t, 10000000) + 116444736000000000;
@@ -729,7 +732,7 @@ FILETIME CCryPak::GetModificationTime(FILE* hFile)
 	else
 	{
 		// TODO/TIME: implement retrieving FILETIME out of the real file handle
-#if defined(LINUX)
+#if defined(LINUX) || defined(APPLE)
 		struct stat64 st;
 		_fstat64(fileno(hFile), &st);
 #else
@@ -1391,7 +1394,7 @@ void CCryPakFindData::ScanFS(CCryPak*pPak, const char *szDirIn)
 	//pPak->AdjustFileName(szDirIn, cWork);
 
 	__finddata64_t fd;
-#ifdef WIN64
+#if defined(WIN64) || defined(APPLE)
 	memset (&fd, 0, sizeof(fd));
 #endif
 	intptr_t nFS = _findfirst64 (szDirIn, &fd);
@@ -1484,7 +1487,7 @@ CCryPakFindData::FileDesc::FileDesc (struct __finddata64_t* fd)
 CCryPakFindData::FileDesc::FileDesc (ZipDir::FileEntry* fe)
 {
 	nSize = fe->desc.lSizeUncompressed;
-#if defined(LINUX)
+#if defined(LINUX) || defined(APPLE)
 	nAttrib = _A_IN_CRYPAK; // files in zip are read-only, and
 #else
 	nAttrib = _A_RDONLY|_A_IN_CRYPAK; // files in zip are read-only, and
@@ -1497,7 +1500,7 @@ CCryPakFindData::FileDesc::FileDesc (ZipDir::FileEntry* fe)
 CCryPakFindData::FileDesc::FileDesc ()
 {
 	nSize = 0;
-#if defined(LINUX)
+#if defined(LINUX) || defined(APPLE)
 	nAttrib = _A_SUBDIR;
 #else
 	nAttrib = _A_SUBDIR | _A_RDONLY;

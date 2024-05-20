@@ -32,7 +32,7 @@
 
 #include "DownloadManager.h"
 
-#if defined(LINUX)
+#if defined(LINUX) || defined(APPLE)
 	#include "CryLibrary.h"
 #endif
 
@@ -216,7 +216,7 @@ public:
 		DWORD dwFixed;
 		DWORD dwUnknown;
 	};
-#if defined(_XBOX) || defined(LINUX)
+#if defined(_XBOX) || defined(LINUX) || defined(APPLE)
 	//ASH: HEAPLIST32 doesn't exist on xbox.
 	//void DumpHeap32 (const HEAPLIST32& hl, DumpHeap32Stats& stats);
 #else // _XBOX
@@ -273,7 +273,7 @@ private:
 	// collects the whole memory statistics into the given sizer object
 	void CollectMemStats (class CrySizerImpl* pSizer, MemStatsPurposeEnum nPurpose = nMSP_ForDisplay);
 	WIN_HMODULE LoadDLL( const char *dllName, bool bQuitIfNotFound=true);
-#if defined(LINUX)
+#if defined(LINUX) || defined(APPLE)
 	void FreeLib(HMODULE hLibModule);
 #else
 	void FreeLib(IN OUT HMODULE hLibModule);

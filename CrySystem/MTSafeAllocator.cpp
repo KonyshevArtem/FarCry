@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "MTSafeAllocator.h"
 
-#if defined(LINUX)
+#if defined(LINUX) || defined(APPLE)
 	#define USE_CRT 1
 #else
 //#ifdef _DEBUG
@@ -34,7 +34,7 @@ CMTSafeHeap::~CMTSafeHeap()
 // consolidates free space inthe heap, uncommits if too much
 void CMTSafeHeap::Compact()
 {
-#if !defined(LINUX)//empty
+#if !defined(LINUX) && !defined(APPLE)
 	#if !USE_CRT
 		HeapCompact(m_hHeap, 0);
 	#else

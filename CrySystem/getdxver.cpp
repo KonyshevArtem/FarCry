@@ -7,7 +7,7 @@
 // (C) Copyright Microsoft Corp.  All rights reserved.
 //-----------------------------------------------------------------------------
 #define INITGUID
-#if !defined(LINUX)
+#if !defined(LINUX) && !defined(APPLE)
 
 #include <windows.h>
 #include <stdio.h>

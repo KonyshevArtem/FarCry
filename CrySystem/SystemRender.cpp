@@ -37,14 +37,14 @@
 #include "luadebugger/LuaDbg.h"
 #endif
 
-#if !defined(LINUX)
+#if !defined(LINUX) && !defined(APPLE)
 #include <ddraw.h>
 extern HRESULT GetDXVersion( DWORD* pdwDirectXVersion, TCHAR* strDirectXVersion, int cchDirectXVersion );
 #endif
 
 extern int g_nPrecaution;
 
-#if !defined(LINUX)
+#if !defined(LINUX) && !defined(APPLE)
 /////////////////////////////////////////////////////////////////////////////////
 int CSystem::AutoDetectRenderer(char *Vendor, char *Device)
 {

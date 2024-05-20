@@ -48,7 +48,7 @@
 #include "CrySizerImpl.h"
 #include "DownloadManager.h"
 
-#include "XML\Xml.h"
+#include "XML/Xml.h"
 #include "DataProbe.h"
 #include "ApplicationHelper.h"			// CApplicationHelper
 
@@ -290,7 +290,7 @@ WIN_HMODULE CSystem::LoadDLL( const char *dllName,bool bQuitIfNotFound)
 
 	if (!handle)      
 	{
-#if defined(LINUX)
+#if defined(LINUX) || defined(APPLE)
 		printf ("Error loading DLL: %s, error :  %s\n", dllName, dlerror());
 		if (bQuitIfNotFound)
 			Quit();
@@ -305,7 +305,7 @@ WIN_HMODULE CSystem::LoadDLL( const char *dllName,bool bQuitIfNotFound)
 		return 0;
 	#endif //LINUX
 	}
-#if defined(_DATAPROBE) && !defined(LINUX)
+#if defined(_DATAPROBE) && !defined(LINUX) && !defined(APPLE)
 	IDataProbe::SModuleInfo module;
 	module.filename = dllName;
 	module.handle = gDLLHandle;
@@ -885,7 +885,7 @@ bool CSystem::Update( int updateFlags, int nPauseMode )
 		{
 			//////////////////////////////////////////////////////////////////////
 			//update input system
-#if defined(_XBOX) || defined(LINUX)
+#if defined(_XBOX) || defined(LINUX) || defined(APPLE)
 			m_pIInput->Update(true);
 #else
 			bool bFocus = (GetFocus()==m_hWnd) || m_bEditor;

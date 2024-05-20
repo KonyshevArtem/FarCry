@@ -69,11 +69,14 @@ unsigned int CRefReadStreamProxy::GetBytesRead (bool bWait)
 		if (m_pStream->isOverlapped())
 		{
 			DWORD dwBytesRead;
+            // TODO apple
+#if !defined(APPLE)
 			if (GetOverlappedResult(m_pStream->GetFile(), &m_Overlapped, &dwBytesRead, bWait))
 			{
 				m_numBytesRead = m_nPieceOffset + dwBytesRead;
 				assert (dwBytesRead <= m_nPieceLength);
 			}
+#endif
 		}
 	}
 	return m_numBytesRead;
@@ -247,6 +250,8 @@ bool CRefReadStreamProxy::StartRead (unsigned nMemQuota)
 		--g_numPendingOperations;
 
 		bool bResult = true; // by default, signal an error
+        // TODO apple
+#if !defined(APPLE)
 		switch (dwError)
 		{
 #if !defined(LINUX)
@@ -257,6 +262,7 @@ bool CRefReadStreamProxy::StartRead (unsigned nMemQuota)
 			if (++m_numRetries < g_numMaxRetries)
 				bResult = false; // try again
 		}
+#endif
 		// if bResult == false, it means we will want to try again, so we don't finish reading in this case
 		if (bResult)
 			OnFinishRead(dwError);
@@ -369,6 +375,8 @@ DWORD CRefReadStreamProxy::CallReadFileEx ()
 #if defined(LINUX)
 		m_Overlapped.pCaller = (void*)this;//store caller address here
 #endif
+// TODO apple
+#if !defined(APPLE)
 		if (!ReadFileEx (hFile, ((char*)m_pBuffer) + m_nPieceOffset, m_nPieceLength, &m_Overlapped, FileIOCompletionRoutine))
 		{
 			DWORD dwError = GetLastError();
@@ -378,6 +386,7 @@ DWORD CRefReadStreamProxy::CallReadFileEx ()
 			return dwError;
 		}
 		else
+#endif
 			return 0;
 	}
 	else
@@ -385,6 +394,7 @@ DWORD CRefReadStreamProxy::CallReadFileEx ()
 		// the actual number of bytes read
 		DWORD dwRead = 0;
 		unsigned newOffset = m_Params.nOffset + m_nPieceOffset + m_pStream->GetArchiveOffset();
+#if !defined(APPLE)
 		if (SetFilePointer (hFile, newOffset, NULL, FILE_BEGIN) != newOffset)
 		{
 			// the positioning error is strange, we should examine it and perhaps retry (in case the file write wasn't finished.)
@@ -403,6 +413,7 @@ DWORD CRefReadStreamProxy::CallReadFileEx ()
 			return 0;
 		}
 		else
+#endif
 		{
 			OnIOComplete (0,dwRead);
 			return 0;
