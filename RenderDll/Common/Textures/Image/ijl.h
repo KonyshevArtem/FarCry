@@ -68,13 +68,16 @@ extern "C" {
 
 
 #define IJL_INT64  __int64
-#define IJL_UINT64 unsigned IJL_INT64
+#define IJL_UINT64 uint64_t
 
 
 #ifndef IJLAPI
   #ifdef IJL_MSEXPORTS
     #define IJLAPI(type,name,arg) \
       extern __declspec(dllimport) type IJL_STDCALL name arg
+  #elif defined(APPLE) // TODO apple
+    #define IJLAPI(type,name,arg) \
+      extern type IJL_STDCALL name arg {}
   #else
     #define IJLAPI(type,name,arg) \
       extern type IJL_STDCALL name arg

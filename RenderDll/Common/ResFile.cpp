@@ -183,7 +183,7 @@ bool CResFile::mfOpen(int type)
       FILE *statusdst = fopen(m_name, "rb");
       if (statusdst)
       {
-#if defined(LINUX)
+#if defined(LINUX) || defined(APPLE)
         struct stat64 st;
 #else
         struct __stat64 st;
@@ -191,12 +191,15 @@ bool CResFile::mfOpen(int type)
         int result = _fstat64(fileno(statusdst), &st);
         if (result == 0)
         {
+            // TODO apple
+#if !defined(APPLE)
 #if defined(LINUX)
           if (st.st_mode & FILE_ATTRIBUTE_READONLY)
             chmod(m_name, 0x777);//set to full access
 #else
           if (!(st.st_mode & _S_IWRITE))
             _chmod(m_name, _S_IREAD | _S_IWRITE);
+#endif
 #endif
         }
         fclose(statusdst);

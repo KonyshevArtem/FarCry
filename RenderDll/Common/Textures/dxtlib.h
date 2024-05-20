@@ -17,6 +17,30 @@
 
 #include "nvdxt_options.h"
 
+#if defined(APPLE)
+
+inline unsigned char * nvDXTdecompress(int & w, int & h, int & depth, int & total_width, int & rowBytes, int & src_format,
+                                int SpecifiedMipMaps = 0)
+{
+    // TODO apple
+    return nullptr;
+}
+
+inline HRESULT nvDXTcompress(unsigned char * raw_data, // pointer to data (24 or 32 bit)
+                      unsigned long w, // width in texels
+                      unsigned long h, // height in texels
+                      DWORD byte_pitch,
+                      CompressionOptions * options,
+                      DWORD planes, // 3 or 4
+                      MIPcallback callback = NULL,  // callback for generated levels
+                      RECT * rect = NULL)   // subrect to operate on, NULL is whole image
+{
+    // TODO apple
+    return 0;
+}
+
+#else
+
 typedef void (*MIPFiltercallback)(int miplevel, int TotalMIPs);
 typedef HRESULT (*MIPcallback)(void * data, int miplevel, DWORD size, int width, int height, void * user_data);
 void set_mip_filter_callback(MIPFiltercallback callback);
@@ -215,6 +239,8 @@ enum ColorFormat
 	COLOR_RGBA,
 	COLOR_ABGR,
 };
+
+#endif
 
 #endif
 

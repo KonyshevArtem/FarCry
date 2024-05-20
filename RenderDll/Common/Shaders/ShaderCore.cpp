@@ -225,7 +225,7 @@ SShader& SShader::operator = (const SShader& src)
 
   mfFree();
   
-  int Offs = (int)&(((SShader *)0)->m_Id);
+  int Offs = (int)(size_t)&(((SShader *)0)->m_Id);
   byte *d = (byte *)this;
   byte *s = (byte *)&src;
   memcpy(&d[Offs], &s[Offs], sizeof(SShader)-Offs);

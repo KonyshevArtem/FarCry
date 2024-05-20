@@ -47,6 +47,7 @@ add_subdirectory(CrySoundSystem)
 add_subdirectory(CrySystem)
 add_subdirectory(ResourceCompiler)
 add_subdirectory(RenderDll/XRenderD3D9)
+add_subdirectory(RenderDll/XRenderNULL)
 add_subdirectory(FARCRY)
 
 install(TARGETS FarCry DESTINATION ${FAR_CRY_INSTALL_DESTINATION})

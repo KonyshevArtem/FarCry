@@ -23,6 +23,10 @@
 	#include "WinBase.h"
 #endif
 
+#if defined(APPLE)
+    #include "splitpath.h"
+#endif
+
 //////////////////////////////////////////////////////////////////////////
 // Globals.
 //////////////////////////////////////////////////////////////////////////
@@ -4263,12 +4267,14 @@ bool CRenderer::DXTDecompress(byte *srcData,byte *dstData,int nWidth,int nHeight
 
 bool CRenderer::DXTCompress( byte *raw_data,int nWidth,int nHeight,ETEX_Format eTF, bool bUseHW, bool bGenMips, int nSrcBytesPerPix, MIPDXTcallback callback)
 {
+#if !defined(APPLE)
   if(IsBadReadPtr(raw_data, nWidth*nHeight*nSrcBytesPerPix))
   {
     assert(0);
     iLog->Log("Warning: CRenderer::DXTCompress: invalid data passed to the function");
     return false;
   }
+#endif
 
 #if !defined(WIN64) && !defined(NULL_RENDERER)
   // NOTE: AMD64 port: implement

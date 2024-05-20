@@ -74,7 +74,7 @@ WIN_HWND CNULLRenderer::Init(int x,int y,int width,int height,unsigned int cbpp,
   gRenDev->m_cEF.mfInit();
   EF_PipelineInit();
 
-#if defined(LINUX)
+#if defined(LINUX) || defined(APPLE)
 	return (WIN_HWND)this;//it just get checked against NULL anyway
 #else
   return (WIN_HWND)GetDesktopWindow();
@@ -124,14 +124,20 @@ int *pTest_int;
 //CryCharManager *pCharMan;
 IPhysicalWorld *pIPhysicalWorld;
 
+#if !defined(FAR_CRY_STATIC_LIBS)
 ISystem* GetISystem()
 {
 	return iSystem;
 }
+#endif
 
 extern "C" DLL_EXPORT IRenderer* PackageRenderConstructor(int argc, char* argv[], SCryRenderInterface *sp);
 DLL_EXPORT IRenderer* PackageRenderConstructor(int argc, char* argv[], SCryRenderInterface *sp)
 {
+#if defined(FAR_CRY_STATIC_LIBS)
+    SetISystem(sp->ipSystem);
+#endif
+
   gbRgb = false;
 
   iConsole  = sp->ipConsole;

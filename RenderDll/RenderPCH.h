@@ -71,7 +71,7 @@ typedef unsigned char BYTE;
 #include <asm/msr.h>
 #endif
 
-#if defined(_AMD64_) && !defined(LINUX)
+#if defined(_AMD64_) && !defined(LINUX) && !defined(APPLE)
 #include <io.h>
 #endif
 
@@ -99,7 +99,7 @@ void CRTDeleteArray(void *pData);
 #ifdef WIN64
 #define hash_map map
 #else
-#if defined(LINUX)
+#if defined(LINUX) || defined(APPLE)
 #include <ext/hash_map>
 #else
 #include <hash_map>
@@ -670,7 +670,7 @@ _inline char * Cry_strdup(const char * str)
 
 _inline void HeapCheck()
 {
-#if !defined(LINUX)
+#if !defined(LINUX) && !defined(APPLE)
   int Result = _heapchk();
   assert(Result!=_HEAPBADBEGIN);
   assert(Result!=_HEAPBADNODE);

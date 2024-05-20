@@ -209,3 +209,7 @@ if (${FAR_CRY_WINDOWS})
     )
 
 endif ()
+
+if (${FAR_CRY_APPLE})
+    target_link_libraries(CrySystem XRenderNULL)
+endif ()

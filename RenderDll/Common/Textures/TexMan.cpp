@@ -2664,7 +2664,7 @@ void ReadDTXnFile (DWORD count, void *buffer, void * userData)
   sData += count;
 }
 
-#if !defined(_XBOX) && !defined(PS2) && !defined(LINUX)
+#if !defined(_XBOX) && !defined(PS2) && !defined(LINUX) && !defined(APPLE)
 #include <ddraw.h>
 #else
 

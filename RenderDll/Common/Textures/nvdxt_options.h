@@ -17,7 +17,7 @@
 
 #if defined(LINUX)
 	#include "WinBase.h"
-#else
+#elif !defined(APPLE)
 	#include <windows.h>
 #endif
 

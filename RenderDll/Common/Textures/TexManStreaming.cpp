@@ -281,6 +281,8 @@ void STexPic::SaveToCache()
           int nCompares = 0;
           for (i=0; i<nFiles; i++)
           {
+              // TODO apple
+#if !defined(APPLE)
             HANDLE status2 = CreateFile(nameFile[i],GENERIC_READ,FILE_SHARE_READ, NULL,OPEN_EXISTING,FILE_FLAG_SEQUENTIAL_SCAN,NULL);
             if (status2 != INVALID_HANDLE_VALUE)
             {
@@ -293,6 +295,7 @@ void STexPic::SaveToCache()
               if (CompareFileTime(&writetime1,&writetime2)==0)
                 nCompares++;
             }
+#endif
           }
           if (nCompares == nFiles)
             return;
@@ -339,6 +342,8 @@ void STexPic::SaveToCache()
   int nFiles = GetFileNames(nameFile[0], nameFile[1], 128);
   for (i=0; i<nFiles; i++)
   {
+      // TODO apple
+#if !defined(APPLE)
     HANDLE status = CreateFile(nameFile[i],GENERIC_READ,FILE_SHARE_READ, NULL,OPEN_EXISTING,FILE_FLAG_SEQUENTIAL_SCAN,NULL);  
     if (status != INVALID_HANDLE_VALUE)
     {
@@ -348,6 +353,7 @@ void STexPic::SaveToCache()
       fh.m_WriteTime[i] = writetime;
     }
     else
+#endif
     {
       fh.m_WriteTime[i].dwHighDateTime = 0;
       fh.m_WriteTime[i].dwLowDateTime = 0;
@@ -1351,6 +1357,8 @@ STexPic *CTexMan::LoadFromCache(STexPic *ti, int flags, int flags2, char *name, 
     int nComp = 0;
     for (i=0; i<nFiles; i++)
     {
+        // TODO apple
+#if !defined(APPLE)
       HANDLE status2 = CreateFile(nameFile[i],GENERIC_READ,FILE_SHARE_READ, NULL,OPEN_EXISTING,FILE_FLAG_SEQUENTIAL_SCAN,NULL);
       if (status2 != INVALID_HANDLE_VALUE)
       {
@@ -1363,6 +1371,7 @@ STexPic *CTexMan::LoadFromCache(STexPic *ti, int flags, int flags2, char *name, 
 
         CloseHandle(status2);
       }
+#endif
     }
     if (nComp != nFiles)
     {
@@ -1373,6 +1382,8 @@ STexPic *CTexMan::LoadFromCache(STexPic *ti, int flags, int flags2, char *name, 
   else
   if (bSprite && !(flags2 & FT2_RELOAD))
   {
+      // TODO apple
+#if !defined(APPLE)
     HANDLE status2 = CreateFile(szModelName,GENERIC_READ,FILE_SHARE_READ, NULL,OPEN_EXISTING,FILE_FLAG_SEQUENTIAL_SCAN,NULL);
     if (status2 != INVALID_HANDLE_VALUE)
     {
@@ -1387,6 +1398,7 @@ STexPic *CTexMan::LoadFromCache(STexPic *ti, int flags, int flags2, char *name, 
         return NULL;
       }
     }
+#endif
   }
 
   STexCacheMipHeader *mh = ti->m_pFileTexMips;

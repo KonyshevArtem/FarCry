@@ -317,7 +317,7 @@ static byte getbyte (byte*& ptr)
 
 //=============================================================
 
-#if !defined(LINUX)
+#if !defined(LINUX) && !defined(APPLE)
 #include <io.h>
 #include <fcntl.h>
 #endif

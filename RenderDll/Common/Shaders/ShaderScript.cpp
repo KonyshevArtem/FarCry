@@ -22,6 +22,10 @@
 #pragma warning( disable : 4267 )
 #endif
 
+#if defined(APPLE)
+#include "splitpath.h"
+#endif
+
 extern char *gShObjectNotFound;
 
 //=================================================================================================
@@ -335,8 +339,11 @@ bool CShader::mfReloadShaderScript(const char *szShaderName, int nFlags, SShader
         iSystem->GetIPak()->FClose (status);
         if (!(nFlags & FRO_FORCERELOAD))
         {
+            // TODO apple
+#if !defined(APPLE)
           if (CompareFileTime(&writetime, &pSH->m_WriteTime) == 0)
             return true;
+#endif
         }
         m_nFrameReload[type][fe->m_Ind] = m_nFrameForceReload;
         m_WriteTime[type][fe->m_Ind] = writetime;

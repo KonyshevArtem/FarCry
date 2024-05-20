@@ -1,7 +1,7 @@
 #include "RenderPCH.h"
 
 // Not for AMD64
-#if !defined(WIN64) && !defined(LINUX)
+#if !defined(WIN64) && !defined(LINUX) && !defined(APPLE)
 
 #pragma warning(push)
 #pragma warning(disable:4731) // frame pointer register 'ebp' modified by inline assembly code

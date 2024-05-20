@@ -1,4 +1,4 @@
-#if defined(LINUX)
+#if defined(LINUX) || defined(APPLE)
 	#include "platform.h"
 #else
 	#include "Windows.h"
