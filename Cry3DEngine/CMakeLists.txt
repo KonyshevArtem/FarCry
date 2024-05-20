@@ -107,4 +107,4 @@ add_library(Cry3DEngine STATIC
         "WaterVolumes.cpp"
 )
 
-target_link_libraries(Cry3DEngine PRIVATE CryCommon -static)
+target_link_libraries(Cry3DEngine PRIVATE CryCommon)

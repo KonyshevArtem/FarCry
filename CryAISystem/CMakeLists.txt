@@ -42,4 +42,4 @@ add_library(CryAISystem STATIC
         "VertexList.h"
 )
 
-target_link_libraries(CryAISystem CryCommon -static)
+target_link_libraries(CryAISystem CryCommon)

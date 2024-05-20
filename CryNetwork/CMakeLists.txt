@@ -54,7 +54,7 @@ add_library(CryNetwork STATIC
 )
 
 target_compile_definitions(CryNetwork PRIVATE NOT_USE_UBICOM_SDK)
-target_link_libraries(CryNetwork CryCommon -static)
+target_link_libraries(CryNetwork CryCommon)
 
 if (${FAR_CRY_WINDOWS})
     target_link_libraries(CryNetwork ws2_32)

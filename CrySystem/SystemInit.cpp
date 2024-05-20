@@ -92,7 +92,7 @@ bool CSystem::OpenRenderLibrary(const char *t_rend)
 	#endif
 
   int nRenderer = R_DX9_RENDERER;
-#if defined(LINUX)
+#if defined(LINUX) || defined(APPLE) // TODO apple
 	return OpenRenderLibrary(R_NULL_RENDERER);
 #else
   if (stricmp(t_rend, "NULL") != 0)
@@ -159,7 +159,7 @@ bool CSystem::OpenRenderLibrary(int type)
 #ifdef _XBOX
   type = R_DX8_RENDERER;
 #endif
-#if defined(LINUX)
+#if defined(LINUX) || defined(APPLE) // TODO apple
 	type = R_NULL_RENDERER;
 #endif
 
@@ -1390,7 +1390,7 @@ bool CSystem::Init( const SSystemInitParams &params )
 	//////////////////////////////////////////////////////////////////////////
 	// Check loader.
 	//////////////////////////////////////////////////////////////////////////
-#if defined(_DATAPROBE) && !defined(LINUX)
+#if defined(_DATAPROBE) && !defined(LINUX) && !defined(APPLE)
 	CDataProbe probe;
 	if (!params.pCheckFunc || !probe.CheckLoader( params.pCheckFunc ))
 	{

@@ -40,4 +40,4 @@ add_library(CryFont STATIC
 )
 
 target_include_directories(CryFont PRIVATE FreeType2/include)
-target_link_libraries(CryFont CryCommon -static)
+target_link_libraries(CryFont CryCommon)

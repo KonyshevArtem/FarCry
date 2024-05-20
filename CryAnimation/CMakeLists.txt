@@ -148,4 +148,4 @@ add_library(CryAnimation STATIC
 )
 
 target_compile_definitions(CryAnimation PRIVATE COMP_VC)
-target_link_libraries(CryAnimation -static CryCommon)
+target_link_libraries(CryAnimation CryCommon)

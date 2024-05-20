@@ -36,4 +36,4 @@ add_library(CrySoundSystem STATIC
 )
 
 target_include_directories(CrySoundSystem PRIVATE ./OggVorbisInclude)
-target_link_libraries(CrySoundSystem CryCommon -static)
+target_link_libraries(CrySoundSystem CryCommon)

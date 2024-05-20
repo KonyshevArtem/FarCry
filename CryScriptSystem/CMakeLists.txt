@@ -68,4 +68,4 @@ add_library(CryScriptSystem STATIC
 )
 
 target_include_directories(CryScriptSystem PRIVATE ./LUA)
-target_link_libraries(CryScriptSystem CryCommon -static)
+target_link_libraries(CryScriptSystem CryCommon)

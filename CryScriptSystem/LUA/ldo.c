@@ -327,7 +327,7 @@ LUA_API int lua_loadfile (lua_State *L, const l_char *filename) {
   FILE *f = (filename == NULL) ? stdin : fxopen(filename, l_s("r"));
 #endif
   if (f == NULL) return LUA_ERRFILE;  /* unable to open file */
-  bin = (CryPakUngetc(CryPakGetc(f), f) == LUA_SIGNATURE[0]);
+  bin = (LuaCryPakUngetc(LuaCryPakGetc(f), f) == LUA_SIGNATURE[0]);
 #ifndef PS2
   if (bin && f != stdin) {    
 		fxclose(f);

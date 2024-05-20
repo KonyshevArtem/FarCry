@@ -192,7 +192,6 @@ target_link_libraries(
         CryNetwork
         CryPhysics
         CryScriptSystem
-        -static
 )
 
 if (${FAR_CRY_WINDOWS})

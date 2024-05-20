@@ -47,4 +47,4 @@ add_library(CryMovie STATIC
         "StdAfx.h"
 )
 
-target_link_libraries(CryMovie CryCommon -static)
+target_link_libraries(CryMovie CryCommon)

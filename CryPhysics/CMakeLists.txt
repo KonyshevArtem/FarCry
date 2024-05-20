@@ -72,4 +72,4 @@ add_library(CryPhysics STATIC
 )
 
 target_compile_definitions(CryPhysics PRIVATE PHYSICS_EXPORTS)
-target_link_libraries(CryPhysics CryCommon -static)
+target_link_libraries(CryPhysics CryCommon)

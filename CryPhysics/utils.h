@@ -35,11 +35,11 @@ union floatint {
 	int ival;
 };
 
-#if defined(WIN64) || defined(LINUX64) || defined(APPLE)
+#if defined(WIN64) || defined(LINUX64)
 const int	imag	= (23+127)<<23 | 1<<22; 
 int float2int(float x);
 
-#elif defined(LINUX32)
+#elif defined(LINUX32) || defined(APPLE)
 const int	imag	= (23+127)<<23 | 1<<22; 
 inline int float2int(float x) {
 	floatint u;

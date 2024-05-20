@@ -205,9 +205,9 @@ typedef std::wstring wstring;
 
 // macro for structure alignement
 #if defined(LINUX) || defined(__GNUC__)
-#define DEFINE_ALIGNED_DATA( type, name, alignment ) type name __attribute__ ((aligned(alignment)));
-#define DEFINE_ALIGNED_DATA_STATIC( type, name, alignment ) static type name __attribute__ ((aligned(alignment)));
-#define DEFINE_ALIGNED_DATA_CONST( type, name, alignment ) const type name __attribute__ ((aligned(alignment)));
+#define DEFINE_ALIGNED_DATA( type, name, alignment ) __attribute__ ((aligned(alignment))) type name;
+#define DEFINE_ALIGNED_DATA_STATIC( type, name, alignment ) __attribute__ ((aligned(alignment))) static type name;
+#define DEFINE_ALIGNED_DATA_CONST( type, name, alignment ) __attribute__ ((aligned(alignment))) const type name;
 #else
 #define DEFINE_ALIGNED_DATA( type, name, alignment ) _declspec(align(alignment)) type name;
 #define DEFINE_ALIGNED_DATA_STATIC( type, name, alignment ) static _declspec(align(alignment)) type name;

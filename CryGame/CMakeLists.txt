@@ -175,7 +175,7 @@ add_library(CryGame STATIC
         "XVehicleSystem.h"
 )
 
-target_link_libraries(CryGame CryCommon -static)
+target_link_libraries(CryGame CryCommon)
 
 if (${FAR_CRY_WINDOWS})
     target_link_libraries(CryGame dxguid dsound imagehlp version ws2_32)

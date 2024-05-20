@@ -21,4 +21,4 @@ add_library(CryEntitySystem STATIC
         "stdafx.h"
 )
 
-target_link_libraries(CryEntitySystem CryCommon -static)
+target_link_libraries(CryEntitySystem CryCommon)

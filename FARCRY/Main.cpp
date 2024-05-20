@@ -16,6 +16,10 @@
 #include <process.h>
 #endif
 
+#if defined(APPLE)
+#include "splitpath.h"
+#endif
+
 //#define FARCRY_CD_CHECK_RUSSIAN
 #define FARCRY_CD_LABEL _T("FARCRY_1")
 
@@ -147,6 +151,8 @@ char * getenv( const char *varname )
 
 void SetMasterCDFolder()
 {
+    // TODO apple
+#if !defined(APPLE)
 	char szExeFileName[_MAX_PATH];
 	// Get the path of the executable
 	GetModuleFileName( GetModuleHandle(NULL), szExeFileName, sizeof(szExeFileName));
@@ -162,6 +168,7 @@ void SetMasterCDFolder()
 	strcat( path_buffer,".." );
 	SetCurrentDirectory( path_buffer );
 	GetCurrentDirectory( sizeof(szMasterCDFolder),szMasterCDFolder );
+#endif
 }
 
 #ifdef FARCRY_CD_CHECK_RUSSIAN
@@ -230,11 +237,25 @@ void CheckFarCryCD( HINSTANCE hInstance ) {};
 #endif // FARCRY_CD_CHECK_RUSSIAN
 
 ///////////////////////////////////////////////
+#if defined(APPLE)
+int main(int argc, char* argv[])
+{
+    HINSTANCE hInstance;
+
+    std::string cmdLine;
+    for (int i = 0; i < argc; ++i)
+    {
+        cmdLine += argv[i];
+    }
+    const char* lpCmdLine = cmdLine.c_str();
+
+#else
 int APIENTRY WinMain(HINSTANCE hInstance,
                      HINSTANCE hPrevInstance,
                      LPSTR     lpCmdLine,
                      int       nCmdShow)
 {
+#endif
 #ifdef _DEBUG
 	int tmpDbgFlag;
 	tmpDbgFlag = _CrtSetDbgFlag(_CRTDBG_REPORT_FLAG);
@@ -262,6 +283,8 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 	}
 	// in devmode we don't care, we allow to run multiple instances
 	// for mp debugging
+    // TODO apple
+#if !defined(APPLE)
   if (!bDevMode)
   {
 		hwndPrev = FindWindow (szWndClass, NULL);
@@ -274,6 +297,7 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 			return (-1);
 		}
 	}
+#endif
 
 	CheckFarCryCD(hInstance);
 	SetMasterCDFolder();
@@ -290,6 +314,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	// Window procedure
 
+    // TODO apple
+#if !defined(APPLE)
 	RECT rect;
 
 	switch (msg)
@@ -465,12 +491,17 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	}
 
 	return (DefWindowProc(hWnd, msg, wParam, lParam));
+#endif
+
+    return 0;
 }
 
 bool RegisterWindow(HINSTANCE hInst)
 {
 	// Register a window class
- 
+
+    // TODO apple
+#if !defined(APPLE)
 	WNDCLASS wc;
 
 	wc.style         = CS_OWNDC | CS_HREDRAW | CS_VREDRAW;
@@ -488,6 +519,9 @@ bool RegisterWindow(HINSTANCE hInst)
 		return false;
 	else
 		return true;
+#endif
+
+    return true;
 }
 #endif
 
@@ -583,15 +617,19 @@ string FormatWinError(DWORD dwError)
 {
 	string sResult = TryFormatWinError(dwError);
 
+#if !defined(APPLE)
 	if (sResult.empty())
 		// error. return both the user error and the error received during formatting the user error
 		sResult = "Error " + IntToString (GetLastError()) + " while formatting error message";
+#endif
 
 	return sResult + "\n(" + (dwError & 0x80000000 ? UIntToHexString(dwError):IntToString(dwError)) + ")";
 }
 
 #define MAX_CMDLINE_LEN 256
+#if !defined(APPLE)
 #include <crtdbg.h>
+#endif
 ///////////////////////////////////////////////
 // Load the game DLL and run it
 
@@ -675,7 +713,9 @@ bool RunGame(HINSTANCE hInstance,const char *sCmdLine)
 		{
 			if (!hWnd && RegisterWindow(hInstance))
 			{
+#if !defined(APPLE)
 				MessageBox(0, "Cannot Register Window\n", "Error", MB_OK | MB_DEFAULT_DESKTOP_ONLY);
+#endif
 				return false;
 			}
 		}
