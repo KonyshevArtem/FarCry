@@ -210,9 +210,13 @@ bool CNetwork::Init( IScriptSystem *pScriptSystem )
 
 	CNetwork::m_nCryNetInitialized+=1;
 	int n=0;
+#if defined(APPLE)
     char nullTerm[1];
     nullTerm[0] = '\0';
 	while(m_neNetErrors[n].sErrorDescription!= nullTerm){
+#else
+    while(m_neNetErrors[n].sErrorDescription!= '\0'){
+#endif
 		m_mapErrors[m_neNetErrors[n].nrErrorCode]=m_neNetErrors[n].sErrorDescription;
 		n++;
 	}

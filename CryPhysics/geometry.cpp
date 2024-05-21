@@ -586,9 +586,9 @@ int CPrimitive::Intersect(IGeometry *_pCollider, geom_world_data *pdata1,geom_wo
 
 	static geom_world_data defgwd;
 	static intersection_params defip;
-	pdata1 = (geom_world_data*)((intptr_t)pdata1 | -iszero((int64)((intptr_t)pdata1) & (intptr_t)&defgwd));
-	pdata2 = (geom_world_data*)((intptr_t)pdata2 | -iszero((int64)((intptr_t)pdata2) & (intptr_t)&defgwd));
-	pparams = (intersection_params*)((intptr_t)pparams | -iszero((int64)((intptr_t)pparams) & (intptr_t)&defip));
+	pdata1 = (geom_world_data*)((intptr_t)pdata1 | -iszero((int64)((intptr_t)pdata1)) & (intptr_t)&defgwd);
+	pdata2 = (geom_world_data*)((intptr_t)pdata2 | -iszero((int64)((intptr_t)pdata2)) & (intptr_t)&defgwd);
+	pparams = (intersection_params*)((intptr_t)pparams | -iszero((int64)((intptr_t)pparams)) & (intptr_t)&defip);
 	if (!pparams->bKeepPrevContacts)
 		g_nAreas = g_nAreaPt = g_nTotContacts = g_BrdPtBufPos = 0;
 	if (g_nTotContacts>=sizeof(g_Contacts)/sizeof(g_Contacts[0]))

@@ -1,4 +1,4 @@
-add_library(CrySystem STATIC
+set(CRY_SYSTEM_SOURCES
         "ApplicationHelper.cpp"
         "CompressedFile.cpp"
         "CPUDetect.cpp"
@@ -15,9 +15,6 @@ add_library(CrySystem STATIC
         "getdxver.cpp"
         "HTTPDownloader.cpp"
         "Log.cpp"
-#        "LuaDebugger/FileTree.cpp"
-#        "LuaDebugger/LUADBG.cpp"
-#        "LuaDebugger/LuaDbgInterface.cpp"
         "Mailer.cpp"
         "md5.c"
         "MTSafeAllocator.cpp"
@@ -90,21 +87,6 @@ add_library(CrySystem STATIC
         "FrameProfileSystem.h"
         "HTTPDownloader.h"
         "Log.h"
-#        "LuaDebugger/AboutWnd.h"
-#        "LuaDebugger/FileTree.h"
-#        "LuaDebugger/LUADBG.h"
-#        "LuaDebugger/LuaDbgInterface.h"
-#        "LuaDebugger/_TinyBrowseFolder.h"
-#        "LuaDebugger/_TinyCaptionWindow.h"
-#        "LuaDebugger/_TinyCoolEdit.h"
-#        "LuaDebugger/_TinyFileEnum.h"
-#        "LuaDebugger/_TinyImageList.h"
-#        "LuaDebugger/_TinyMain.h"
-#        "LuaDebugger/_TinyRegistry.h"
-#        "LuaDebugger/_TinySplitter.h"
-#        "LuaDebugger/_TinyStatusBar.h"
-#        "LuaDebugger/_TinyTreeList.h"
-#        "LuaDebugger/_TinyWindow.h"
         "Mailer.h"
         "md5.h"
         "MTSafeAllocator.h"
@@ -173,6 +155,34 @@ add_library(CrySystem STATIC
         "zlib/zlib.h"
         "zlib/zutil.h"
 )
+
+if (${FAR_CRY_WINDOWS})
+
+    set(CRY_SYSTEM_SOURCES
+            ${CRY_SYSTEM_SOURCES}
+            "LuaDebugger/FileTree.cpp"
+            "LuaDebugger/LUADBG.cpp"
+            "LuaDebugger/LuaDbgInterface.cpp"
+            "LuaDebugger/AboutWnd.h"
+            "LuaDebugger/FileTree.h"
+            "LuaDebugger/LUADBG.h"
+            "LuaDebugger/LuaDbgInterface.h"
+            "LuaDebugger/_TinyBrowseFolder.h"
+            "LuaDebugger/_TinyCaptionWindow.h"
+            "LuaDebugger/_TinyCoolEdit.h"
+            "LuaDebugger/_TinyFileEnum.h"
+            "LuaDebugger/_TinyImageList.h"
+            "LuaDebugger/_TinyMain.h"
+            "LuaDebugger/_TinyRegistry.h"
+            "LuaDebugger/_TinySplitter.h"
+            "LuaDebugger/_TinyStatusBar.h"
+            "LuaDebugger/_TinyTreeList.h"
+            "LuaDebugger/_TinyWindow.h"
+    )
+
+endif ()
+
+add_library(CrySystem STATIC ${CRY_SYSTEM_SOURCES})
 
 target_include_directories(CrySystem PRIVATE ./)
 target_compile_definitions(CrySystem PRIVATE CRYSYSTEM_EXPORTS GARBAGEMEMORY)
