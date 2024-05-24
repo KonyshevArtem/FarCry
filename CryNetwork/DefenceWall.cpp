@@ -25,10 +25,6 @@
 
 #include <algorithm>
 
-#if defined(APPLE)
-#include "splitpath.h"
-#endif
-
 //#define LOGEVENTS							// don't use in public release
 
 enum CHEAT_PROTECTION_LEVEL {

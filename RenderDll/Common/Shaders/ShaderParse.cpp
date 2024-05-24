@@ -17,10 +17,6 @@
 #elif defined(LINUX)
 #endif
 
-#if defined(APPLE)
-#include "splitpath.h"
-#endif
-
 
 
 //=================================================================================================

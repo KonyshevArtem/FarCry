@@ -16,10 +16,6 @@
 #include <process.h>
 #endif
 
-#if defined(APPLE)
-#include "splitpath.h"
-#endif
-
 //#define FARCRY_CD_CHECK_RUSSIAN
 #define FARCRY_CD_LABEL _T("FARCRY_1")
 
@@ -151,11 +147,9 @@ char * getenv( const char *varname )
 
 void SetMasterCDFolder()
 {
-    // TODO apple
-#if !defined(APPLE)
-	char szExeFileName[_MAX_PATH];
+	char* szExeFileName = new char[_MAX_PATH];
 	// Get the path of the executable
-	GetModuleFileName( GetModuleHandle(NULL), szExeFileName, sizeof(szExeFileName));
+	GetModuleFileName( NULL, szExeFileName, sizeof(szExeFileName));
 
 	char path_buffer[_MAX_PATH];
 	char drive[_MAX_DRIVE];
@@ -168,7 +162,8 @@ void SetMasterCDFolder()
 	strcat( path_buffer,".." );
 	SetCurrentDirectory( path_buffer );
 	GetCurrentDirectory( sizeof(szMasterCDFolder),szMasterCDFolder );
-#endif
+
+    delete[] szExeFileName;
 }
 
 #ifdef FARCRY_CD_CHECK_RUSSIAN

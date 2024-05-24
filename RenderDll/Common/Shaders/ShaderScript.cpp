@@ -22,10 +22,6 @@
 #pragma warning( disable : 4267 )
 #endif
 
-#if defined(APPLE)
-#include "splitpath.h"
-#endif
-
 extern char *gShObjectNotFound;
 
 //=================================================================================================

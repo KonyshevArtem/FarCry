@@ -20,6 +20,9 @@ void portable_makepath (
 		);
 #endif // _CPP
 #else // _XBOX
+#if defined(APPLE)
+#define _makepath portable_makepath
+#endif
 extern "C" void portable_makepath (
         char *path,
         const char *drive,

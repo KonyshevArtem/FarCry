@@ -102,7 +102,7 @@ struct CryNetError CNetwork::m_neNetErrors[]=
 	// XNetwork specific
 	{NET_NOIMPL, "XNetwork - Function not implemented"},
 	{NET_SOCKET_NOT_CREATED, "XNetwork - socket not yet created"},
-	{0, 0} // sentinel
+	{0, nullptr} // sentinel
 };
 
 CNetwork::CNetwork()
@@ -210,13 +210,7 @@ bool CNetwork::Init( IScriptSystem *pScriptSystem )
 
 	CNetwork::m_nCryNetInitialized+=1;
 	int n=0;
-#if defined(APPLE)
-    char nullTerm[1];
-    nullTerm[0] = '\0';
-	while(m_neNetErrors[n].sErrorDescription!= nullTerm){
-#else
-    while(m_neNetErrors[n].sErrorDescription!= '\0'){
-#endif
+	while(m_neNetErrors[n].sErrorDescription != nullptr){
 		m_mapErrors[m_neNetErrors[n].nrErrorCode]=m_neNetErrors[n].sErrorDescription;
 		n++;
 	}

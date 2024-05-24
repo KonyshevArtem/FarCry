@@ -6,8 +6,13 @@
 #include <cstdio>
 #include <cctype>
 #include <mach/mach_time.h>
+#include <mach-o/dyld.h>
 #include <sys/stat.h>
 #include <unistd.h>
+#include <cstdlib>
+#include <cstring>
+#include "splitpath.h"
+#include "makepath.h"
 #else
 #include <stdint.h>
 #endif
@@ -15,11 +20,12 @@
 
 #include "UnixSpecific.h"
 
-#define _finite         finite
-#define _strlwr         strlwr
-#define _fstat64        fstat64
-#define Sleep           usleep
-#define memicmp         strncasecmp
+#define _finite             finite
+#define _strlwr             strlwr
+#define _fstat64            fstat64
+#define Sleep               usleep
+#define memicmp             strncasecmp
+#define SetCurrentDirectory chdir
 
 #define INFINITE INT32_MAX
 
@@ -47,6 +53,23 @@ typedef struct _FILETIME
 
 #ifdef __cplusplus
 
+#define GetModuleFileName(module, path, size) GetExecutablePath(path, size)
+inline void GetExecutablePath(char*& path, uint32_t size)
+{
+    if (_NSGetExecutablePath(path, &size))
+    {
+        delete[] path;
+        path = new char[size];
+        _NSGetExecutablePath(path, &size);
+    }
+}
+
+inline DWORD GetCurrentDirectory(size_t size, char* path)
+{
+    char* result = getcwd(path, size);
+    return result ? strlen(path) : 0;
+}
+
 inline char* ltoa(int number, char *buffer, int base)
 {
     std::sprintf(buffer, "%d", number);
@@ -57,14 +80,6 @@ inline char* itoa(int number, char *buffer, int base)
 {
     std::sprintf(buffer, "%d", number);
     return buffer;
-}
-
-inline void _makepath(char* buffer, const char* drive, const char* directory, const char* filename, const char* extension)
-{
-    if (drive == nullptr)
-        std::sprintf(buffer, "%s/%s.%s", directory, filename, extension);
-    else
-        std::sprintf(buffer, "%s/%s/%s.%s", drive, directory, filename, extension);
 }
 
 inline char* strlwr(char* str)
@@ -189,12 +204,6 @@ typedef struct _SYSTEMTIME {
 inline void GetLocalTime(SYSTEMTIME* outTime)
 {
     // TODO apple
-}
-
-inline DWORD GetCurrentDirectory(size_t bufferSize, char* buffer)
-{
-    // TODO apple
-    return 0;
 }
 
 inline void InitializeCriticalSection(CRITICAL_SECTION* criticalSection)

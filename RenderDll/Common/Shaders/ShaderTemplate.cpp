@@ -18,10 +18,6 @@
 
 #endif
 
-#if defined(APPLE)
-#include "splitpath.h"
-#endif
-
 //===============================================================================
 
 SRenderShaderResources::~SRenderShaderResources()

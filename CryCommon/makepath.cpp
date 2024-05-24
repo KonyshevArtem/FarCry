@@ -8,7 +8,9 @@
 *******************************************************************************/
 
 //ASH: Need this on xbox for pre-compiled headers.
+#if !defined(APPLE)
 #include "stdafx.h"
+#endif
 #include "makepath.h"
 /***
 *void _makepath() - build path name from components

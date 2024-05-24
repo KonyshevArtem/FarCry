@@ -20,10 +20,6 @@
 #include <StringUtils.h> // for strnstr
 #include <IScriptSystem.h>
 
-#if defined(APPLE)
-#include "splitpath.h"
-#endif
-
 #include <IXGame.h>
 
 #define MAGPIE_SUPPORT
