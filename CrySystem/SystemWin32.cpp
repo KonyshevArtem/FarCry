@@ -253,10 +253,7 @@ const char *CSystem::GetUserName()
 
 	DWORD dwSize = 1024;
 
-    // TODO apple
-#if !defined(APPLE)
 	::GetUserName(szNameBuffer, &dwSize);
-#endif
 
 	return szNameBuffer;
 }

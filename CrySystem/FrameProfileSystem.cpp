@@ -46,7 +46,7 @@ unsigned CFrameProfilerTimer::g_nCPUHerz = 1000000000;
 //////////////////////////////////////////////////////////////////////////
 void CFrameProfilerTimer::Init() // called once
 {
-#ifdef WIN32
+#if defined(WIN32) || defined(APPLE)
 	QueryPerformanceFrequency ((LARGE_INTEGER*)&g_nTicksPerSecond);
 #endif //WIN32
 

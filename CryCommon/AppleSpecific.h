@@ -187,6 +187,8 @@ bool GetDiskFreeSpace(const char* lpRootPathName, LPDWORD lpSectorsPerCluster, L
 
 DWORD timeGetTime();
 
+bool GetUserName(char* buffer, DWORD* size);
+
 #endif
 
 // TODO apple

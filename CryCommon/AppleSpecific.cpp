@@ -161,8 +161,10 @@ void RemoveDirectory(const char* dirPath)
 
 bool QueryPerformanceFrequency(LARGE_INTEGER* outFrequency)
 {
-    // TODO apple
-    outFrequency = 0;
+    uint64_t start = mach_absolute_time();
+    sleep(1);
+    uint64_t ticks = mach_absolute_time() - start;
+    *outFrequency = *reinterpret_cast<LARGE_INTEGER*>(&ticks);
     return true;
 }
 
@@ -234,6 +236,14 @@ DWORD timeGetTime()
 {
     // TODO apple
     return 0;
+}
+
+bool GetUserName(char* buffer, DWORD* size)
+{
+    const char* userName = getenv("USER");
+    *size = min(*size, strlen(userName));
+    memcpy(buffer, userName, *size);
+    return true;
 }
 
 #endif

@@ -89,7 +89,7 @@ void CSystem::LogVersion()
 	char s[1024];
 	//! Use strftime to build a customized time string.
 	//strftime( timebuf,128,"Logged at %A, %B %d,%Y\n\n", today );
-	strftime( s,128,"Log Started at %#c", today );
+	strftime( s,128,"Log Started at %c", today );
 	CryLogAlways( s );
 	CryLogAlways( "FileVersion: %d.%d.%d.%d",m_fileVersion.v[3],m_fileVersion.v[2],m_fileVersion.v[1],m_fileVersion.v[0] );
 	CryLogAlways( "ProductVersion: %d.%d.%d.%d",m_productVersion.v[3],m_productVersion.v[2],m_productVersion.v[1],m_productVersion.v[0] );

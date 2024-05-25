@@ -398,7 +398,7 @@ void CLog::LogStringToFile( const char *szString,bool bAdd )
 	if (szTemp[0] == '$')
 		strcpy(szTemp, szTemp+2);
 
-#ifdef _WIN32
+#if defined(_WIN32) || defined(APPLE)
 	if (!m_pLogIncludeTime)
 	{
 		// put time into begin of the string if requested by cvar
