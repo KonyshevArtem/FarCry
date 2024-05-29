@@ -177,7 +177,7 @@ CCryPak::~CCryPak()
 // may make some other fool-proof stuff
 // may NOT write beyond the string buffer (may not make it longer)
 // returns: the pointer to the ending terminator \0
-char* CCryPak::BeautifyPath(char* dst)
+char* CCryPak::BeautifyPath(char* dst, bool fixSlashes)
 {
 	// make the path lower-letters and with native slashes
 	char*p,*q;
@@ -190,7 +190,8 @@ char* CCryPak::BeautifyPath(char* dst)
 	{
 		if (*p == g_cNonNativeSlash || *p == g_cNativeSlash)
 		{
-			*q = g_cNativeSlash;
+            if (fixSlashes)
+			    *q = g_cNativeSlash;
 			++p,++q;
 			while(*p == g_cNonNativeSlash || *p == g_cNativeSlash)
 				++p; // skip the extra slashes
@@ -209,11 +210,16 @@ char* CCryPak::BeautifyPath(char* dst)
 // given the source relative path, constructs the full path to the file according to the flags
 const char* CCryPak::AdjustFileName(const char *src, char *dst, unsigned nFlags,bool *bFoundInPak)
 {
+    bool fixSlashes = true;
+#if defined(APPLE)
+    fixSlashes = (nFlags & FLAGS_PATH_REAL) == 0;
+#endif
+
 	// in many cases, the path will not be long, so there's no need to allocate so much..
 	// I'd use _alloca, but I don't like non-portable solutions. besides, it tends to confuse new developers. So I'm just using a big enough array
 	char szNewSrc[g_nMaxPath];
 	strcpy(szNewSrc, src);
-	BeautifyPath(szNewSrc);
+	BeautifyPath(szNewSrc, fixSlashes);
 	if (!_fullpath (dst, szNewSrc, g_nMaxPath))
 	{
 		src = szNewSrc;
@@ -252,7 +258,7 @@ const char* CCryPak::AdjustFileName(const char *src, char *dst, unsigned nFlags,
 		}
 	}
 
-	char* pEnd = BeautifyPath(dst);
+	char* pEnd = BeautifyPath(dst, fixSlashes);
 
 #if defined(LINUX)
 	//we got to adjust the filename and fetch the case sensitive one

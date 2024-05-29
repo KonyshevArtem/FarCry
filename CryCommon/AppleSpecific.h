@@ -11,6 +11,8 @@
 #include <unistd.h>
 #include <cstdlib>
 #include <cstring>
+#include <dirent.h>
+#include <regex>
 #include "splitpath.h"
 #include "makepath.h"
 #else
@@ -90,6 +92,12 @@ struct __finddata64_t {
     int64_t time_write;
     int64_t size;
     char name[260];
+};
+
+struct DirectoryHandle
+{
+    DIR* handle = nullptr;
+    std::regex filePattern{};
 };
 
 // TODO apple

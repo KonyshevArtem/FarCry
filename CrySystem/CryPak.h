@@ -297,7 +297,7 @@ public:
   // may make some other fool-proof stuff
   // may NOT write beyond the string buffer (may not make it longer)
   // returns: the pointer to the ending terminator \0
-  static char* BeautifyPath(char* dst);
+  static char* BeautifyPath(char* dst, bool fixSlashes = true);
 
 	CCryPak(IMiniLog* pLog,PakVars* pPakVars = NULL);
 	~CCryPak();

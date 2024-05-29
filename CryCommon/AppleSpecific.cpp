@@ -78,21 +78,76 @@ int WSAGetLastError()
     return 0;
 }
 
+bool findNextInternal(DIR *handle, const std::regex& filePattern, _finddata64_t *fileinfo)
+{
+    if (!handle)
+        return false;
+
+    while (true)
+    {
+        dirent *file = readdir(handle);
+        if (!file)
+            return false;
+
+        if (std::regex_match(file->d_name, filePattern))
+        {
+            if (fileinfo)
+            {
+                size_t nameLength = min(sizeof(fileinfo->name), file->d_namlen);
+                memcpy(fileinfo->name, file->d_name, nameLength);
+            }
+            return true;
+        }
+    }
+}
+
 intptr_t _findfirst64(const char* filespec, struct _finddata64_t* fileinfo)
 {
-    // TODO apple
-    return -1L;
+    const static std::regex asterisk("\\*");
+
+    char dir[_MAX_DIR];
+    char name[_MAX_FNAME];
+    char ext[_MAX_EXT];
+    _splitpath(filespec, nullptr, dir, name, ext);
+
+    DirectoryHandle* dirHandle = nullptr;
+
+    DIR* handle = opendir(dir);
+    if (handle)
+    {
+        char nameWithExt[_MAX_FNAME + _MAX_EXT];
+        _snprintf(nameWithExt, sizeof(nameWithExt), "%s%s", name, ext);
+
+        std::regex pattern(std::regex_replace(nameWithExt, asterisk, ".*"));
+
+        if (findNextInternal(handle, pattern, fileinfo))
+        {
+            dirHandle = new DirectoryHandle();
+            dirHandle->handle = handle;
+            dirHandle->filePattern = std::move(pattern);
+        }
+    }
+
+    return dirHandle ? reinterpret_cast<intptr_t>(dirHandle) : -1L;
 }
 
 intptr_t _findnext64(intptr_t handle, struct _finddata64_t* fileinfo)
 {
-    // TODO apple
-    return -1L;
+    if (!handle)
+        return -1L;
+
+    DirectoryHandle* dirHandle = reinterpret_cast<DirectoryHandle*>(handle);
+    return findNextInternal(dirHandle->handle, dirHandle->filePattern, fileinfo) ? 0L : -1L;
 }
 
 void _findclose(intptr_t handle)
 {
-    // TODO apple
+    if (handle)
+    {
+        DirectoryHandle* dirHandle = reinterpret_cast<DirectoryHandle*>(handle);
+        closedir(dirHandle->handle);
+        delete dirHandle;
+    }
 }
 
 void GetLocalTime(SYSTEMTIME* outTime)
