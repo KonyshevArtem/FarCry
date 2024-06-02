@@ -1,6 +1,7 @@
 #if defined(APPLE)
 
 #include "AppleSpecific.h"
+#include <semaphore.h>
 
 #ifdef __cplusplus
 
@@ -230,16 +231,12 @@ bool QueryPerformanceCounter(LARGE_INTEGER* outPerformanceCount)
     return 0;
 }
 
-DWORD GetCurrentThreadId()
-{
-    // TODO apple
-    return 0;
-}
-
 EVENT_HANDLE CreateEvent(LPSECURITY_ATTRIBUTES lpEventAttributes, BOOL bManualReset, bool bInitialState, const char* lpName)
 {
-    // TODO apple
-    return nullptr;
+    Event* event = new Event();
+    event->signaled = bInitialState;
+    event->manualReset = bManualReset;
+    return event;
 }
 
 void CloseHandle(HANDLE handle)
@@ -249,27 +246,80 @@ void CloseHandle(HANDLE handle)
 
 void CloseHandle(EVENT_HANDLE handle)
 {
-    // TODO apple
+    if (handle)
+    {
+        handle->mutex.unlock();
+        delete handle;
+    }
+}
+
+void CloseHandle(THREAD_HANDLE handle)
+{
 }
 
 void SetEvent(EVENT_HANDLE handle)
 {
-    // TODO apple
+    if (handle)
+    {
+        std::lock_guard<std::mutex> lk(handle->mutex);
+        handle->signaled = true;
+        handle->variable.notify_all();
+    }
 }
 
 void ResetEvent(EVENT_HANDLE handle)
 {
-    // TODO apple
+    if (handle)
+    {
+        handle->mutex.unlock();
+        handle->signaled = false;
+    }
 }
 
 void WaitForSingleObject(EVENT_HANDLE handle, int milliseconds)
 {
-    // TODO apple
+    if (handle)
+    {
+        std::unique_lock<std::mutex> lk(handle->mutex);
+        handle->variable.wait_for(lk, std::chrono::milliseconds(milliseconds), [handle]{return handle->signaled;});
+
+        if (!handle->manualReset)
+        {
+            handle->signaled = false;
+        }
+    }
 }
 
-void WaitForSingleObjectEx(EVENT_HANDLE handle, unsigned int milliseconds, bool b)
+void WaitForSingleObject(THREAD_HANDLE handle, int milliseconds)
 {
-    // TODO apple
+    pthread_join(handle, nullptr);
+}
+
+void WaitForSingleObjectEx(EVENT_HANDLE handle, unsigned int milliseconds, bool bAlertable)
+{
+    // TODO apple alertable
+    WaitForSingleObject(handle, milliseconds);
+}
+
+THREAD_HANDLE CreateThread(LPSECURITY_ATTRIBUTES securityAttributes, DWORD stackSize, void* (*startProcedure)(void *), void* procedureParameters, DWORD creationFlags, THREAD_ID* threadId)
+{
+    THREAD_HANDLE threadHandle;
+
+    pthread_attr_t attributes;
+    pthread_attr_init(&attributes);
+    pthread_attr_setstacksize(&attributes, stackSize);
+
+    pthread_create(&threadHandle, &attributes, startProcedure, procedureParameters);
+    if (threadId)
+        *threadId = threadHandle;
+
+    pthread_attr_destroy(&attributes);
+    return threadHandle;
+}
+
+bool CompareThreads(THREAD_HANDLE threadA, THREAD_HANDLE threadB)
+{
+    return pthread_equal(threadA, threadB);
 }
 
 void SleepEx(unsigned int microseconds, bool b)

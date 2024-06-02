@@ -53,4 +53,11 @@ typedef unsigned short			u16;
 typedef unsigned int				u32;
 typedef unsigned __int64		u64;
 
+typedef DWORD THREAD_ID;
+
+inline bool CompareThreads(THREAD_HANDLE threadA, THREAD_HANDLE threadB)
+{
+    return threadA == threadB;
+}
+
 #endif //_CRY_COMMON_WIN32_SPECIFIC_HDR_

@@ -13,6 +13,8 @@
 #include <cstring>
 #include <dirent.h>
 #include <regex>
+#include <mutex>
+#include <condition_variable>
 #include "splitpath.h"
 #include "makepath.h"
 #else
@@ -28,6 +30,7 @@
 #define Sleep               usleep
 #define memicmp             strncasecmp
 #define SetCurrentDirectory chdir
+#define GetCurrentThreadId  pthread_self
 
 #define INFINITE INT32_MAX
 
@@ -41,8 +44,7 @@ typedef void*       LPDIRECTINPUTDEVICE8;
 typedef UINT_PTR 	WPARAM;
 typedef int         CRITICAL_SECTION; // TODO apple synchronization
 typedef void*       HINTERNET; // TODO apple
-typedef void*       THREAD_HANDLE; // TODO apple
-typedef void*       EVENT_HANDLE; // TODO apple
+typedef pthread_t   THREAD_HANDLE, THREAD_ID;
 typedef const char* LPCSTR;
 typedef void*       RECT;
 
@@ -54,6 +56,14 @@ typedef struct _FILETIME
 
 
 #ifdef __cplusplus
+
+typedef struct Event
+{
+    std::mutex mutex;
+    std::condition_variable variable;
+    bool signaled;
+    bool manualReset;
+} *EVENT_HANDLE;
 
 #define GetModuleFileName(module, path, size) GetExecutablePath(path, size)
 void GetExecutablePath(char*& path, uint32_t size);
@@ -173,13 +183,13 @@ bool QueryPerformanceFrequency(LARGE_INTEGER* outFrequency);
 
 bool QueryPerformanceCounter(LARGE_INTEGER* outPerformanceCount);
 
-DWORD GetCurrentThreadId();
-
 EVENT_HANDLE CreateEvent(LPSECURITY_ATTRIBUTES lpEventAttributes, BOOL bManualReset, bool bInitialState, const char* lpName);
 
 void CloseHandle(HANDLE handle);
 
 void CloseHandle(EVENT_HANDLE handle);
+
+void CloseHandle(THREAD_HANDLE handle);
 
 void SetEvent(EVENT_HANDLE handle);
 
@@ -187,7 +197,13 @@ void ResetEvent(EVENT_HANDLE handle);
 
 void WaitForSingleObject(EVENT_HANDLE handle, int milliseconds);
 
-void WaitForSingleObjectEx(EVENT_HANDLE handle, unsigned int milliseconds, bool b);
+void WaitForSingleObject(THREAD_HANDLE handle, int milliseconds);
+
+void WaitForSingleObjectEx(EVENT_HANDLE handle, unsigned int milliseconds, bool bAlertable);
+
+THREAD_HANDLE CreateThread(LPSECURITY_ATTRIBUTES securityAttributes, DWORD stackSize, void* (*startProcedure)(void*), void* procedureParameters, DWORD creationFlags, THREAD_ID* threadId);
+
+bool CompareThreads(THREAD_HANDLE threadA, THREAD_HANDLE threadB);
 
 void SleepEx(unsigned int microseconds, bool b);
 

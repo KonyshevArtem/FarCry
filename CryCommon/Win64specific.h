@@ -54,4 +54,11 @@ typedef unsigned short			u16;
 typedef unsigned long				u32;
 typedef unsigned __int64		u64;
 
+typedef DWORD THREAD_ID;
+
+inline bool CompareThreads(THREAD_HANDLE threadA, THREAD_HANDLE threadB)
+{
+    return threadA == threadB;
+}
+
 #endif

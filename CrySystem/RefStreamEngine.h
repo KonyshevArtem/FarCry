@@ -205,9 +205,9 @@ protected:
 	int m_nSuspendCallbackTimeQuota;
 	
 	// this is the id of the main thread in which this engine operates
-	DWORD m_dwMainThreadId;
+	THREAD_ID m_dwMainThreadId;
 	// the id of the worker thread, if any 
-	DWORD m_dwWorkerThreadId;
+	THREAD_ID m_dwWorkerThreadId;
 
 	// This critical section protects the objects that can be written to by the main thread only
 	// It must be locked for the time of access from non-main thread and for the time of writing from the main thread

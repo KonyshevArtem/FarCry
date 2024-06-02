@@ -73,6 +73,13 @@ typedef const WCHAR *LPCUWSTR, *PCUWSTR;
 
 typedef unsigned int 		ULONG;
 
+typedef DWORD THREAD_ID;
+
+inline bool CompareThreads(THREAD_HANDLE threadA, THREAD_HANDLE threadB)
+{
+    return threadA == threadB;
+}
+
 #define __TIMESTAMP__ __DATE__" "__TIME__
 
 // function renaming

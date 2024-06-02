@@ -26,7 +26,7 @@ CRefStreamEngine::CRefStreamEngine (CCryPak* pPak, IMiniLog* pLog, unsigned useW
 #else
 	m_hIOWorker (NULL),
 #endif
-	m_dwWorkerThreadId(0),
+	m_dwWorkerThreadId(),
 	m_queIOJobs(ProxyPtrAllocator(g_pSmallHeap)),
 	m_setIOPending(ProxyPtrPredicate(), ProxyPtrAllocator(g_pSmallHeap)),
 	m_queIOExecuted(ProxyPtrAllocator(g_pSmallHeap)),
@@ -97,12 +97,12 @@ unsigned CRefStreamEngine::UpdateAndWait (unsigned nMilliseconds, unsigned nFlag
 // returns true if called from the main thread for this engine
 bool CRefStreamEngine::IsMainThread()
 {
-	return GetCurrentThreadId() == m_dwMainThreadId;
+	return CompareThreads(GetCurrentThreadId(), m_dwMainThreadId);
 }
 
 bool CRefStreamEngine::IsWorkerThread()
 {
-	return GetCurrentThreadId() == m_dwWorkerThreadId;
+	return CompareThreads(GetCurrentThreadId(), m_dwWorkerThreadId);
 } 
 
 //////////////////////////////////////////////////////////////////////////
@@ -606,10 +606,7 @@ void CRefStreamEngine::StartWorkerThread()
 {
 	StopWorkerThread();
 	m_bStopIOWorker = false;
-    // TODO apple
-#if !defined(APPLE)
 	m_hIOWorker = CreateThread (NULL, 0x8000, IOWorkerThreadProc, this, 0, &m_dwWorkerThreadId);
-#endif
 }
 
 //////////////////////////////////////////////////////////////////////////
