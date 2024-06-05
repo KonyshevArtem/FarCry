@@ -35,6 +35,8 @@ char* itoa(int number, char *buffer, int base)
 
 char* strlwr(char* str)
 {
+    char* strStart = str;
+
     while (*str != '\0')
     {
         char c = *str;
@@ -42,7 +44,7 @@ char* strlwr(char* str)
             *str = tolower(c);
         ++str;
     }
-    return str;
+    return strStart;
 }
 
 char* strupr(char* str)
@@ -94,7 +96,7 @@ bool findNextInternal(DIR *handle, const std::regex& filePattern, _finddata64_t 
         {
             if (fileinfo)
             {
-                size_t nameLength = min(sizeof(fileinfo->name), file->d_namlen);
+                size_t nameLength = min(sizeof(fileinfo->name), file->d_namlen + 1);
                 memcpy(fileinfo->name, file->d_name, nameLength);
             }
             return true;
@@ -119,7 +121,7 @@ intptr_t _findfirst64(const char* filespec, struct _finddata64_t* fileinfo)
         char nameWithExt[_MAX_FNAME + _MAX_EXT];
         _snprintf(nameWithExt, sizeof(nameWithExt), "%s%s", name, ext);
 
-        std::regex pattern(std::regex_replace(nameWithExt, asterisk, ".*"));
+        std::regex pattern(std::regex_replace(nameWithExt, asterisk, ".*"), std::regex::ECMAScript | std::regex::icase);
 
         if (findNextInternal(handle, pattern, fileinfo))
         {

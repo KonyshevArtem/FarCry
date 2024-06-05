@@ -290,8 +290,13 @@ public:
 	// to the actual index , this offset is added to get the valid handle
 	enum {g_nPseudoFileIdxOffset = 1};
 
+#if defined(APPLE)
+    // this defines which slash will be kept internally
+    enum {g_cNativeSlash = '/', g_cNonNativeSlash = '\\'};
+#else
 	// this defines which slash will be kept internally
 	enum {g_cNativeSlash = '\\', g_cNonNativeSlash = '/'};
+#endif
 
   // makes the path lower-case and removes the duplicate and non native slashes
   // may make some other fool-proof stuff
