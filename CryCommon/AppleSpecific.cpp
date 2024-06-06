@@ -1,6 +1,7 @@
 #if defined(APPLE)
 
 #include "AppleSpecific.h"
+#include "cwalk/cwalk.h"
 #include <semaphore.h>
 
 #ifdef __cplusplus
@@ -191,7 +192,9 @@ int64_t Int32x32To64(int32_t a, int32_t b)
 
 char* _fullpath(char* buffer, const char* relativePath, size_t bufferSize)
 {
-    realpath(relativePath, buffer);
+    char currentDir[MAX_PATH];
+    GetCurrentDirectory(MAX_PATH, currentDir);
+    cwk_path_get_absolute(currentDir, relativePath, buffer, bufferSize);
     return buffer;
 }
 
@@ -228,9 +231,9 @@ bool QueryPerformanceFrequency(LARGE_INTEGER* outFrequency)
 
 bool QueryPerformanceCounter(LARGE_INTEGER* outPerformanceCount)
 {
-    // TODO apple
-    outPerformanceCount = 0;
-    return 0;
+    uint64_t ticks = mach_absolute_time();
+    *outPerformanceCount = *reinterpret_cast<LARGE_INTEGER*>(&ticks);
+    return true;
 }
 
 EVENT_HANDLE CreateEvent(LPSECURITY_ATTRIBUTES lpEventAttributes, BOOL bManualReset, bool bInitialState, const char* lpName)

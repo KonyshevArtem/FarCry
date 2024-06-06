@@ -23,7 +23,13 @@ inline unsigned char * nvDXTdecompress(int & w, int & h, int & depth, int & tota
                                 int SpecifiedMipMaps = 0)
 {
     // TODO apple
-    return nullptr;
+    w = 1;
+    h = 1;
+    depth = 1;
+    total_width = 1;
+    rowBytes = 1;
+    src_format = 0;
+    return new unsigned char[w*h*depth];
 }
 
 inline HRESULT nvDXTcompress(unsigned char * raw_data, // pointer to data (24 or 32 bit)
