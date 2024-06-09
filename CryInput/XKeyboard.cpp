@@ -132,6 +132,7 @@ bool CXKeyboard::Init(CInput *pInput,ISystem *pSystem, LPDIRECTINPUT8 &g_pdi,HIN
 #if !defined(APPLE)
 	HRESULT hr;
 	DIPROPDWORD dipdw = {{sizeof(DIPROPDWORD), sizeof(DIPROPHEADER), 0, DIPH_DEVICE}, KEYFLAG_BUFFERSIZE};
+#endif
 
 	m_pLog->LogToFile("Initializing Keyboard\n");
 
@@ -145,6 +146,8 @@ bool CXKeyboard::Init(CInput *pInput,ISystem *pSystem, LPDIRECTINPUT8 &g_pdi,HIN
 		"Usage: i_dinputkeys [0/1]\n"
 		"Default is 1 (on). Set to 0 to process keys events from windows (under Win32).");
 
+    // TODO apple input
+#if !defined(APPLE)
 	if (g_pdi)
 	{
 
@@ -185,7 +188,7 @@ bool CXKeyboard::Init(CInput *pInput,ISystem *pSystem, LPDIRECTINPUT8 &g_pdi,HIN
 	memset(m_cOldKeysState, 0, sizeof(m_cOldKeysState));
 
 	Acquire();	
-  SetupKeyNames();
+    SetupKeyNames();
 
 	return true;
 }
