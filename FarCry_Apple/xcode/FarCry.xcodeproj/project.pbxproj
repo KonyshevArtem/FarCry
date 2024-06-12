@@ -23,6 +23,22 @@
 		935D1DE82BAA222B00362748 /* FarCryFrameworkWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 935D1DE72BAA222B00362748 /* FarCryFrameworkWrapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		935D1DEA2BAA222B00362748 /* FarCryFrameworkWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 935D1DE92BAA222B00362748 /* FarCryFrameworkWrapper.mm */; };
 		935D1E2F2BAE3D0700362748 /* FarCryFramework.h in Headers */ = {isa = PBXBuildFile; fileRef = 935D1E2D2BAE3C5600362748 /* FarCryFramework.h */; };
+		93A437642C1A437B00F02669 /* Cry3DEngine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 93A437542C1A437A00F02669 /* Cry3DEngine.a */; };
+		93A437652C1A437B00F02669 /* CrySoundSystem.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 93A437552C1A437A00F02669 /* CrySoundSystem.a */; };
+		93A437662C1A437B00F02669 /* CryMovie.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 93A437562C1A437A00F02669 /* CryMovie.a */; };
+		93A437672C1A437B00F02669 /* FarCry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 93A437572C1A437A00F02669 /* FarCry.a */; };
+		93A437682C1A437B00F02669 /* CryAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 93A437582C1A437A00F02669 /* CryAnimation.a */; };
+		93A437692C1A437B00F02669 /* XRenderNULL.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 93A437592C1A437B00F02669 /* XRenderNULL.a */; };
+		93A4376A2C1A437B00F02669 /* CryNetwork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 93A4375A2C1A437B00F02669 /* CryNetwork.a */; };
+		93A4376B2C1A437B00F02669 /* CryEntitySystem.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 93A4375B2C1A437B00F02669 /* CryEntitySystem.a */; };
+		93A4376C2C1A437B00F02669 /* CryPhysics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 93A4375C2C1A437B00F02669 /* CryPhysics.a */; };
+		93A4376D2C1A437B00F02669 /* CryCommon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 93A4375D2C1A437B00F02669 /* CryCommon.a */; };
+		93A4376E2C1A437B00F02669 /* CryInput.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 93A4375E2C1A437B00F02669 /* CryInput.a */; };
+		93A4376F2C1A437B00F02669 /* CryScriptSystem.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 93A4375F2C1A437B00F02669 /* CryScriptSystem.a */; };
+		93A437702C1A437B00F02669 /* CrySystem.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 93A437602C1A437B00F02669 /* CrySystem.a */; };
+		93A437712C1A437B00F02669 /* CryFont.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 93A437612C1A437B00F02669 /* CryFont.a */; };
+		93A437722C1A437B00F02669 /* CryAISystem.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 93A437622C1A437B00F02669 /* CryAISystem.a */; };
+		93A437732C1A437B00F02669 /* CryGame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 93A437632C1A437B00F02669 /* CryGame.a */; };
 		93A9F0462BB03BDE0023B4D5 /* FarCryFrameworkWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 935D1DE72BAA222B00362748 /* FarCryFrameworkWrapper.h */; };
 		93A9F0472BB0452E0023B4D5 /* AAPLAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ABD52F22283BC300050D28E /* AAPLAppDelegate.m */; };
 		93A9F0482BB0453B0023B4D5 /* libFarCryFrameworkWrapper.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 935D1DE52BAA222B00362748 /* libFarCryFrameworkWrapper.a */; };
@@ -67,6 +83,22 @@
 		935D1E1A2BAA2CA500362748 /* libboost_json.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_json.a; path = ../../../../usr/local/Cellar/boost/1.83.0/lib/libboost_json.a; sourceTree = "<group>"; };
 		935D1E222BAA41CE00362748 /* GameController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameController.framework; path = System/Library/Frameworks/GameController.framework; sourceTree = SDKROOT; };
 		935D1E2D2BAE3C5600362748 /* FarCryFramework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FarCryFramework.h; sourceTree = "<group>"; };
+		93A437542C1A437A00F02669 /* Cry3DEngine.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = Cry3DEngine.a; sourceTree = "<group>"; };
+		93A437552C1A437A00F02669 /* CrySoundSystem.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = CrySoundSystem.a; sourceTree = "<group>"; };
+		93A437562C1A437A00F02669 /* CryMovie.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = CryMovie.a; sourceTree = "<group>"; };
+		93A437572C1A437A00F02669 /* FarCry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = FarCry.a; sourceTree = "<group>"; };
+		93A437582C1A437A00F02669 /* CryAnimation.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = CryAnimation.a; sourceTree = "<group>"; };
+		93A437592C1A437B00F02669 /* XRenderNULL.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = XRenderNULL.a; sourceTree = "<group>"; };
+		93A4375A2C1A437B00F02669 /* CryNetwork.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = CryNetwork.a; sourceTree = "<group>"; };
+		93A4375B2C1A437B00F02669 /* CryEntitySystem.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = CryEntitySystem.a; sourceTree = "<group>"; };
+		93A4375C2C1A437B00F02669 /* CryPhysics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = CryPhysics.a; sourceTree = "<group>"; };
+		93A4375D2C1A437B00F02669 /* CryCommon.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = CryCommon.a; sourceTree = "<group>"; };
+		93A4375E2C1A437B00F02669 /* CryInput.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = CryInput.a; sourceTree = "<group>"; };
+		93A4375F2C1A437B00F02669 /* CryScriptSystem.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = CryScriptSystem.a; sourceTree = "<group>"; };
+		93A437602C1A437B00F02669 /* CrySystem.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = CrySystem.a; sourceTree = "<group>"; };
+		93A437612C1A437B00F02669 /* CryFont.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = CryFont.a; sourceTree = "<group>"; };
+		93A437622C1A437B00F02669 /* CryAISystem.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = CryAISystem.a; sourceTree = "<group>"; };
+		93A437632C1A437B00F02669 /* CryGame.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = CryGame.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +122,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93A437732C1A437B00F02669 /* CryGame.a in Frameworks */,
+				93A4376B2C1A437B00F02669 /* CryEntitySystem.a in Frameworks */,
+				93A4376C2C1A437B00F02669 /* CryPhysics.a in Frameworks */,
+				93A437722C1A437B00F02669 /* CryAISystem.a in Frameworks */,
+				93A437642C1A437B00F02669 /* Cry3DEngine.a in Frameworks */,
+				93A437662C1A437B00F02669 /* CryMovie.a in Frameworks */,
+				93A437682C1A437B00F02669 /* CryAnimation.a in Frameworks */,
+				93A437702C1A437B00F02669 /* CrySystem.a in Frameworks */,
+				93A4376E2C1A437B00F02669 /* CryInput.a in Frameworks */,
+				93A437712C1A437B00F02669 /* CryFont.a in Frameworks */,
+				93A437692C1A437B00F02669 /* XRenderNULL.a in Frameworks */,
+				93A437672C1A437B00F02669 /* FarCry.a in Frameworks */,
+				93A4376F2C1A437B00F02669 /* CryScriptSystem.a in Frameworks */,
+				93A4376D2C1A437B00F02669 /* CryCommon.a in Frameworks */,
+				93A4376A2C1A437B00F02669 /* CryNetwork.a in Frameworks */,
+				93A437652C1A437B00F02669 /* CrySoundSystem.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -245,6 +293,22 @@
 		935D1E5E2BAF60F700362748 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				93A437542C1A437A00F02669 /* Cry3DEngine.a */,
+				93A437622C1A437B00F02669 /* CryAISystem.a */,
+				93A437582C1A437A00F02669 /* CryAnimation.a */,
+				93A4375D2C1A437B00F02669 /* CryCommon.a */,
+				93A4375B2C1A437B00F02669 /* CryEntitySystem.a */,
+				93A437612C1A437B00F02669 /* CryFont.a */,
+				93A437632C1A437B00F02669 /* CryGame.a */,
+				93A4375E2C1A437B00F02669 /* CryInput.a */,
+				93A437562C1A437A00F02669 /* CryMovie.a */,
+				93A4375A2C1A437B00F02669 /* CryNetwork.a */,
+				93A4375C2C1A437B00F02669 /* CryPhysics.a */,
+				93A4375F2C1A437B00F02669 /* CryScriptSystem.a */,
+				93A437552C1A437A00F02669 /* CrySoundSystem.a */,
+				93A437602C1A437B00F02669 /* CrySystem.a */,
+				93A437572C1A437A00F02669 /* FarCry.a */,
+				93A437592C1A437B00F02669 /* XRenderNULL.a */,
 			);
 			path = Libraries;
 			sourceTree = "<group>";
@@ -564,7 +628,7 @@
 			buildSettings = {
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = C7KTGVADZ4;
@@ -598,7 +662,7 @@
 			buildSettings = {
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = C7KTGVADZ4;
@@ -698,6 +762,7 @@
 					/usr/local/Cellar/boost/1.83.0/lib,
 					"$(PROJECT_DIR)/EngineLibraries",
 					"$(PROJECT_DIR)/EngineFramework/Libraries",
+					"$(PROJECT_DIR)/FarCryFramework/Libraries",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.2;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -724,6 +789,7 @@
 					/usr/local/Cellar/boost/1.83.0/lib,
 					"$(PROJECT_DIR)/EngineLibraries",
 					"$(PROJECT_DIR)/EngineFramework/Libraries",
+					"$(PROJECT_DIR)/FarCryFramework/Libraries",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.2;
 				MTL_FAST_MATH = YES;
